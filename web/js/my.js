@@ -181,7 +181,7 @@ $('.btnUp').on('click', function(){
 $(window).on('scroll', function(){
     console.log($(window).scrollTop());
     if ($(window).scrollTop() > 200) {
-        $('.header_mnu').toggleClass('show_bg_header_mnu');
+        //$('.header_mnu').toggleEnable('show_bg_header_mnu');
 
     }
 

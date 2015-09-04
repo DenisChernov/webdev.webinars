@@ -6,7 +6,18 @@
 
 {# видео заднего фона#}
 {# {% include 'webinars/background_vide.html' %} #}
+{#*****************************************#}
 
-{# верхняя меню#}
+{# верхнее меню#}
     {% include 'webinars/header_mnu.html' %}
+{#*****************************************#}
+
+{# Перая страница. Превью вебинара #}
+    <div class="first_page">
+    {% for webinar in webinars %}
+        {% include 'webinars/webinar_title.html' with {'webinar' : webinar } %}
+
+    {% endfor %}
+    </div>
+{#*****************************************#}
 {% endblock %}

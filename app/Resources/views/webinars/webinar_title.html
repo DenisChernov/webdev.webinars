@@ -1,0 +1,21 @@
+<div class="web_data">
+    <p class="title-big">{{ webinar.title }}</p>
+    <p class="web_description">
+        {{ webinar.description }}
+    </p>
+    <p class="web_register_status">
+        {% if webinar.registerStatus == 2 %}
+            Регистрация закрыта
+        {% elseif webinar.registerStatus == 1 %}
+            Регистрация уже открыта
+
+        {% elseif webinar.registerStatus == 0 %}
+            Регистрация будет доступна с {{ webinar.dateBeg }} в {{ webinar.timeBeg }}
+        {% endif %}
+    </p>
+    {% if webinar.registerStatus == 0 %}
+        <div class="btnRegister">
+            <button type="button" class="btn btn-warning btn-lg">РЕГИСТРАЦИЯ</button>
+        </div>
+    {% endif %}
+</div>

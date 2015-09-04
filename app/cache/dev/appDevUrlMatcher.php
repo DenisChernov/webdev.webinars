@@ -149,6 +149,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::webinarAction',  '_route' => 'chernovda_webinars_webinar_webinar',);
         }
 
+        // chernovda_webinars_webinar_newwebinar
+        if (0 === strpos($pathinfo, '/new/webinar') && preg_match('#^/new/webinar/(?P<title>[^/]++)/(?P<date_beg>[^/]++)/(?P<time_beg>[^/]++)/(?P<description>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'chernovda_webinars_webinar_newwebinar')), array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::newWebinarAction',));
+        }
+
         // homepage
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {

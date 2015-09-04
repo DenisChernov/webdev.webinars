@@ -31,12 +31,12 @@ class webinars {
     protected $title;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string")
      */
     protected $date_beg;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string")
      */
     protected $time_beg;
 
@@ -44,6 +44,11 @@ class webinars {
      * @ORM\Column(type="string");
      */
     protected $description;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $registerStatus;
 
     /**
      * Get id
@@ -145,5 +150,28 @@ class webinars {
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set registerStatus
+     *
+     * @param integer $registerStatus
+     * @return webinars
+     */
+    public function setRegisterStatus($registerStatus)
+    {
+        $this->registerStatus = $registerStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get registerStatus
+     *
+     * @return integer 
+     */
+    public function getRegisterStatus()
+    {
+        return $this->registerStatus;
     }
 }

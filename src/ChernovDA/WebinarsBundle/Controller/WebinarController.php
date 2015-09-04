@@ -21,10 +21,41 @@ class WebinarController extends Controller {
      */
 
     public function webinarAction() {
-        $about = "";
+        $em = $this->getDoctrine()->getManager();
+
+        $webinar = $em->getRepository('ChernovDAWebinarsBundle:webinars')
+            ->findAll();
+
+        if (!$webinar)
+            throw $this->createNotFoundException(
+                'No webinars exist'
+            );
 
         return $this->render(
-            'webinars/webinars.html.twig', array("about" => $about)
+            'webinars/webinars.html.twig', array("webinars" => $webinar)
+        );
+    }
+
+    /**
+     * @Route("/new/webinar/{title}/{date_beg}/{time_beg}/{description}")
+     */
+    public function newWebinarAction($title, $date_beg, $time_beg, $description) {
+
+        $webinars = new webinars();
+        $webinars->setTitle($title)
+            ->setDescription($description)
+            ->setDateBeg($date_beg)
+            ->setTimeBeg($time_beg);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($webinars);
+        $em->flush();
+
+        return $this->render(
+          'webinars/create_webinar.html.twig',
+            array("title" => $webinars,
+                  "description" => $description,
+                  "date_beg" => $date_beg,
+                  "time_beg" => $time_beg)
         );
     }
 }

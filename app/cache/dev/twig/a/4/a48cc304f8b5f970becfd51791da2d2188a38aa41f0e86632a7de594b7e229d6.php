@@ -15,12 +15,12 @@ class __TwigTemplate_a48cc304f8b5f970becfd51791da2d2188a38aa41f0e86632a7de594b7e
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_b6993bd16ec1f210e6bed32b5b9942dad4ef0b197ad1c05483292e46e1c5f436 = $this->env->getExtension("native_profiler");
-        $__internal_b6993bd16ec1f210e6bed32b5b9942dad4ef0b197ad1c05483292e46e1c5f436->enter($__internal_b6993bd16ec1f210e6bed32b5b9942dad4ef0b197ad1c05483292e46e1c5f436_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "webinars/header_mnu.html"));
+        $__internal_107840114b52d656843039d768d12194a1b382c7dc41994e47de5764995085a4 = $this->env->getExtension("native_profiler");
+        $__internal_107840114b52d656843039d768d12194a1b382c7dc41994e47de5764995085a4->enter($__internal_107840114b52d656843039d768d12194a1b382c7dc41994e47de5764995085a4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "webinars/header_mnu.html"));
 
         // line 1
         echo "<div class=\"first_page_block header_mnu\">
-    <img class=\"company_logo\" src=\"images/it-pole-logo.png\"/>
+    <img class=\"company_logo\" src=\"/images/it-pole-logo.png\"/>
 
     <div class=\"header_mnu_buttons\">
         <a href=\"#\" class=\"header_mnu_btn\" id=\"main\">Главная</a>
@@ -30,10 +30,11 @@ class __TwigTemplate_a48cc304f8b5f970becfd51791da2d2188a38aa41f0e86632a7de594b7e
         <a href=\"#\" class=\"header_mnu_btn\" id=\"login\">Войти</a>
         <a href=\"#\" class=\"header_mnu_btn\" id=\"news\">Новости</a>
     </div>
+
 </div>
 ";
         
-        $__internal_b6993bd16ec1f210e6bed32b5b9942dad4ef0b197ad1c05483292e46e1c5f436->leave($__internal_b6993bd16ec1f210e6bed32b5b9942dad4ef0b197ad1c05483292e46e1c5f436_prof);
+        $__internal_107840114b52d656843039d768d12194a1b382c7dc41994e47de5764995085a4->leave($__internal_107840114b52d656843039d768d12194a1b382c7dc41994e47de5764995085a4_prof);
 
     }
 
