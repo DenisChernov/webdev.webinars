@@ -1,0 +1,42 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: denisch
+ * Date: 04.09.2015
+ * Time: 11:21
+ */
+
+namespace ChernovDA\WebinarsBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Class speakers
+ * @package WebinarsBundle\Entity
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="speakers")
+ */
+class speakers {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $pic;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $fio;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $position;
+}

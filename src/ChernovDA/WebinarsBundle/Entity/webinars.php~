@@ -1,0 +1,47 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: denisch
+ * Date: 03.09.2015
+ * Time: 15:52
+ */
+
+namespace ChernovDA\WebinarsBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Class webinars
+ * @package ChernovDA\WebinarsBundle\Entity
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="webinars")
+ */
+class webinars {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $title;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    protected $date_beg;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    protected $time_beg;
+
+    /**
+     * @ORM\Column(type="string");
+     */
+    protected $description;
+}

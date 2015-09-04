@@ -1,0 +1,50 @@
+body {
+  background: url('video.png');
+  background-size: cover;
+  background-color: lightgray;
+  height: 3800px;
+}
+.bgvideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -9999;
+}
+.first_pageblock {
+  width: 100%;
+}
+.header_mnu {
+  left: 0;
+  top: 0;
+  position: fixed;
+  width: 1920px;
+  height: 40px;
+  z-index: 1000;
+  background: rgba(151, 240, 149, 0);
+}
+.header_mnu_buttons {
+  top: 0;
+  right: 0;
+  position: fixed;
+  margin: 10px 20px 0 0;
+}
+.header_mnu_btn {
+  color: yellow;
+  font-weight: bold;
+  padding-right: 8px;
+}
+.header_mnu_btn:hover {
+  color: grey;
+  text-decoration: none;
+}
+.show_bg_header_mnu {
+  background: rgba(151, 240, 149, 0.8);
+}
+.company_logo {
+  width: 200px;
+  height: 175px;
+}

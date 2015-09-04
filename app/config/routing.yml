@@ -1,0 +1,13 @@
+chernov_da_time_manager:
+    resource: "@ChernovDATimeManagerBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+chernov_da_webinars:
+    resource: "@ChernovDAWebinarsBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

@@ -1,0 +1,20 @@
+parameters:
+#    chernovda.timemanager.example.class: ChernovDA\TimeManagerBundle\Example
+
+services:
+#    chernovda.timemanager.example:
+#        class: %chernovda.timemanager.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+#        calls:
+#            - [setService, [@service_id]]
+#        tags:
+#            - { name: twig.extension }
+#            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+
+hello:
+  pattern: /hello/{name}
+  defaults: { _controller: ChernovDATimeManagerBundle:Hello:index }
+
+index:
+  pattern: /index
+  defaults: { _controller: ChernovDATimeManagerBundle:Hello:index }
