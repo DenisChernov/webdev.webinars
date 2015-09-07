@@ -184,5 +184,5 @@ $(window).on('scroll', function(){
         //$('.header_mnu').toggleEnable('show_bg_header_mnu');
 
     }
-
 });
+

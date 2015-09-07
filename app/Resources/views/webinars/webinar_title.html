@@ -8,7 +8,6 @@
             Регистрация закрыта
         {% elseif webinar.registerStatus == 1 %}
             Регистрация уже открыта
-
         {% elseif webinar.registerStatus == 0 %}
             Регистрация будет доступна с {{ webinar.dateBeg }} в {{ webinar.timeBeg }}
         {% endif %}
@@ -18,4 +17,8 @@
             <button type="button" class="btn btn-warning btn-lg">РЕГИСТРАЦИЯ</button>
         </div>
     {% endif %}
+
+    <div class="read_more">
+        Подробнее
+    </div>
 </div>

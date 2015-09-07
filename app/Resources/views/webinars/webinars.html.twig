@@ -3,21 +3,39 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-{# видео заднего фона#}
-{# {% include 'webinars/background_vide.html' %} #}
-{#*****************************************#}
-
-{# верхнее меню#}
+{# Р’РµСЂС…РЅРµРµ РјРµРЅСЋ #}
     {% include 'webinars/header_mnu.html' %}
 {#*****************************************#}
 
-{# Перая страница. Превью вебинара #}
+{# РџРµСЂРІР°СЏ СЃС‚СЂР°РЅРёС†Р° #}
     <div class="first_page">
+        {# Р’РёРґРµРѕ РЅР° С„РѕРЅРµ #}
+        {% include 'webinars/background_vide.html' %}
+        {#*****************************************#}
+
     {% for webinar in webinars %}
         {% include 'webinars/webinar_title.html' with {'webinar' : webinar } %}
 
     {% endfor %}
     </div>
 {#*****************************************#}
+
+{# Р’С‚РѕСЂР°СЏ СЃС‚СЂР°РЅРёС†Р° #}
+    <div class="second_page">
+        <div class="speakers_data">
+            {% for speaker in speakers %}
+                {% include 'webinars/webinar_speakers.html' with {'speaker' : speaker } %}
+            {% endfor %}
+        </div>
+    </div>
+{#*****************************************#}
+
+{# РўСЂРµС‚СЊСЏ СЃС‚СЂР°РЅРёС†Р° #}
+    <div class="third_page">
+        <div class="users_who_come">
+
+        <div>
+    </div>
+{#*****************************************#}
+
 {% endblock %}

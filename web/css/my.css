@@ -1,11 +1,9 @@
 body {
-  background: url('video.png');
-  background-size: cover;
   background-color: lightgray;
   height: 3800px;
 }
 .bgvideo {
-  position: fixed;
+  position: absolute;
   right: 0;
   bottom: 0;
   min-width: 100%;
@@ -54,9 +52,11 @@ body {
   position: fixed;
 }
 .first_page {
+  background: url('video.png');
+  background-size: cover;
+  float: left;
   width: 100%;
-  height: 100%;
-  position: fixed;
+  height: 100vh;
   top: 0;
   left: 0;
   display: flex;
@@ -89,7 +89,56 @@ body {
 }
 .btnRegister {
   display: flex;
-  align-items: center;
   justify-content: center;
-  overflow: auto;
+}
+.read_more {
+  display: flex;
+  justify-content: center;
+  bottom: 10px;
+}
+.second_page {
+  float: left;
+}
+.info_who_come {
+  font-size: 3em;
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+  top: 0;
+}
+.speaker_data {
+  position: absolute;
+  top: 440px;
+  width: 100%;
+  text-align: center;
+  z-index: 2000;
+}
+.speaker {
+  display: inline-block;
+  position: relative;
+  width: 24%;
+}
+.speaker_foto {
+  display: block;
+  width: 100%;
+  height: 600px;
+  line-height: 0;
+  vertical-align: bottom;
+}
+.speaker_fio {
+  font-size: 3em;
+  color: grey;
+  text-transform: uppercase;
+}
+.hr_fio {
+  width: 104px;
+  height: 4px;
+  background-color: yellow;
+}
+.speaker_position {
+  font-size: 1.2em;
+  color: grey;
+}
+.third_page {
+  float: left;
 }

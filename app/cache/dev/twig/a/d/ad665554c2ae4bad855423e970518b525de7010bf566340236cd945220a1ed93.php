@@ -15,8 +15,8 @@ class __TwigTemplate_ad665554c2ae4bad855423e970518b525de7010bf566340236cd945220a
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_8f2cccef31487ba76d9aa7657af4c14b5b7ddcacce28188ad9ece56fcb1d0780 = $this->env->getExtension("native_profiler");
-        $__internal_8f2cccef31487ba76d9aa7657af4c14b5b7ddcacce28188ad9ece56fcb1d0780->enter($__internal_8f2cccef31487ba76d9aa7657af4c14b5b7ddcacce28188ad9ece56fcb1d0780_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "webinars/webinar_title.html"));
+        $__internal_12072662507e240fab20d18228623390bd93f48cf4f4f14012592a47abb1aaa1 = $this->env->getExtension("native_profiler");
+        $__internal_12072662507e240fab20d18228623390bd93f48cf4f4f14012592a47abb1aaa1->enter($__internal_12072662507e240fab20d18228623390bd93f48cf4f4f14012592a47abb1aaa1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "webinars/webinar_title.html"));
 
         // line 1
         echo "<div class=\"web_data\">
@@ -41,11 +41,10 @@ class __TwigTemplate_ad665554c2ae4bad855423e970518b525de7010bf566340236cd945220a
 (isset($context["webinar"]) ? $context["webinar"] : $this->getContext($context, "webinar")), "registerStatus", array()) == 1)) {
             // line 10
             echo "            Регистрация уже открыта
-
         ";
-        } elseif (($this->getAttribute(        // line 12
+        } elseif (($this->getAttribute(        // line 11
 (isset($context["webinar"]) ? $context["webinar"] : $this->getContext($context, "webinar")), "registerStatus", array()) == 0)) {
-            // line 13
+            // line 12
             echo "            Регистрация будет доступна с ";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["webinar"]) ? $context["webinar"] : $this->getContext($context, "webinar")), "dateBeg", array()), "html", null, true);
             echo " в ";
@@ -53,22 +52,26 @@ class __TwigTemplate_ad665554c2ae4bad855423e970518b525de7010bf566340236cd945220a
             echo "
         ";
         }
-        // line 15
+        // line 14
         echo "    </p>
     ";
-        // line 16
+        // line 15
         if (($this->getAttribute((isset($context["webinar"]) ? $context["webinar"] : $this->getContext($context, "webinar")), "registerStatus", array()) == 0)) {
-            // line 17
+            // line 16
             echo "        <div class=\"btnRegister\">
             <button type=\"button\" class=\"btn btn-warning btn-lg\">РЕГИСТРАЦИЯ</button>
         </div>
     ";
         }
-        // line 21
-        echo "</div>
+        // line 20
+        echo "
+    <div class=\"read_more\">
+        Подробнее
+    </div>
+</div>
 ";
         
-        $__internal_8f2cccef31487ba76d9aa7657af4c14b5b7ddcacce28188ad9ece56fcb1d0780->leave($__internal_8f2cccef31487ba76d9aa7657af4c14b5b7ddcacce28188ad9ece56fcb1d0780_prof);
+        $__internal_12072662507e240fab20d18228623390bd93f48cf4f4f14012592a47abb1aaa1->leave($__internal_12072662507e240fab20d18228623390bd93f48cf4f4f14012592a47abb1aaa1_prof);
 
     }
 
@@ -84,6 +87,6 @@ class __TwigTemplate_ad665554c2ae4bad855423e970518b525de7010bf566340236cd945220a
 
     public function getDebugInfo()
     {
-        return array (  68 => 21,  62 => 17,  60 => 16,  57 => 15,  49 => 13,  47 => 12,  43 => 10,  41 => 9,  38 => 8,  36 => 7,  30 => 4,  25 => 2,  22 => 1,);
+        return array (  67 => 20,  61 => 16,  59 => 15,  56 => 14,  48 => 12,  46 => 11,  43 => 10,  41 => 9,  38 => 8,  36 => 7,  30 => 4,  25 => 2,  22 => 1,);
     }
 }
