@@ -151,4 +151,27 @@ class webinars {
     {
         return $this->description;
     }
+
+    /**
+     * Set registerStatus
+     *
+     * @param integer $registerStatus
+     * @return webinars
+     */
+    public function setRegisterStatus($registerStatus)
+    {
+        $this->registerStatus = $registerStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get registerStatus
+     *
+     * @return integer 
+     */
+    public function getRegisterStatus()
+    {
+        return $this->registerStatus;
+    }
 }

@@ -1,6 +1,6 @@
 body {
   background-color: lightgray;
-  height: 3800px;
+  max-height: 3800px;
 }
 .bgvideo {
   position: absolute;
@@ -12,6 +12,27 @@ body {
   height: auto;
   z-index: -9999;
 }
+.animated_resize {
+  -webkit-transition: width 500ms, height 500ms;
+  -moz-transition: width 500ms, height 500ms;
+  -ms-transition: width height 500ms, height 500ms;
+  -o-transition: width 500ms, height 500ms;
+  transition: width 500ms, height 500ms;
+}
+.animated_show_bg {
+  -webkit-transition: background 800ms;
+  -moz-transition: background 800ms;
+  -ms-transition: background 800ms;
+  -o-transition: background 800ms;
+  transition: background 800ms;
+}
+.animated_margin {
+  -webkit-transition: margin 800ms;
+  -moz-transition: margin 800ms;
+  -ms-transition: margin 800ms;
+  -o-transition: margin 800ms;
+  transition: margin 800ms;
+}
 .first_pageblock {
   width: 100%;
 }
@@ -19,16 +40,16 @@ body {
   left: 0;
   top: 0;
   position: fixed;
-  width: 1920px;
+  width: 100%;
   height: 40px;
-  z-index: 1000;
+  z-index: 5000;
   background: rgba(151, 240, 149, 0);
 }
 .header_mnu_buttons {
   top: 0;
   right: 0;
   position: fixed;
-  margin: 10px 20px 0 0;
+  margin: 30px 20px 0 0;
 }
 .header_mnu_btn {
   color: yellow;
@@ -40,11 +61,11 @@ body {
   text-decoration: none;
 }
 .show_bg_header_mnu {
-  background: rgba(151, 240, 149, 0.8);
+  background: #97f095;
 }
 .company_logo {
-  width: 200px;
-  height: 175px;
+  width: 196px;
+  height: 99px;
 }
 .about_webinar {
   width: 100%;
@@ -91,13 +112,14 @@ body {
   display: flex;
   justify-content: center;
 }
-.read_more {
+.readmore {
   display: flex;
   justify-content: center;
   bottom: 10px;
 }
 .second_page {
   float: left;
+  background-color: white;
 }
 .info_who_come {
   font-size: 3em;
@@ -126,7 +148,7 @@ body {
   vertical-align: bottom;
 }
 .speaker_fio {
-  font-size: 3em;
+  font-size: 2.7em;
   color: grey;
   text-transform: uppercase;
 }
@@ -141,4 +163,18 @@ body {
 }
 .third_page {
   float: left;
+  background-color: white;
+  width: 100%;
+  height: 100vh;
+}
+.form_register {
+  background: white;
+  position: absolute;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 500px;
+  height: 400px;
+  top: 300px;
+  left: 200px;
+  z-index: 2500;
 }

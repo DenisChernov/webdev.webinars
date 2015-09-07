@@ -15,8 +15,8 @@ class __TwigTemplate_ad665554c2ae4bad855423e970518b525de7010bf566340236cd945220a
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_12072662507e240fab20d18228623390bd93f48cf4f4f14012592a47abb1aaa1 = $this->env->getExtension("native_profiler");
-        $__internal_12072662507e240fab20d18228623390bd93f48cf4f4f14012592a47abb1aaa1->enter($__internal_12072662507e240fab20d18228623390bd93f48cf4f4f14012592a47abb1aaa1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "webinars/webinar_title.html"));
+        $__internal_25c469d2e339a2f9b485602f37ac67c9d953687a74a486e6273ffb141bf7ae36 = $this->env->getExtension("native_profiler");
+        $__internal_25c469d2e339a2f9b485602f37ac67c9d953687a74a486e6273ffb141bf7ae36->enter($__internal_25c469d2e339a2f9b485602f37ac67c9d953687a74a486e6273ffb141bf7ae36_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "webinars/webinar_title.html"));
 
         // line 1
         echo "<div class=\"web_data\">
@@ -59,19 +59,20 @@ class __TwigTemplate_ad665554c2ae4bad855423e970518b525de7010bf566340236cd945220a
         if (($this->getAttribute((isset($context["webinar"]) ? $context["webinar"] : $this->getContext($context, "webinar")), "registerStatus", array()) == 0)) {
             // line 16
             echo "        <div class=\"btnRegister\">
-            <button type=\"button\" class=\"btn btn-warning btn-lg\">РЕГИСТРАЦИЯ</button>
+            <button type=\"button\" class=\"btn btn-warning btn-lg\" id=\"btn_register\">РЕГИСТРАЦИЯ</button>
         </div>
     ";
         }
         // line 20
         echo "
-    <div class=\"read_more\">
-        Подробнее
+    <div class=\"readmore\">
+        <p class=\"read_more\">Подробнее</p><br>
+        <a href=\"#speakers\" id=\"scroll_to_speakers\"><img src=\"/images/arrows-down-yellow.png\"/></a>
     </div>
 </div>
 ";
         
-        $__internal_12072662507e240fab20d18228623390bd93f48cf4f4f14012592a47abb1aaa1->leave($__internal_12072662507e240fab20d18228623390bd93f48cf4f4f14012592a47abb1aaa1_prof);
+        $__internal_25c469d2e339a2f9b485602f37ac67c9d953687a74a486e6273ffb141bf7ae36->leave($__internal_25c469d2e339a2f9b485602f37ac67c9d953687a74a486e6273ffb141bf7ae36_prof);
 
     }
 

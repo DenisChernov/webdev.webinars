@@ -3,25 +3,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {# Форма регистрации #}
+    {% include 'webinars/form_register.html' %}
+    {#*****************************************#}
+
 {# Верхнее меню #}
     {% include 'webinars/header_mnu.html' %}
 {#*****************************************#}
 
 {# Первая страница #}
-    <div class="first_page">
+    <div class="first_page" id="main">
         {# Видео на фоне #}
         {% include 'webinars/background_vide.html' %}
         {#*****************************************#}
 
     {% for webinar in webinars %}
         {% include 'webinars/webinar_title.html' with {'webinar' : webinar } %}
-
     {% endfor %}
     </div>
 {#*****************************************#}
 
 {# Вторая страница #}
-    <div class="second_page">
+    <div class="second_page" id="speakers">
         <div class="speakers_data">
             {% for speaker in speakers %}
                 {% include 'webinars/webinar_speakers.html' with {'speaker' : speaker } %}
@@ -33,9 +36,12 @@
 {# Третья страница #}
     <div class="third_page">
         <div class="users_who_come">
-
+            {% for user in users %}
+                {% include 'webinars/reg_users.html' with {'user' : user} %}
+            {% endfor %}
         <div>
     </div>
 {#*****************************************#}
+
 
 {% endblock %}

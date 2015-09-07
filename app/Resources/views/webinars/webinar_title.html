@@ -14,11 +14,12 @@
     </p>
     {% if webinar.registerStatus == 0 %}
         <div class="btnRegister">
-            <button type="button" class="btn btn-warning btn-lg">РЕГИСТРАЦИЯ</button>
+            <button type="button" class="btn btn-warning btn-lg" id="btn_register">РЕГИСТРАЦИЯ</button>
         </div>
     {% endif %}
 
-    <div class="read_more">
-        Подробнее
+    <div class="readmore">
+        <p class="read_more">Подробнее</p><br>
+        <a href="#speakers" id="scroll_to_speakers"><img src="/images/arrows-down-yellow.png"/></a>
     </div>
 </div>

@@ -29,6 +29,9 @@ class WebinarController extends Controller {
         $speakers = $em->getRepository('ChernovDAWebinarsBundle:speakers')
             ->findAll();
 
+        $users = $em->getRepository('ChernovDAWebinarsBundle:users')
+            ->findAll();
+
         if (!$webinar)
             throw $this->createNotFoundException(
                 'No webinars exist'
@@ -37,7 +40,9 @@ class WebinarController extends Controller {
         return $this->render(
             'webinars/webinars.html.twig', array(
                 "webinars" => $webinar,
-                "speakers" => $speakers)
+                "speakers" => $speakers,
+                "users" => $users
+            )
         );
     }
 
