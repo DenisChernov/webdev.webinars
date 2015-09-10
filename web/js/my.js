@@ -299,6 +299,8 @@ $('#btnRegisterUser').on('click', function(){
         url: regurl
     });
 
+
+
     $('#form_register').find('#email').val("");
     $('#form_register').find('#password').val("");
     $('#form_register').find('#fio').val("");

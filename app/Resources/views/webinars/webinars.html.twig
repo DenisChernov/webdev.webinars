@@ -37,6 +37,10 @@
 
 {# Третья страница #}
     <div class="third_page">
+        <div class="reg_user_header">
+            <p class="registered_users">Зарегистрированные участники</p>
+            <hr class="hr_fio">
+        </div>
         <div class="users_who_come">
             {% for user in users %}
                 {% include 'webinars/reg_users.html' with {'user' : user} %}

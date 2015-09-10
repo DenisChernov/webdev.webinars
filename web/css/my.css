@@ -193,3 +193,30 @@ body {
   color: white;
   text-align: center;
 }
+.users_who_come {
+  position: absolute;
+}
+.reg_user_header {
+  padding-top: 100px;
+  text-align: center;
+}
+.reg_user_header .registered_users {
+  text-transform: uppercase;
+  font-size: 4em;
+}
+.reg_user_block {
+  margin-left: 300px;
+  margin-right: 300px;
+  padding-top: 40px;
+  position: relative;
+}
+.reg_user_block .user_avatar {
+  width: 15%;
+}
+.reg_user_block .user_fio {
+  font-weight: bolder;
+  color: black;
+}
+.reg_user_block .user_work {
+  color: grey;
+}
