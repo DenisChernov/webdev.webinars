@@ -1,28 +1,27 @@
-<div class="form_register invisible">
-    <form class="form-horizontal" role="form">
-        <div class="form-group" style="margin-left: 30px; margin-right: 30px;">
-            <div class="form-group" style="padding-top: 10px">
-                <label style="text-align: center">Регистрация участника</label>
-            </div>
+    <div class="modal fade" id="form_register">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Регистрация участника</h4>
+                </div>
+                <div class="modal-body">
 
-            <div class="form-group">
-                <label class="sr-only" for="email_login">Email</label>
-                <input type="email" class="form-control" id="email_login" placeholder="Введите e-mail">
-            </div>
-            <div class="form-group">
-                <label class="sr-only" for="password">Пароль</label>
-                <input type="password" class="form-control" id="password" placeholder="Пароль">
-            </div>
-            <div class="form-group">
-                <label class="sr-only" for="exampleInputPassword2">Пароль</label>
-                <input type="text" class="form-control" id="exampleInputPassword2" placeholder="Пароль">
-            </div>
-            <div class="form-group">
-                <label for="avatar">Фотография</label>
-                <input type="file" data-filename-placement="inside" id="avatar">
-                <p class="help-block">Фотография участника</p>
-            </div>
+                    <label for="email" class="control-label">Email</label>
+                    <input class="form-control" id="email" type="email" placeholder="Ваш email, будет использован как логин">
 
+                    <label for="password" class="control-label">Пароль</label>
+                    <input class="form-control" id="password" type="password" placeholder="Ваш пароль для доступа к профилю">
+
+                    <label for="organisation" class=""
+
+                    <label for="avatar" class="control-label">Ваше фото</label>
+                    <input id="avatar" type="file">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" >Reg!</button>
+                </div>
+            </div>
         </div>
-    </form>
-</div>
+    </div>

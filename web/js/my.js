@@ -225,13 +225,15 @@ $('#btn_main').on('click', function(){
 });
 
 $('#btn_register').on('click', function(){
-    $('.form_register').removeClass('invisible');
     var width = $(window).width();
-    var left = ($(window).width() / 2) - (parseInt($('.form_register').css('width')) / 2);
-    $('.form_register').css("left", left);
+    var height = $(window).height();
+    var left = ($(window).width() / 2) - (parseInt($('#form_register').css('width')) / 2);
+
+    //$('.form_register').css({"left" : left, "top" : "100px"});
+    $('#form_register').modal('show');
 });
 
 $(window).on('resize', function(){
-    var left = ($(window).width() / 2) - (parseInt($('.form_register').css('width')) / 2);
-    $('.form_register').css("left", left);
+    var left = ($(window).width() / 2) - (parseInt($('#form_register').css('width')) / 2);
+    $('#form_register').css("left", left);
 });

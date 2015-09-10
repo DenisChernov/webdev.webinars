@@ -47,15 +47,16 @@ class WebinarController extends Controller {
     }
 
     /**
-     * @Route("/new/webinar/{title}/{date_beg}/{time_beg}/{description}")
+     * @Route("/new/webinar/{title}/{date_beg}/{time_beg}/{description}/{status}")
      */
-    public function newWebinarAction($title, $date_beg, $time_beg, $description) {
+    public function newWebinarAction($title, $date_beg, $time_beg, $description, $status) {
 
         $webinars = new webinars();
         $webinars->setTitle($title)
             ->setDescription($description)
             ->setDateBeg($date_beg)
-            ->setTimeBeg($time_beg);
+            ->setTimeBeg($time_beg)
+            ->setRegisterStatus($status);
         $em = $this->getDoctrine()->getManager();
         $em->persist($webinars);
         $em->flush();

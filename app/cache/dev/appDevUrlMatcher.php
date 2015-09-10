@@ -150,7 +150,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         }
 
         // chernovda_webinars_webinar_newwebinar
-        if (0 === strpos($pathinfo, '/new/webinar') && preg_match('#^/new/webinar/(?P<title>[^/]++)/(?P<date_beg>[^/]++)/(?P<time_beg>[^/]++)/(?P<description>[^/]++)$#s', $pathinfo, $matches)) {
+        if (0 === strpos($pathinfo, '/new/webinar') && preg_match('#^/new/webinar/(?P<title>[^/]++)/(?P<date_beg>[^/]++)/(?P<time_beg>[^/]++)/(?P<description>[^/]++)/(?P<status>[^/]++)$#s', $pathinfo, $matches)) {
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'chernovda_webinars_webinar_newwebinar')), array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::newWebinarAction',));
         }
 
