@@ -34,18 +34,29 @@ class users
     protected $avatar;
 
     /**
-     * ORM\Column(type="string")
+     * @ORM\Column(type="string")
      */
     protected $fio;
 
     /**
-     * ORM\Column(type="string")
+     * @ORM\Column(type="string")
      */
     protected $work;
+
     /**
      * @ORM\Column(type="string")
      */
     protected $position;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $email;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $password;
 
     /**
      * Get id
@@ -101,5 +112,97 @@ class users
     public function getPosition()
     {
         return $this->position;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return users
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return users
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string 
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set fio
+     *
+     * @param string $fio
+     * @return users
+     */
+    public function setFio($fio)
+    {
+        $this->fio = $fio;
+
+        return $this;
+    }
+
+    /**
+     * Get fio
+     *
+     * @return string 
+     */
+    public function getFio()
+    {
+        return $this->fio;
+    }
+
+    /**
+     * Set work
+     *
+     * @param string $work
+     * @return users
+     */
+    public function setWork($work)
+    {
+        $this->work = $work;
+
+        return $this;
+    }
+
+    /**
+     * Get work
+     *
+     * @return string 
+     */
+    public function getWork()
+    {
+        return $this->work;
     }
 }

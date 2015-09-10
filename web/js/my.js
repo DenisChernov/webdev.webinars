@@ -237,3 +237,72 @@ $(window).on('resize', function(){
     var left = ($(window).width() / 2) - (parseInt($('#form_register').css('width')) / 2);
     $('#form_register').css("left", left);
 });
+
+
+var file;
+
+$('input[type=file]').change(function(){
+    file = this.files;
+
+    var data = new FormData();
+    $.each(file, function(key, value){
+        data.append(key, value);
+    });
+
+    $.ajax({
+        url: '/uploadavatar.php?uploadfile',
+        type: 'POST',
+        data: data,
+        cache: false,
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        success: function(respond, textStatus, jqXHR) {
+            if (typeof respond.error === 'undefined') {
+                // все впорядке. файл загружен
+                var file_path = respond.files;
+                $.each(file_path, function(key, value) {
+                        $('.avatar').prop("src", "/uploads/" + value);
+                        file = value;
+                });
+            }
+            else {
+                console.log('php: ' + respond.error);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            console.log('ajax: ' + textStatus);
+        }
+    });
+
+    console.log(file);
+});
+
+
+
+$('#btnRegisterUser').on('click', function(){
+    // запись пользователя
+
+    email = $('#form_register').find('#email').val();
+    pass = $('#form_register').find('#password').val();
+    fio = $('#form_register').find('#fio').val();
+    organisation = $('#form_register').find('#organisation').val();
+    position = $('#form_register').find('#position').val();
+    //file = $('#form_register').find('#avatar').val();
+
+
+
+    regurl = "/app_dev.php/new/reguser/" + email + "/" + pass + "/" + file + "/" + fio +"/" + organisation + "/" + position;
+
+    $.ajax({
+        type: "POST",
+        url: regurl
+    });
+
+    $('#form_register').find('#email').val("");
+    $('#form_register').find('#password').val("");
+    $('#form_register').find('#fio').val("");
+    $('#form_register').find('#organisation').val("");
+    $('#form_register').find('#position').val("");
+    $('#form_register').find('.avatar').prop("src", "/images/nofoto.png");
+});
