@@ -1,12 +1,15 @@
-<div class="reg_user_block">
-    <div>
-        <img class="user_avatar" src="/uploads/{{user.avatar}}" />
+<a href="#" class="view_full_info">
+    <div class="reg_user_block table">
+        <div class="user_picture table-row animated_tablerow">
+            <img class="user_avatar" src="/uploads/{{user.avatar}}" />
+        </div>
+        <div class="user_bio table-row">
+            <div class="user_fio">
+                <span class="link_view_full_info">{{user.fio}}</span>
+            </div>
+            <div class="user_work">
+                <span class="link_view_full_info">{{user.position}} в {{user.work}}</span>
+            </div>
+        </div>
     </div>
-    <div class="user_fio">
-        {{user.fio}}
-    </div>
-    <div class="user_work">
-        {{user.position}} в {{user.work}}
-    </div>
-</div>
-
+</a>

@@ -9,6 +9,10 @@
 $data = array();
 
 if (isset($_GET['uploadfile'])) {
+
+    include('../vendor/eventviva/php-image-resize/src/ImageResize.php');
+
+
     $error = false;
     $files = array();
 

@@ -22,11 +22,9 @@
     {% endfor %}
     </div>
 {#*****************************************#}
-
-{% include 'webinars/block_header.html' with {'header' : 'Список докладчиков'} %}
-
 {# Вторая страница #}
     <div class="second_page" id="speakers">
+        {% include 'webinars/block_header.html' with {'header' : 'Список докладчиков'} %}
         <div class="speakers_data">
             {% for speaker in speakers %}
                 {% include 'webinars/webinar_speakers.html' with {'speaker' : speaker } %}
@@ -36,7 +34,7 @@
 {#*****************************************#}
 
 {# Третья страница #}
-    <div class="third_page">
+    <div class="third_page" id="listeners">
         <div class="reg_user_header">
             <p class="registered_users">Зарегистрированные участники</p>
             <hr class="hr_fio">
@@ -48,6 +46,4 @@
         <div>
     </div>
 {#*****************************************#}
-
-
 {% endblock %}

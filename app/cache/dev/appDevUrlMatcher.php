@@ -162,6 +162,19 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        if (0 === strpos($pathinfo, '/.')) {
+            // chernovda_webinars_webinar_admin
+            if ($pathinfo === '/.admin') {
+                return array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::adminAction',  '_route' => 'chernovda_webinars_webinar_admin',);
+            }
+
+            // chernovda_webinars_webinar_editor
+            if ($pathinfo === '/.editor') {
+                return array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::editorAction',  '_route' => 'chernovda_webinars_webinar_editor',);
+            }
+
+        }
+
         // homepage
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {

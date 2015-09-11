@@ -91,4 +91,62 @@ class WebinarController extends Controller {
         );
     }
 
+    /**
+     * @Route("/.admin")
+     */
+    public function adminAction() {
+        $em = $this->getDoctrine()->getManager();
+
+        $webinar = $em->getRepository('ChernovDAWebinarsBundle:webinars')
+            ->findAll();
+
+        $speakers = $em->getRepository('ChernovDAWebinarsBundle:speakers')
+            ->findAll();
+
+        $users = $em->getRepository('ChernovDAWebinarsBundle:users')
+            ->findAll();
+
+        if (!$webinar)
+            throw $this->createNotFoundException(
+                'No webinars exist'
+            );
+
+        return $this->render(
+            'webinars/page_admin.html.twig', array(
+                "webinars" => $webinar,
+                "speakers" => $speakers,
+                "users" => $users
+            )
+        );
+    }
+
+    /**
+     * @Route("/.editor")
+     */
+    public function editorAction() {
+        $em = $this->getDoctrine()->getManager();
+
+        $webinar = $em->getRepository('ChernovDAWebinarsBundle:webinars')
+            ->findAll();
+
+        $speakers = $em->getRepository('ChernovDAWebinarsBundle:speakers')
+            ->findAll();
+
+        $users = $em->getRepository('ChernovDAWebinarsBundle:users')
+            ->findAll();
+
+        if (!$webinar)
+            throw $this->createNotFoundException(
+                'No webinars exist'
+            );
+
+        return $this->render(
+            'webinars/page_editor.html.twig', array(
+                "webinars" => $webinar,
+                "speakers" => $speakers,
+                "users" => $users
+            )
+        );
+    }
+
 }
