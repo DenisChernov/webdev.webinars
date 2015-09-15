@@ -8,6 +8,7 @@
 
 namespace ChernovDA\WebinarsBundle\Controller;
 
+use ChernovDA\WebinarsBundle\Entity\speakers;
 use ChernovDA\WebinarsBundle\Entity\users;
 use ChernovDA\WebinarsBundle\Entity\webinars;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -106,6 +107,8 @@ class WebinarController extends Controller {
      * @Route("/update/speakers/{id}/{avatar}/{fio}/{organisation}/{position}")
      */
     public function updateSpeakersAction($id, $avatar, $fio, $organisation, $position) {
+        $webinar = $this->getDoctrine()->getRepository('ChernovDAWebinarsBundle:webinars')->findAll();
+        $users = $this->getDoctrine()->getRepository('ChernovDAWebinarsBundle:users')->findAll();
 
         $em = $this->getDoctrine()->getManager();
         $speakers = $em->getRepository('ChernovDAWebinarsBundle:speakers')->find($id);
@@ -123,7 +126,11 @@ class WebinarController extends Controller {
         }
 
         return $this->render(
-            'webinars/page_admin.html.twig'
+            'webinars/page_admin.html.twig', array(
+                "webinars" => $webinar,
+                "speakers" => $speakers,
+                "users" => $users
+            )
         );
     }
 
@@ -131,6 +138,8 @@ class WebinarController extends Controller {
      * @Route("/update/users/{id}/{avatar}/{fio}/{organisation}/{position}/{email}/{password}")
      */
     public function updateUsersAction($id, $avatar, $fio, $organisation, $position, $email, $password) {
+        $webinar = $this->getDoctrine()->getRepository('ChernovDAWebinarsBundle:webinars')->findAll();
+        $speakers = $this->getDoctrine()->getRepository('ChernovDAWebinarsBundle:speakers')->findAll();
 
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('ChernovDAWebinarsBundle:users')->find($id);
@@ -139,6 +148,7 @@ class WebinarController extends Controller {
                 ->setFio($fio)
                 ->setPosition($position)
                 ->setEmail($email)
+                ->setWork($organisation)
                 ->setPassword($password);
 
             $em->flush();
@@ -150,7 +160,11 @@ class WebinarController extends Controller {
         }
 
         return $this->render(
-            'webinars/page_admin.html.twig'
+            'webinars/page_admin.html.twig', array(
+                "webinars" => $webinar,
+                "speakers" => $speakers,
+                "users" => $users
+            )
         );
     }
 

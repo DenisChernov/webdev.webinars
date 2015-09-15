@@ -21,20 +21,20 @@ class __TwigTemplate_25889b653adcf463d2a87201f5c88ee2e187faf4dd015f30bdbff612a2a
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_9ccc54146b68aa429317b55287b9b30745d2f8e962f2baf7a61f63a14be86581 = $this->env->getExtension("native_profiler");
-        $__internal_9ccc54146b68aa429317b55287b9b30745d2f8e962f2baf7a61f63a14be86581->enter($__internal_9ccc54146b68aa429317b55287b9b30745d2f8e962f2baf7a61f63a14be86581_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "webinars/webinars.html.twig"));
+        $__internal_1e4da1fc3bfb3af3f1fea2fb64e0ec7a387e2a32b6753ce71311f468b59bc5ce = $this->env->getExtension("native_profiler");
+        $__internal_1e4da1fc3bfb3af3f1fea2fb64e0ec7a387e2a32b6753ce71311f468b59bc5ce->enter($__internal_1e4da1fc3bfb3af3f1fea2fb64e0ec7a387e2a32b6753ce71311f468b59bc5ce_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "webinars/webinars.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_9ccc54146b68aa429317b55287b9b30745d2f8e962f2baf7a61f63a14be86581->leave($__internal_9ccc54146b68aa429317b55287b9b30745d2f8e962f2baf7a61f63a14be86581_prof);
+        $__internal_1e4da1fc3bfb3af3f1fea2fb64e0ec7a387e2a32b6753ce71311f468b59bc5ce->leave($__internal_1e4da1fc3bfb3af3f1fea2fb64e0ec7a387e2a32b6753ce71311f468b59bc5ce_prof);
 
     }
 
     // line 5
     public function block_body($context, array $blocks = array())
     {
-        $__internal_4dc77c0ba4531994f92f7aa19d0fd590e4c951264e7151e043a57e93d6b4106a = $this->env->getExtension("native_profiler");
-        $__internal_4dc77c0ba4531994f92f7aa19d0fd590e4c951264e7151e043a57e93d6b4106a->enter($__internal_4dc77c0ba4531994f92f7aa19d0fd590e4c951264e7151e043a57e93d6b4106a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
+        $__internal_dc059ecadd062e5d0251cb1bdca76270c292d4995a0f0a92712118f13b646c79 = $this->env->getExtension("native_profiler");
+        $__internal_dc059ecadd062e5d0251cb1bdca76270c292d4995a0f0a92712118f13b646c79->enter($__internal_dc059ecadd062e5d0251cb1bdca76270c292d4995a0f0a92712118f13b646c79_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
         // line 6
         echo "    ";
@@ -101,14 +101,83 @@ class __TwigTemplate_25889b653adcf463d2a87201f5c88ee2e187faf4dd015f30bdbff612a2a
         echo "    </div>
 ";
         // line 26
+        echo "    <div class=\"comming_webinar_page\" id=\"comming_webinar\">
+        <div class=\"animated_show_visible\">
+        ";
+        // line 28
+        $context['_parent'] = (array) $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["webinars"]) ? $context["webinars"] : $this->getContext($context, "webinars")));
+        $context['loop'] = array(
+          'parent' => $context['_parent'],
+          'index0' => 0,
+          'index'  => 1,
+          'first'  => true,
+        );
+        if (is_array($context['_seq']) || (is_object($context['_seq']) && $context['_seq'] instanceof Countable)) {
+            $length = count($context['_seq']);
+            $context['loop']['revindex0'] = $length - 1;
+            $context['loop']['revindex'] = $length;
+            $context['loop']['length'] = $length;
+            $context['loop']['last'] = 1 === $length;
+        }
+        foreach ($context['_seq'] as $context["_key"] => $context["webinar"]) {
+            // line 29
+            echo "            ";
+            if (($this->getAttribute($context["webinar"], "registerStatus", array()) == 0)) {
+                // line 30
+                echo "                <div class=\"webinar_description\">
+                    <div class=\"webinar_iscomming_header\">
+                        <p class=\"webinar_iscomming\">Вебинар скоро начнется!</p>
+                        <hr class=\"hr_fio\">
+                    </div>
+                    ";
+                // line 35
+                $this->loadTemplate("webinars/comming_webinar.html", "webinars/webinars.html.twig", 35)->display(array_merge($context, array("webinar" => $context["webinar"])));
+                // line 36
+                echo "                </div>
+            ";
+            } elseif (($this->getAttribute(            // line 37
+$context["webinar"], "registerStatus", array()) == 1)) {
+                // line 38
+                echo "                <div class=\"webinar_description\">
+                    <div class=\"webinar_inprogress_header\">
+                        <p class=\"webinar_inprogress\">Вебинар уже идет!</p>
+                        <hr class=\"hr_fio\">
+                    </div>
+                    ";
+                // line 43
+                $this->loadTemplate("webinars/comming_webinar.html", "webinars/webinars.html.twig", 43)->display(array_merge($context, array("webinar" => $context["webinar"])));
+                // line 44
+                echo "                </div>
+            ";
+            }
+            // line 46
+            echo "        ";
+            ++$context['loop']['index0'];
+            ++$context['loop']['index'];
+            $context['loop']['first'] = false;
+            if (isset($context['loop']['length'])) {
+                --$context['loop']['revindex0'];
+                --$context['loop']['revindex'];
+                $context['loop']['last'] = 0 === $context['loop']['revindex0'];
+            }
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['webinar'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 47
+        echo "        </div>
+    </div>
+";
+        // line 51
         echo "    <div class=\"second_page\" id=\"speakers\">
         ";
-        // line 27
-        $this->loadTemplate("webinars/block_header.html", "webinars/webinars.html.twig", 27)->display(array_merge($context, array("header" => "Список докладчиков")));
-        // line 28
+        // line 52
+        $this->loadTemplate("webinars/block_header.html", "webinars/webinars.html.twig", 52)->display(array_merge($context, array("header" => "Список докладчиков", "color" => "white")));
+        // line 53
         echo "        <div class=\"speakers_data\">
             ";
-        // line 29
+        // line 54
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["speakers"]) ? $context["speakers"] : $this->getContext($context, "speakers")));
         $context['loop'] = array(
@@ -125,10 +194,10 @@ class __TwigTemplate_25889b653adcf463d2a87201f5c88ee2e187faf4dd015f30bdbff612a2a
             $context['loop']['last'] = 1 === $length;
         }
         foreach ($context['_seq'] as $context["_key"] => $context["speaker"]) {
-            // line 30
+            // line 55
             echo "                ";
-            $this->loadTemplate("webinars/webinar_speakers.html", "webinars/webinars.html.twig", 30)->display(array_merge($context, array("speaker" => $context["speaker"])));
-            // line 31
+            $this->loadTemplate("webinars/webinar_speakers.html", "webinars/webinars.html.twig", 55)->display(array_merge($context, array("speaker" => $context["speaker"])));
+            // line 56
             echo "            ";
             ++$context['loop']['index0'];
             ++$context['loop']['index'];
@@ -142,14 +211,14 @@ class __TwigTemplate_25889b653adcf463d2a87201f5c88ee2e187faf4dd015f30bdbff612a2a
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['speaker'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 32
+        // line 57
         echo "        </div>
     </div>
 ";
-        // line 35
+        // line 60
         echo "
 ";
-        // line 37
+        // line 62
         echo "    <div class=\"third_page\" id=\"listeners\">
         <div class=\"reg_user_header\">
             <p class=\"registered_users\">Зарегистрированные участники</p>
@@ -157,7 +226,7 @@ class __TwigTemplate_25889b653adcf463d2a87201f5c88ee2e187faf4dd015f30bdbff612a2a
         </div>
         <div class=\"users_who_come\">
             ";
-        // line 43
+        // line 68
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["users"]) ? $context["users"] : $this->getContext($context, "users")));
         $context['loop'] = array(
@@ -174,10 +243,10 @@ class __TwigTemplate_25889b653adcf463d2a87201f5c88ee2e187faf4dd015f30bdbff612a2a
             $context['loop']['last'] = 1 === $length;
         }
         foreach ($context['_seq'] as $context["_key"] => $context["user"]) {
-            // line 44
+            // line 69
             echo "                ";
-            $this->loadTemplate("webinars/reg_users.html", "webinars/webinars.html.twig", 44)->display(array_merge($context, array("user" => $context["user"])));
-            // line 45
+            $this->loadTemplate("webinars/reg_users.html", "webinars/webinars.html.twig", 69)->display(array_merge($context, array("user" => $context["user"])));
+            // line 70
             echo "            ";
             ++$context['loop']['index0'];
             ++$context['loop']['index'];
@@ -191,12 +260,12 @@ class __TwigTemplate_25889b653adcf463d2a87201f5c88ee2e187faf4dd015f30bdbff612a2a
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['user'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 46
+        // line 71
         echo "        <div>
     </div>
 ";
         
-        $__internal_4dc77c0ba4531994f92f7aa19d0fd590e4c951264e7151e043a57e93d6b4106a->leave($__internal_4dc77c0ba4531994f92f7aa19d0fd590e4c951264e7151e043a57e93d6b4106a_prof);
+        $__internal_dc059ecadd062e5d0251cb1bdca76270c292d4995a0f0a92712118f13b646c79->leave($__internal_dc059ecadd062e5d0251cb1bdca76270c292d4995a0f0a92712118f13b646c79_prof);
 
     }
 
@@ -212,6 +281,6 @@ class __TwigTemplate_25889b653adcf463d2a87201f5c88ee2e187faf4dd015f30bdbff612a2a
 
     public function getDebugInfo()
     {
-        return array (  195 => 46,  181 => 45,  178 => 44,  161 => 43,  153 => 37,  150 => 35,  146 => 32,  132 => 31,  129 => 30,  112 => 29,  109 => 28,  107 => 27,  104 => 26,  101 => 23,  87 => 22,  84 => 21,  67 => 20,  64 => 19,  62 => 18,  59 => 17,  56 => 15,  53 => 13,  50 => 11,  47 => 9,  45 => 8,  42 => 7,  40 => 6,  34 => 5,  11 => 3,);
+        return array (  264 => 71,  250 => 70,  247 => 69,  230 => 68,  222 => 62,  219 => 60,  215 => 57,  201 => 56,  198 => 55,  181 => 54,  178 => 53,  176 => 52,  173 => 51,  169 => 47,  155 => 46,  151 => 44,  149 => 43,  142 => 38,  140 => 37,  137 => 36,  135 => 35,  128 => 30,  125 => 29,  108 => 28,  104 => 26,  101 => 23,  87 => 22,  84 => 21,  67 => 20,  64 => 19,  62 => 18,  59 => 17,  56 => 15,  53 => 13,  50 => 11,  47 => 9,  45 => 8,  42 => 7,  40 => 6,  34 => 5,  11 => 3,);
     }
 }

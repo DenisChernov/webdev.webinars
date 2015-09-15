@@ -41,6 +41,10 @@ class speakers {
     protected $position;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+
+    /**
      * Get id
      *
      * @return integer 

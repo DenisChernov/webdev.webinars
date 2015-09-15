@@ -22,9 +22,34 @@
     {% endfor %}
     </div>
 {#*****************************************#}
+{# Вставка с описанием ближайшего вебинара #}
+    <div class="comming_webinar_page" id="comming_webinar">
+        <div class="animated_show_visible">
+        {% for webinar in webinars %}
+            {% if webinar.registerStatus == 0 %}
+                <div class="webinar_description">
+                    <div class="webinar_iscomming_header">
+                        <p class="webinar_iscomming">Вебинар скоро начнется!</p>
+                        <hr class="hr_fio">
+                    </div>
+                    {% include 'webinars/comming_webinar.html' with { 'webinar' : webinar} %}
+                </div>
+            {% elseif webinar.registerStatus == 1 %}
+                <div class="webinar_description">
+                    <div class="webinar_inprogress_header">
+                        <p class="webinar_inprogress">Вебинар уже идет!</p>
+                        <hr class="hr_fio">
+                    </div>
+                    {% include 'webinars/comming_webinar.html' with { 'webinar' : webinar} %}
+                </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+{#*****************************************#}
 {# Вторая страница #}
     <div class="second_page" id="speakers">
-        {% include 'webinars/block_header.html' with {'header' : 'Список докладчиков'} %}
+        {% include 'webinars/block_header.html' with {'header' : 'Список докладчиков', 'color' : 'white'} %}
         <div class="speakers_data">
             {% for speaker in speakers %}
                 {% include 'webinars/webinar_speakers.html' with {'speaker' : speaker } %}

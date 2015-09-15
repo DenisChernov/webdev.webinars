@@ -15,8 +15,8 @@ class __TwigTemplate_1df4322c75231a4c5464d97d796f4f62a52d5170ba39e3c370a95ccb85e
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_526414964a31ebaf2d7b87ac38ec2a7bfdabfcd5bba79d98ed98fd3ceb3a5ce1 = $this->env->getExtension("native_profiler");
-        $__internal_526414964a31ebaf2d7b87ac38ec2a7bfdabfcd5bba79d98ed98fd3ceb3a5ce1->enter($__internal_526414964a31ebaf2d7b87ac38ec2a7bfdabfcd5bba79d98ed98fd3ceb3a5ce1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "webinars/admin.html"));
+        $__internal_978ddd5d99c2d97c16005030c00a37c842ebd1ac53f3e64fcb6a3cfaf01c51c0 = $this->env->getExtension("native_profiler");
+        $__internal_978ddd5d99c2d97c16005030c00a37c842ebd1ac53f3e64fcb6a3cfaf01c51c0->enter($__internal_978ddd5d99c2d97c16005030c00a37c842ebd1ac53f3e64fcb6a3cfaf01c51c0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "webinars/admin.html"));
 
         // line 1
         echo "<div class=\"admin_page\">
@@ -68,7 +68,7 @@ class __TwigTemplate_1df4322c75231a4c5464d97d796f4f62a52d5170ba39e3c370a95ccb85e
                                 <input class=\"form-control\" value=\"";
             // line 32
             echo twig_escape_filter($this->env, $this->getAttribute($context["webinar"], "dateBeg", array()), "html", null, true);
-            echo "\"/>
+            echo "\" disabled/>
                                 <span class=\"input-group-addon\">
                                     <span class=\"glyphicon glyphicon-calendar\"></span>
                                 </span>
@@ -80,7 +80,7 @@ class __TwigTemplate_1df4322c75231a4c5464d97d796f4f62a52d5170ba39e3c370a95ccb85e
                                 <input class=\"form-control\" value=\"";
             // line 41
             echo twig_escape_filter($this->env, $this->getAttribute($context["webinar"], "timeBeg", array()), "html", null, true);
-            echo "\"/>
+            echo "\" disabled/>
                                 <span class=\"input-group-addon\">
                                     <span class=\"glyphicon glyphicon-time\"></span>
                                 </span>
@@ -154,14 +154,18 @@ class __TwigTemplate_1df4322c75231a4c5464d97d796f4f62a52d5170ba39e3c370a95ccb85e
             // line 82
             echo "                        <tr class=\"table-row\">
                             <td class=\"table-cell speakers_tbl_id\">
-                                <label class=\"control-label\">";
+                                <label class=\"control-label\" id=\"";
             // line 84
+            echo twig_escape_filter($this->env, $this->getAttribute($context["speaker"], "id", array()), "html", null, true);
+            echo "\">";
             echo twig_escape_filter($this->env, $this->getAttribute($context["speaker"], "id", array()), "html", null, true);
             echo "</label>
                             </td>
                             <td class=\"table-cell speakers_avatar\">
-                                <img class=\"admin_speakers_avatar\" src=\"";
+                                <img class=\"admin_speakers_avatar\" id=\"";
             // line 87
+            echo twig_escape_filter($this->env, $this->getAttribute($context["speaker"], "pic", array()), "html", null, true);
+            echo "\" src=\"/images/";
             echo twig_escape_filter($this->env, $this->getAttribute($context["speaker"], "pic", array()), "html", null, true);
             echo "\"/>
                             </td>
@@ -215,14 +219,18 @@ class __TwigTemplate_1df4322c75231a4c5464d97d796f4f62a52d5170ba39e3c370a95ccb85e
             // line 121
             echo "                    <tr class=\"table-row\">
                         <td class=\"table-cell users_tbl_id\">
-                            <label class=\"control-label\">";
+                            <label class=\"control-label\" id=\"";
             // line 123
+            echo twig_escape_filter($this->env, $this->getAttribute($context["reguser"], "id", array()), "html", null, true);
+            echo "\">";
             echo twig_escape_filter($this->env, $this->getAttribute($context["reguser"], "id", array()), "html", null, true);
             echo "</label>
                         </td>
                         <td class=\"table-cell users_avatar\">
-                            <img class=\"admin_speakers_avatar\" src=\"/images/";
+                            <img class=\"admin_speakers_avatar\" id=\"";
             // line 126
+            echo twig_escape_filter($this->env, $this->getAttribute($context["reguser"], "avatar", array()), "html", null, true);
+            echo "\" src=\"/images/";
             echo twig_escape_filter($this->env, $this->getAttribute($context["reguser"], "avatar", array()), "html", null, true);
             echo "\"/>
                         </td>
@@ -276,7 +284,7 @@ class __TwigTemplate_1df4322c75231a4c5464d97d796f4f62a52d5170ba39e3c370a95ccb85e
 
 </div>";
         
-        $__internal_526414964a31ebaf2d7b87ac38ec2a7bfdabfcd5bba79d98ed98fd3ceb3a5ce1->leave($__internal_526414964a31ebaf2d7b87ac38ec2a7bfdabfcd5bba79d98ed98fd3ceb3a5ce1_prof);
+        $__internal_978ddd5d99c2d97c16005030c00a37c842ebd1ac53f3e64fcb6a3cfaf01c51c0->leave($__internal_978ddd5d99c2d97c16005030c00a37c842ebd1ac53f3e64fcb6a3cfaf01c51c0_prof);
 
     }
 
@@ -292,6 +300,6 @@ class __TwigTemplate_1df4322c75231a4c5464d97d796f4f62a52d5170ba39e3c370a95ccb85e
 
     public function getDebugInfo()
     {
-        return array (  271 => 150,  256 => 141,  250 => 138,  244 => 135,  238 => 132,  232 => 129,  226 => 126,  220 => 123,  216 => 121,  212 => 120,  195 => 105,  180 => 96,  171 => 90,  165 => 87,  159 => 84,  155 => 82,  151 => 81,  136 => 68,  121 => 59,  115 => 56,  107 => 53,  101 => 52,  95 => 51,  82 => 41,  70 => 32,  63 => 28,  55 => 25,  49 => 23,  45 => 22,  22 => 1,);
+        return array (  279 => 150,  264 => 141,  258 => 138,  252 => 135,  246 => 132,  240 => 129,  232 => 126,  224 => 123,  220 => 121,  216 => 120,  199 => 105,  184 => 96,  175 => 90,  167 => 87,  159 => 84,  155 => 82,  151 => 81,  136 => 68,  121 => 59,  115 => 56,  107 => 53,  101 => 52,  95 => 51,  82 => 41,  70 => 32,  63 => 28,  55 => 25,  49 => 23,  45 => 22,  22 => 1,);
     }
 }

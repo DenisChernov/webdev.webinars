@@ -1,0 +1,37 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: denisch
+ * Date: 15.09.2015
+ * Time: 16:19
+ */
+
+namespace ChernovDA\WebinarsBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Class webinar_link_speakers
+ * @package WebinarsBundle\Entity
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="webtospeakers")
+ */
+class webinar_link_speakers {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $idWebinar;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $idSpeaker;
+}

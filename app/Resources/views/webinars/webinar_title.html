@@ -1,13 +1,13 @@
 <div class="web_data">
     <p class="title-big">{{ webinar.title }}</p>
     <p class="web_description">
-        {{ webinar.description }}
+        Комплекс вебинаров, проводимые компанией IT Консалтинг
     </p>
     <p class="web_register_status">
         {% if webinar.registerStatus == 2 %}
             Регистрация закрыта
         {% elseif webinar.registerStatus == 1 %}
-            Регистрация уже открыта
+            Вебинар уже начался
         {% elseif webinar.registerStatus == 0 %}
             Регистрация будет доступна с {{ webinar.dateBeg }} в {{ webinar.timeBeg }}
         {% endif %}

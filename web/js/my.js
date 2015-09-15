@@ -5,7 +5,6 @@
 var arrWebinars = [];
 var arrSpeakers = [];
 var arrUsers = [];
-var arrElements = [];
 
 $(function(){
     $('.datepicker').datetimepicker({
@@ -142,8 +141,6 @@ $('input[type=file]').change(function(){
             console.log('ajax: ' + textStatus);
         }
     });
-
-    console.log(file);
 });
 
 // запись пользователя
@@ -259,7 +256,7 @@ function elmWebinars(parent){
 function elmSpeakers(parent) {
 
             id = parent.parent().parent().find('.speakers_tbl_id > label').attr("id");
-            avatar = parent.parent().parent().find('.speakers_avatar > img').attr("src");
+            avatar = parent.parent().parent().find('.speakers_avatar > img').attr("id");
             fio = parent.parent().parent().find('.speakers_tbl_fio > input').val();
             organisation = parent.parent().parent().find('.speakers_tbl_org > input').val();
             position = parent.parent().parent().find('.speakers_tbl_position > input').val();
@@ -270,7 +267,7 @@ function elmSpeakers(parent) {
 
 function elmUsers(parent) {
             id = parent.parent().parent().find('.users_tbl_id > label').attr("id");
-            avatar = parent.parent().parent().find('.users_avatar > img').attr("src");
+            avatar = parent.parent().parent().find('.users_avatar > img').attr("id");
             fio = parent.parent().parent().find('.users_tbl_fio > input').val();
             organisation = parent.parent().parent().find('.users_tbl_org > input').val();
             position = parent.parent().parent().find('.users_tbl_position > input').val();
@@ -290,7 +287,7 @@ $('.btnDoChange').on('click', function(){
             timeBeg = elmWebinars($(this))[3];
             registerStatus = elmWebinars($(this))[4];
             description = elmWebinars($(this))[5];
-            arrElements[elmWebinars($(this))[0]] = [title, dateBeg, timeBeg, registerStatus, description];
+            arrWebinars[elmWebinars($(this))[0]] = [title, dateBeg, timeBeg, registerStatus, description];
             break;
         }
         case "table_speakers": {
@@ -299,7 +296,11 @@ $('.btnDoChange').on('click', function(){
             organisation = elmSpeakers($(this))[3];
             position = elmSpeakers($(this))[4];
             
-            arrElements[elmSpeakers($(this))[0]] = [avatar, fio, organisation, position];
+            arrSpeakers[elmSpeakers($(this))[0]] = [avatar, fio, organisation, position];
+
+            $(this).parent().parent().find('.speakers_avatar').append(
+                '<input style="width:66%" id="avatar" type="file" accept="image/*">'
+            );
             break;
         }
         case "table_users": {
@@ -310,7 +311,8 @@ $('.btnDoChange').on('click', function(){
             email = elmUsers($(this))[5];
             fio = elmUsers($(this))[6];
 
-            arrElements[elmUsers($(this))[0]] = [avatar, fio, organisation, position];
+            arrUsers[elmUsers($(this))[0]] = [avatar, fio, organisation, position];
+
             break;
         }
     }
@@ -328,8 +330,8 @@ function toggleEnabled(element, isDisabled) {
     element.parent().find('.btnApplyChange').prop("disabled", isDisabled);
     element.parent().find('.btnCancelChange').prop("disabled", isDisabled);
     element.parent().parent().find('.webinar_tbl_title > input').prop("readonly", isDisabled);
-    element.parent().parent().find('.webinar_tbl_dateBeg > input').prop("readonly", isDisabled);
-    element.parent().parent().find('.webinar_tbl_timeBeg > input').prop("readonly", isDisabled);
+    element.parent().parent().find('.datepicker > input').prop("disabled", isDisabled);
+    element.parent().parent().find('.timepicker > input').prop("disabled", isDisabled);
     element.parent().parent().find('.webinar_tbl_registerStatus > div > select').prop("disabled", isDisabled);
     element.parent().parent().find('.webinar_tbl_description > textarea').prop("readonly", isDisabled);
 
@@ -396,7 +398,7 @@ $('.btnApplyChange').on('click', function(){
             position = elmUsers($(this))[4];
             email = elmUsers($(this))[5];
             password =  elmUsers($(this))[6];
-            updateurl = "/app_dev.php/update/Users/email/password"
+            updateurl = "/app_dev.php/update/users/"
                 + id + "/"
                 + avatar + "/"
                 + fio + "/"
@@ -425,8 +427,8 @@ $('.btnCancelChange').on('click', function(){
         case "table_webinars": {
             id = elmWebinars($(this))[0];
             $(this).parent().parent().find('.webinar_tbl_title > input').val(arrWebinars[id][0]);
-            $(this).parent().parent().find('.webinar_tbl_dateBeg > input').val(arrWebinars[id][1]);
-            $(this).parent().parent().find('.webinar_tbl_timeBeg > input').val(arrWebinars[id][2]);
+            $(this).parent().parent().find('.datepicker').data("DateTimePicker").date(arrWebinars[id][1]);
+            $(this).parent().parent().find('.timepicker').data("DateTimePicker").date(arrWebinars[id][2]);
             $(this).parent().parent().find('.webinar_tbl_registerStatus > div > select').val(arrWebinars[id][3]);
             $(this).parent().parent().find('.webinar_tbl_description > textarea').val(arrWebinars[id][4]);
             break;
@@ -444,12 +446,12 @@ $('.btnCancelChange').on('click', function(){
 
         case "table_users": {
             id = elmSpeakers($(this))[0];
-            $(this).parent().parent().find('.speakers_avatar > input').val(arrSpeakers[id][0]);
-            $(this).parent().parent().find('.speakers_tbl_fio > input').val(arrSpeakers[id][1]);
-            $(this).parent().parent().find('.speakers_tbl_organisation > input').val(arrSpeakers[id][2]);
-            $(this).parent().parent().find('.speakers_tbl_position > div > select').val(arrSpeakers[id][3]);
-            $(this).parent().parent().find('.speakers_tbl_email > input').val(arrSpeakers[id][4]);
-            $(this).parent().parent().find('.speakers_tbl_password > div > select').val(arrSpeakers[id][5]);
+            $(this).parent().parent().find('.users_avatar > input').val(arrUsers[id][0]);
+            $(this).parent().parent().find('.users_tbl_fio > input').val(arrUsers[id][1]);
+            $(this).parent().parent().find('.users_tbl_organisation > input').val(arrUsers[id][2]);
+            $(this).parent().parent().find('.users_tbl_position > div > select').val(arrUsers[id][3]);
+            $(this).parent().parent().find('.users_tbl_email > input').val(arrUsers[id][4]);
+            $(this).parent().parent().find('.users_tbl_password > div > select').val(arrUsers[id][5]);
 
             break;
         }
@@ -460,9 +462,9 @@ $('.btnCancelChange').on('click', function(){
 });
 
 $('.timepicker').on('click', function(){
-    console.log($(this).data("DateTimePicker").date());
+
 });
 
 $('.datapicker').on('click', function(){
-    console.log($(this).data("DateTimePicker").date());
+
 });

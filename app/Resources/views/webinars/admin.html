@@ -29,7 +29,7 @@
                     </td>
                     <td class="table-cell webinar_tbl_dateBeg">
                             <div class="input-group date datepicker">
-                                <input class="form-control" value="{{ webinar.dateBeg }}"/>
+                                <input class="form-control" value="{{ webinar.dateBeg }}" disabled/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -38,7 +38,7 @@
                     <td class="table-cell webinar_tbl_timeBeg">
                         <div class="form-group">
                             <div class="input-group date timepicker">
-                                <input class="form-control" value="{{ webinar.timeBeg }}"/>
+                                <input class="form-control" value="{{ webinar.timeBeg }}" disabled/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-time"></span>
                                 </span>
@@ -81,10 +81,10 @@
                     {% for speaker in speakers %}
                         <tr class="table-row">
                             <td class="table-cell speakers_tbl_id">
-                                <label class="control-label">{{ speaker.id }}</label>
+                                <label class="control-label" id="{{ speaker.id }}">{{ speaker.id }}</label>
                             </td>
                             <td class="table-cell speakers_avatar">
-                                <img class="admin_speakers_avatar" src="{{ speaker.pic }}"/>
+                                <img class="admin_speakers_avatar" id="{{ speaker.pic }}" src="/images/{{ speaker.pic }}"/>
                             </td>
                             <td class="table-cell speakers_tbl_fio">
                                 <input type="text" class="form-control" readonly value="{{ speaker.fio }}"/>
@@ -120,10 +120,10 @@
                     {% for reguser in users %}
                     <tr class="table-row">
                         <td class="table-cell users_tbl_id">
-                            <label class="control-label">{{ reguser.id }}</label>
+                            <label class="control-label" id="{{ reguser.id }}">{{ reguser.id }}</label>
                         </td>
                         <td class="table-cell users_avatar">
-                            <img class="admin_speakers_avatar" src="/images/{{ reguser.avatar }}"/>
+                            <img class="admin_speakers_avatar" id="{{ reguser.avatar }}" src="/images/{{ reguser.avatar }}"/>
                         </td>
                         <td class="table-cell users_tbl_fio">
                             <input type="text" class="form-control" readonly value="{{ reguser.fio }}"/>
