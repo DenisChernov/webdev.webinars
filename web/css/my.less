@@ -352,16 +352,73 @@ body {
   position: absolute;
   top: 14%;
   left: 14%;
+  width: 70%;
 }
 
 .table {
   display: table;
+  border: 0px solid;
 }
 
 .table-caption {
-  display: table-caption;
+//  display: table-caption;
+  border: 1px solid;
+  border-bottom: 1px solid;
+  background-color: #56c4cc;
+  text-align: center;
+}
+
+.table-row {
+  display: table-row;
 }
 
 .table-cell {
   display: table-cell;
+  border: 1px dotted;
+
+  .admin_speakers_avatar {
+    width: 100%;
+  }
+}
+
+.speakers_avatar {
+  width: 10%;
+}
+
+.webinar_tbl_title {
+  width: 30%;
+}
+
+.webinar_tbl_dateBeg {
+  width: 13%;
+}
+
+.webinar_tbl_timeBeg {
+  width: 10%;
+}
+
+.webinar_tbl_registerStatus {
+  width: 13%;
+}
+
+.webinar_tbl_description {
+  width: 38%;
+}
+
+.speaker_tbl_fio {
+  width: 30%;
+}
+
+.users_avatar {
+  width: 10%;
+}
+
+#btn_newWebinar,
+#btn_newSpeaker,
+#btn_newUser {
+    -webkit-transform: scale(-0.7);
+    -moz-transform: scale(-0.7);
+    -ms-transform: scale(-0.7);
+    -o-transform: scale(-0.7);
+    transform: scale(-0.7);
 }

@@ -1,32 +1,154 @@
 <div class="admin_page">
 
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab_webinars" data-toggle="tab">Вебинары</a></li>
-        <li><a href="#tab_speakers" data-toggle="tab">Спикеры</a></li>
-        <li><a href="#tab_users" data-toggle="tab">Участники</a></li>
+        <li><a href="#tab_webinars" data-toggle="tab">Вебинары<button type="button" id="btn_newWebinar" class="btn btn-default btn-lg btnAdd>"><span class="glyphicon glyphicon-plus"></span></button></a></li>
+        <li class="active"><a href="#tab_speakers" data-toggle="tab">Спикеры<button id="btn_newSpeaker" type="button" class="btn btn-default btn-lg btnAdd>"><span class="glyphicon glyphicon-plus"></span></button></a></li>
+        <li><a href="#tab_users" data-toggle="tab">Участники<button type="button" id="btn_newUser" class="btn btn-default btn-lg btnAdd>"><span class="glyphicon glyphicon-plus"></span></button></a></li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div class="tab-pane fade active" id="tab_webinars">
+        <div class="tab-pane fade" id="tab_webinars">
+            <table class="table table-stripped table-hover" id="table_webinars">
+                <tr class="table-caption">
+                    <td class="table-cell">#</td>
+                    <td class="table-cell">Заглавие</td>
+                    <td class="table-cell">Дата начала</td>
+                    <td class="table-cell">Время начала</td>
+                    <td class="table-cell">Статус активности</td>
+                    <td class="table-cell">Описание</td>
+                    <td class="table-cell" style="display: none"></td>
+                </tr>
             {% for webinar in webinars %}
-                {{ webinar.title }}
-            {% endfor %}
-        </div>
-        <div class="tab-pane fade" id="tab_speakers">
-            <div class="table-responsive">
-                <div class="table">
-                    <div class="table-caption">
-                        {% for speaker in speakers %}
-                        <div class="table-cell">
-                            {{ speaker.fio }}
+                <tr class="table-row" id="{{webinar.id}}">
+                    <td class="table-cell webinar_tbl_id">
+                        <label class="control-label" id="{{ webinar.id }}">{{ webinar.id }}</label>
+                    </td>
+                    <td class="table-cell webinar_tbl_title">
+                        <input readonly class="form-control" value="{{ webinar.title }}"/>
+                    </td>
+                    <td class="table-cell webinar_tbl_dateBeg">
+                            <div class="input-group date datepicker">
+                                <input class="form-control" value="{{ webinar.dateBeg }}"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                    </td>
+                    <td class="table-cell webinar_tbl_timeBeg">
+                        <div class="form-group">
+                            <div class="input-group date timepicker">
+                                <input class="form-control" value="{{ webinar.timeBeg }}"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time"></span>
+                                </span>
+                            </div>
                         </div>
-                        {% endfor %}
-                    </div>
-                </div>
+                    </td>
+                    <td class="table-cell webinar_tbl_registerStatus">
+                        <div class="selectContainer">
+                            <select disabled name="language" class="form-control">
+                                <option value="0" {% if webinar.registerStatus == 0 %} selected {% endif %}>0 - Предстоит</option>
+                                <option value="1" {% if webinar.registerStatus == 1 %} selected {% endif %}>1 - В процессе</option>
+                                <option value="2" {% if webinar.registerStatus == 2 %} selected {% endif %}>2 - Окончен</option>
+                            </select>
+                        </div>
+                        <!--input class="form-control" value="{{ webinar.registerStatus }}"/-->
+                    </td>
+                    <td class="table-cell webinar_tbl_description">
+                        <textarea readonly class="form-control" rows="4">{{ webinar.description }}</textarea>
+                    </td>
+                    <td class="table-cell" style="padding-top: 12px">
+                        <button title="Сохранить изменения" type="button" class="btn btn-default btnApplyChange" disabled><span class="glyphicon glyphicon-ok"></span></button>
+                        <button title="Отменить изменения" type="button" class="btn btn-default btnCancelChange" disabled><span class="glyphicon glyphicon-remove"></span></button>
+                        <button title="Внести изменения" type="button" class="btn btn-default btnDoChange"><span class="glyphicon glyphicon-pencil"></span></button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+        <div class="tab-pane fade active" id="tab_speakers">
+            <div class="table-responsive">
+
+                <table class="table table-stripped" id="table_speakers">
+                    <tr class="table-caption">
+                        <td class="table-cell">#</td>
+                        <td class="table-cell">Фотография</td>
+                        <td class="table-cell">ФИО</td>
+                        <td class="table-cell">Организация</td>
+                        <td class="table-cell">Должность</td>
+                    </tr>
+                    {% for speaker in speakers %}
+                        <tr class="table-row">
+                            <td class="table-cell speakers_tbl_id">
+                                <label class="control-label">{{ speaker.id }}</label>
+                            </td>
+                            <td class="table-cell speakers_avatar">
+                                <img class="admin_speakers_avatar" src="{{ speaker.pic }}"/>
+                            </td>
+                            <td class="table-cell speakers_tbl_fio">
+                                <input type="text" class="form-control" readonly value="{{ speaker.fio }}"/>
+                            </td>
+                            <td class="table-cell speakers_tbl_org">
+                                <input type="text" class="form-control" readonly value="IT Консалтинг" />
+                            </td>
+                            <td class="table-cell speakers_tbl_position">
+                                <input type="text" class="form-control" readonly value="{{ speaker.position }}"/>
+                            </td>
+                            <td class="table-cell" style="padding-top: 12px; width:4%;">
+                                <button title="Сохранить изменения" type="button" class="btn btn-default btnApplyChange" disabled><span class="glyphicon glyphicon-ok"></span></button>
+                                <button title="Отменить изменения" type="button" class="btn btn-default btnCancelChange" disabled><span class="glyphicon glyphicon-remove"></span></button>
+                                <button title="Внести изменения" type="button" class="btn btn-default btnDoChange"><span class="glyphicon glyphicon-pencil"></span></button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
             </div>
         </div>
         <div class="tab-pane fade" id="tab_users">
+            <div class="table-responsive">
+                <table class="table table-stripped" id="table_users">
+                    <tr class="table-caption">
+                        <td class="table-cell">#</td>
+                        <td class="table-cell">Фотография</td>
+                        <td class="table-cell">ФИО</td>
+                        <td class="table-cell">Организация</td>
+                        <td class="table-cell">Должность</td>
+                        <td class="table-cell">E-mail</td>
+                        <td class="table-cell">Пароль</td>
+                    </tr>
+                    {% for reguser in users %}
+                    <tr class="table-row">
+                        <td class="table-cell users_tbl_id">
+                            <label class="control-label">{{ reguser.id }}</label>
+                        </td>
+                        <td class="table-cell users_avatar">
+                            <img class="admin_speakers_avatar" src="/images/{{ reguser.avatar }}"/>
+                        </td>
+                        <td class="table-cell users_tbl_fio">
+                            <input type="text" class="form-control" readonly value="{{ reguser.fio }}"/>
+                        </td>
+                        <td class="table-cell users_tbl_org">
+                            <input type="text" class="form-control" readonly value="{{ reguser.work }}" />
+                        </td>
+                        <td class="table-cell users_tbl_position">
+                            <input type="text" class="form-control" readonly value="{{ reguser.position }}"/>
+                        </td>
+                        <td class="table-cell users_tbl_email">
+                            <input type="text" class="form-control" readonly value="{{ reguser.email }}"/>
+                        </td>
+                        <td class="table-cell users_tbl_password">
+                            <input type="text" class="form-control" readonly value="{{ reguser.password }}"/>
+                        </td>
+                        <td class="table-cell" style="padding-top: 12px; width:4%;">
+                            <button title="Сохранить изменения" type="button" class="btn btn-default btnApplyChange" disabled><span class="glyphicon glyphicon-ok"></span></button>
+                            <button title="Отменить изменения" type="button" class="btn btn-default btnCancelChange" disabled><span class="glyphicon glyphicon-remove"></span></button>
+                            <button title="Внести изменения" type="button" class="btn btn-default btnDoChange"><span class="glyphicon glyphicon-pencil"></span></button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
 
         </div>
     </div>

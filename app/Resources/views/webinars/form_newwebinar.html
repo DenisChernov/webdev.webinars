@@ -1,0 +1,37 @@
+<div class="modal fade" id="form_createWebinar">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Добавить вебинар</h4>
+            </div>
+            <div class="modal-body">
+
+                <label for="webinar_title" class="control-label">Заглавие</label>
+                <input class="form-control" id="webinar_title" type="text" placeholder="Заглавие вебинара">
+
+                <label for="webinar_dateBeg" class="control-label">Дата начала</label>
+                <input class="form-control" id="webinar_dateBeg" type="date" placeholder="Дата начала проведения вебинара">
+
+                <label for="webinar_timeBeg" class="control-label">Время начала</label>
+                <input class="form-control" id="webinar_timeBeg" type="time" placeholder="Время начала проведения вебинара">
+
+                <label for="webinar_regStatus" class="control-label">Статус активности</label>
+                <!--input class="form-control" id="webinar_regStatus" type="text" placeholder="Ваша организация"-->
+                <div class="selectContainer">
+                    <select id="webinar_regStatus" name="language" class="form-control">
+                        <option value="0">0 - Предстоит</option>
+                        <option value="1">1 - В процессе</option>
+                        <option value="2">2 - Окончен</option>
+                    </select>
+                </div>
+
+                <label for="webinar_description" class="control-label">Описание</label>
+                <textarea class="form-control" id="webinar_description" rows="4" placeholder="Описание вебинара"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btnRegisterWebinar">Добавить</button>
+            </div>
+        </div>
+    </div>
+</div>

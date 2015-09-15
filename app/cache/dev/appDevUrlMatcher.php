@@ -149,17 +149,32 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::webinarAction',  '_route' => 'chernovda_webinars_webinar_webinar',);
         }
 
-        if (0 === strpos($pathinfo, '/new')) {
-            // chernovda_webinars_webinar_newwebinar
-            if (0 === strpos($pathinfo, '/new/webinar') && preg_match('#^/new/webinar/(?P<title>[^/]++)/(?P<date_beg>[^/]++)/(?P<time_beg>[^/]++)/(?P<description>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'chernovda_webinars_webinar_newwebinar')), array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::newWebinarAction',));
+        // chernovda_webinars_webinar_newwebinar
+        if (0 === strpos($pathinfo, '/new/webinar') && preg_match('#^/new/webinar/(?P<title>[^/]++)/(?P<date_beg>[^/]++)/(?P<time_beg>[^/]++)/(?P<reg_status>[^/]++)/(?P<description>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'chernovda_webinars_webinar_newwebinar')), array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::newWebinarAction',));
+        }
+
+        if (0 === strpos($pathinfo, '/update')) {
+            // chernovda_webinars_webinar_updatewebinar
+            if (0 === strpos($pathinfo, '/update/webinar') && preg_match('#^/update/webinar/(?P<id>[^/]++)/(?P<title>[^/]++)/(?P<date_beg>[^/]++)/(?P<time_beg>[^/]++)/(?P<reg_status>[^/]++)/(?P<description>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'chernovda_webinars_webinar_updatewebinar')), array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::updateWebinarAction',));
             }
 
-            // chernovda_webinars_webinar_newreguser
-            if (0 === strpos($pathinfo, '/new/reguser') && preg_match('#^/new/reguser/(?P<email>[^/]++)/(?P<password>[^/]++)/(?P<avatar>[^/]++)/(?P<fio>[^/]++)/(?P<organisation>[^/]++)/(?P<position>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'chernovda_webinars_webinar_newreguser')), array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::newReguserAction',));
+            // chernovda_webinars_webinar_updatespeakers
+            if (0 === strpos($pathinfo, '/update/speakers') && preg_match('#^/update/speakers/(?P<id>[^/]++)/(?P<avatar>[^/]++)/(?P<fio>[^/]++)/(?P<organisation>[^/]++)/(?P<position>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'chernovda_webinars_webinar_updatespeakers')), array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::updateSpeakersAction',));
             }
 
+            // chernovda_webinars_webinar_updateusers
+            if (0 === strpos($pathinfo, '/update/users') && preg_match('#^/update/users/(?P<id>[^/]++)/(?P<avatar>[^/]++)/(?P<fio>[^/]++)/(?P<organisation>[^/]++)/(?P<position>[^/]++)/(?P<email>[^/]++)/(?P<password>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'chernovda_webinars_webinar_updateusers')), array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::updateUsersAction',));
+            }
+
+        }
+
+        // chernovda_webinars_webinar_newreguser
+        if (0 === strpos($pathinfo, '/new/reguser') && preg_match('#^/new/reguser/(?P<email>[^/]++)/(?P<password>[^/]++)/(?P<avatar>[^/]++)/(?P<fio>[^/]++)/(?P<organisation>[^/]++)/(?P<position>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'chernovda_webinars_webinar_newreguser')), array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::newReguserAction',));
         }
 
         if (0 === strpos($pathinfo, '/.')) {

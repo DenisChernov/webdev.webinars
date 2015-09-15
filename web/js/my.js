@@ -2,6 +2,27 @@
  * Created by denisch on 04.09.2015.
  */
 
+var arrWebinars = [];
+var arrSpeakers = [];
+var arrUsers = [];
+var arrElements = [];
+
+$(function(){
+    $('.datepicker').datetimepicker({
+            locale: 'ru',
+            format: 'DD-MM-YYYY',
+            showTodayButton: true
+        }
+    );
+
+    $('.timepicker').datetimepicker({
+            locale: 'ru',
+            format: 'HH:mm'
+        }
+    );
+
+});
+
 $(window).on('scroll', function(){
     if ($(window).scrollTop() > 300) {
         $('.header_mnu').addClass('show_bg_header_mnu');
@@ -75,6 +96,10 @@ $('#btn_register').on('click', function(){
 
     //$('.form_register').css({"left" : left, "top" : "100px"});
     $('#form_register').modal('show');
+});
+
+$('#btn_newWebinar').on('click', function(){
+    $('#form_createWebinar').modal('show');
 });
 
 $(window).on('resize', function(){
@@ -168,4 +193,276 @@ $('#btnRegisterUser').on('click', function(){
 
 $('.view_full_info').on('click', function(){
 
+});
+
+$('#btnRegisterWebinar').on('click', function(){
+   regurl = "/app_dev.php/new/webinar/" +
+       $('#form_createWebinar').find('#webinar_title').val() + "/" +
+       $('#form_createWebinar').find('#webinar_dateBeg').val() + "/" +
+       $('#form_createWebinar').find('#webinar_timeBeg').val() + "/" +
+       $('#form_createWebinar').find('#webinar_regStatus').val() + "/" +
+       $('#form_createWebinar').find('#webinar_description').val();
+
+    console.log(regurl);
+    $.ajax({
+        type: "POST",
+        url: regurl,
+        success: function(){
+            $('#table_webinars > tbody').append(
+                '<tr class="table-row">' +
+                '<td class="table-cell webinar_tbl_id">' +
+                    '<label class="control-label">+</label>' +
+                '</td>' +
+                '<td class="table-cell webinar_tbl_title">' +
+                    '<input class="form-control" value="' + $('#form_createWebinar').find('#webinar_title').val() + '"/>' +
+                '</td>' +
+                '<td class="table-cell webinar_tbl_dateBeg">' +
+                    '<input class="form-control" value="' + $('#form_createWebinar').find('#webinar_dateBeg').val() + '"/>' +
+                '</td>' +
+                '<td class="table-cell webinar_tbl_timeBeg">' +
+                    '<input class="form-control" value="' + $('#form_createWebinar').find('#webinar_timeBeg').val() + '"/>' +
+                '</td>' +
+                '<td class="table-cell webinar_tbl_registerStatus">' +
+                    '<div class="selectContainer">' +
+                        '<select name="language" class="form-control">' +
+                            '<option value="0"' + ($('#form_createWebinar').find('#webinar_regStatus').val() == 0 ? ' selected' : '') + '>0 - Предстоит</option>' +
+                            '<option value="1"' + ($('#form_createWebinar').find('#webinar_regStatus').val() == 1 ? ' selected' : '') + '>1 - В процессе</option>' +
+                            '<option value="2"' + ($('#form_createWebinar').find('#webinar_regStatus').val() == 2 ? ' selected' : '') + '>2 - Окончен</option>' +
+                        '</select>' +
+                    '</div>' +
+                '</td>' +
+                '<td class="table-cell webinar_tbl_description">' +
+                    '<textarea class="form-control" rows="4">' + $('#form_createWebinar').find('#webinar_description').val() +'</textarea>' +
+                '</td>' +
+                '</tr>'
+            );
+        }
+    });
+
+});
+
+/*
+    Хранит в себе массив элементов находящихся у родительской строки таблицы
+    [id, title, dateBeg, timeBeg, registerStatus, description]
+ */
+function elmWebinars(parent){
+            id = parent.parent().parent().find('.webinar_tbl_id > label').attr("id");
+            title = parent.parent().parent().find('.webinar_tbl_title > input').val();
+            dateBeg = parent.parent().parent().find('.datepicker').data("DateTimePicker").date()._i;
+            timeBeg = parent.parent().parent().find('.timepicker').data("DateTimePicker").date()._i;
+            registerStatus = parent.parent().parent().find('.webinar_tbl_registerStatus > div > select').val();
+            description = parent.parent().parent().find('.webinar_tbl_description > textarea').val();
+
+            return [id, title, dateBeg, timeBeg, registerStatus, description];
+}
+
+function elmSpeakers(parent) {
+
+            id = parent.parent().parent().find('.speakers_tbl_id > label').attr("id");
+            avatar = parent.parent().parent().find('.speakers_avatar > img').attr("src");
+            fio = parent.parent().parent().find('.speakers_tbl_fio > input').val();
+            organisation = parent.parent().parent().find('.speakers_tbl_org > input').val();
+            position = parent.parent().parent().find('.speakers_tbl_position > input').val();
+
+            return [id, avatar, fio, organisation, position];
+
+}
+
+function elmUsers(parent) {
+            id = parent.parent().parent().find('.users_tbl_id > label').attr("id");
+            avatar = parent.parent().parent().find('.users_avatar > img').attr("src");
+            fio = parent.parent().parent().find('.users_tbl_fio > input').val();
+            organisation = parent.parent().parent().find('.users_tbl_org > input').val();
+            position = parent.parent().parent().find('.users_tbl_position > input').val();
+            email = parent.parent().parent().find('.users_tbl_email > input').val();
+            password = parent.parent().parent().find('.users_tbl_password > input').val();
+
+            return [id, avatar, fio, organisation, position, email, password];
+}
+
+$('.btnDoChange').on('click', function(){
+    toggleEnabled($(this),false);
+
+    switch ($(this).parent().parent().parent().parent().prop("id")) {
+        case "table_webinars": {
+            title = elmWebinars($(this))[1];
+            dateBeg = elmWebinars($(this))[2];
+            timeBeg = elmWebinars($(this))[3];
+            registerStatus = elmWebinars($(this))[4];
+            description = elmWebinars($(this))[5];
+            arrElements[elmWebinars($(this))[0]] = [title, dateBeg, timeBeg, registerStatus, description];
+            break;
+        }
+        case "table_speakers": {
+            avatar = elmSpeakers($(this))[1];
+            fio = elmSpeakers($(this))[2];
+            organisation = elmSpeakers($(this))[3];
+            position = elmSpeakers($(this))[4];
+            
+            arrElements[elmSpeakers($(this))[0]] = [avatar, fio, organisation, position];
+            break;
+        }
+        case "table_users": {
+            avatar = elmUsers($(this))[1];
+            fio = elmUsers($(this))[2];
+            organisation = elmUsers($(this))[3];
+            position = elmUsers($(this))[4];
+            email = elmUsers($(this))[5];
+            fio = elmUsers($(this))[6];
+
+            arrElements[elmUsers($(this))[0]] = [avatar, fio, organisation, position];
+            break;
+        }
+    }
+});
+
+function toggleEnabled(element, isDisabled) {
+    /** блок кнопок
+     *   $(this).parent();
+     */
+
+    /** строка таблицы
+     *   $(this).parent().parent();
+     */
+    element.parent().find('.btnDoChange').prop("disabled", !isDisabled);
+    element.parent().find('.btnApplyChange').prop("disabled", isDisabled);
+    element.parent().find('.btnCancelChange').prop("disabled", isDisabled);
+    element.parent().parent().find('.webinar_tbl_title > input').prop("readonly", isDisabled);
+    element.parent().parent().find('.webinar_tbl_dateBeg > input').prop("readonly", isDisabled);
+    element.parent().parent().find('.webinar_tbl_timeBeg > input').prop("readonly", isDisabled);
+    element.parent().parent().find('.webinar_tbl_registerStatus > div > select').prop("disabled", isDisabled);
+    element.parent().parent().find('.webinar_tbl_description > textarea').prop("readonly", isDisabled);
+
+    element.parent().parent().find('.speakers_tbl_fio > input').prop("readonly", isDisabled);
+    element.parent().parent().find('.speakers_tbl_org > input').prop("readonly", isDisabled);
+    element.parent().parent().find('.speakers_tbl_position > input').prop("readonly", isDisabled);
+
+    element.parent().parent().find('.users_tbl_fio > input').prop("readonly", isDisabled);
+    element.parent().parent().find('.users_tbl_org > input').prop("readonly", isDisabled);
+    element.parent().parent().find('.users_tbl_position > input').prop("readonly", isDisabled);
+    element.parent().parent().find('.users_tbl_email > input').prop("readonly", isDisabled);
+    element.parent().parent().find('.users_tbl_password > input').prop("readonly", isDisabled);
+}
+
+$('.btnApplyChange').on('click', function(){
+    /** блок кнопок
+     *   $(this).parent();
+     */
+
+    /** строка таблицы
+     *   $(this).parent().parent();
+     */
+    switch ($(this).parent().parent().parent().parent().prop("id")) {
+        case "table_webinars": {
+            id = elmWebinars($(this))[0];
+            title = elmWebinars($(this))[1];
+            dateBeg = elmWebinars($(this))[2];
+            timeBeg = elmWebinars($(this))[3];
+            registerStatus = elmWebinars($(this))[4];
+            description = elmWebinars($(this))[5];
+
+            updateurl = "/app_dev.php/update/webinar/"
+                + id + "/"
+                + title + "/"
+                + dateBeg + "/"
+                + timeBeg + "/"
+                + registerStatus + "/"
+                + description;
+
+            break;
+        }
+
+        case "table_speakers": {
+            id = elmSpeakers($(this))[0];
+            avatar = elmSpeakers($(this))[1];
+            fio = elmSpeakers($(this))[2];
+            organisation = elmSpeakers($(this))[3];
+            position = elmSpeakers($(this))[4];
+
+            updateurl = "/app_dev.php/update/speakers/"
+                + id + "/"
+                + avatar + "/"
+                + fio + "/"
+                + organisation + "/"
+                + position;
+            break;
+        }
+
+        case "table_users": {
+            id = elmUsers($(this))[0];
+            avatar = elmUsers($(this))[1];
+            fio = elmUsers($(this))[2];
+            organisation = elmUsers($(this))[3];
+            position = elmUsers($(this))[4];
+            email = elmUsers($(this))[5];
+            password =  elmUsers($(this))[6];
+            updateurl = "/app_dev.php/update/Users/email/password"
+                + id + "/"
+                + avatar + "/"
+                + fio + "/"
+                + organisation + "/"
+                + position + "/"
+                + email + "/"
+                + password;
+
+            break;
+        }
+
+    }
+
+
+    $.ajax({
+        type: "POST",
+        url: updateurl
+    });
+
+
+    toggleEnabled($(this), true);
+});
+
+$('.btnCancelChange').on('click', function(){
+    switch ($(this).parent().parent().parent().parent().prop("id")) {
+        case "table_webinars": {
+            id = elmWebinars($(this))[0];
+            $(this).parent().parent().find('.webinar_tbl_title > input').val(arrWebinars[id][0]);
+            $(this).parent().parent().find('.webinar_tbl_dateBeg > input').val(arrWebinars[id][1]);
+            $(this).parent().parent().find('.webinar_tbl_timeBeg > input').val(arrWebinars[id][2]);
+            $(this).parent().parent().find('.webinar_tbl_registerStatus > div > select').val(arrWebinars[id][3]);
+            $(this).parent().parent().find('.webinar_tbl_description > textarea').val(arrWebinars[id][4]);
+            break;
+        }
+
+        case "table_speakers": {
+            id = elmSpeakers($(this))[0];
+            $(this).parent().parent().find('.speakers_avatar > input').val(arrSpeakers[id][0]);
+            $(this).parent().parent().find('.speakers_tbl_fio > input').val(arrSpeakers[id][1]);
+            $(this).parent().parent().find('.speakers_tbl_organisation > input').val(arrSpeakers[id][2]);
+            $(this).parent().parent().find('.speakers_tbl_position > div > select').val(arrSpeakers[id][3]);
+
+            break;
+        }
+
+        case "table_users": {
+            id = elmSpeakers($(this))[0];
+            $(this).parent().parent().find('.speakers_avatar > input').val(arrSpeakers[id][0]);
+            $(this).parent().parent().find('.speakers_tbl_fio > input').val(arrSpeakers[id][1]);
+            $(this).parent().parent().find('.speakers_tbl_organisation > input').val(arrSpeakers[id][2]);
+            $(this).parent().parent().find('.speakers_tbl_position > div > select').val(arrSpeakers[id][3]);
+            $(this).parent().parent().find('.speakers_tbl_email > input').val(arrSpeakers[id][4]);
+            $(this).parent().parent().find('.speakers_tbl_password > div > select').val(arrSpeakers[id][5]);
+
+            break;
+        }
+    }
+
+
+    toggleEnabled($(this), true);
+});
+
+$('.timepicker').on('click', function(){
+    console.log($(this).data("DateTimePicker").date());
+});
+
+$('.datapicker').on('click', function(){
+    console.log($(this).data("DateTimePicker").date());
 });

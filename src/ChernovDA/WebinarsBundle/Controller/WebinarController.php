@@ -48,14 +48,15 @@ class WebinarController extends Controller {
     }
 
     /**
-     * @Route("/new/webinar/{title}/{date_beg}/{time_beg}/{description}")
+     * @Route("/new/webinar/{title}/{date_beg}/{time_beg}/{reg_status}/{description}")
      */
-    public function newWebinarAction($title, $date_beg, $time_beg, $description) {
+    public function newWebinarAction($title, $date_beg, $time_beg, $reg_status, $description) {
 
         $webinars = new webinars();
         $webinars->setTitle($title)
             ->setDescription($description)
             ->setDateBeg($date_beg)
+            ->setRegisterStatus($reg_status)
             ->setTimeBeg($time_beg);
         $em = $this->getDoctrine()->getManager();
         $em->persist($webinars);
@@ -67,6 +68,89 @@ class WebinarController extends Controller {
                   "description" => $description,
                   "date_beg" => $date_beg,
                   "time_beg" => $time_beg)
+        );
+    }
+
+    /**
+     * @Route("/update/webinar/{id}/{title}/{date_beg}/{time_beg}/{reg_status}/{description}")
+     */
+    public function updateWebinarAction($id, $title, $date_beg, $time_beg, $reg_status, $description) {
+
+        $em = $this->getDoctrine()->getManager();
+        $webinar = $em->getRepository('ChernovDAWebinarsBundle:webinars')->find($id);
+        if ($webinar) {
+            $webinar->setTitle($title)
+                    ->setDateBeg($date_beg)
+                    ->setTimeBeg($time_beg)
+                    ->setRegisterStatus($reg_status)
+                    ->setDescription($description);
+
+            $em->flush();
+        }
+        else {
+            throw $this->createNotFoundException(
+                'No webinars exist'
+            );
+        }
+
+        return $this->render(
+            'webinars/create_webinar.html.twig',
+            array("title" => $webinar,
+                "description" => $description,
+                "date_beg" => $date_beg,
+                "time_beg" => $time_beg)
+        );
+    }
+
+    /**
+     * @Route("/update/speakers/{id}/{avatar}/{fio}/{organisation}/{position}")
+     */
+    public function updateSpeakersAction($id, $avatar, $fio, $organisation, $position) {
+
+        $em = $this->getDoctrine()->getManager();
+        $speakers = $em->getRepository('ChernovDAWebinarsBundle:speakers')->find($id);
+        if ($speakers) {
+            $speakers->setPic($avatar)
+                ->setFio($fio)
+                ->setPosition($position);
+
+            $em->flush();
+        }
+        else {
+            throw $this->createNotFoundException(
+                'No speakers exist'
+            );
+        }
+
+        return $this->render(
+            'webinars/page_admin.html.twig'
+        );
+    }
+
+    /**
+     * @Route("/update/users/{id}/{avatar}/{fio}/{organisation}/{position}/{email}/{password}")
+     */
+    public function updateUsersAction($id, $avatar, $fio, $organisation, $position, $email, $password) {
+
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('ChernovDAWebinarsBundle:users')->find($id);
+        if ($users) {
+            $users->setAvatar($avatar)
+                ->setFio($fio)
+                ->setPosition($position)
+                ->setEmail($email)
+                ->setPassword($password);
+
+            $em->flush();
+        }
+        else {
+            throw $this->createNotFoundException(
+                'No users exist'
+            );
+        }
+
+        return $this->render(
+            'webinars/page_admin.html.twig'
         );
     }
 
