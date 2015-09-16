@@ -6,6 +6,8 @@ var arrWebinars = [];
 var arrSpeakers = [];
 var arrUsers = [];
 
+var centerScreen;
+
 $(function(){
     $('.datepicker').datetimepicker({
             locale: 'ru',
@@ -19,6 +21,8 @@ $(function(){
             format: 'HH:mm'
         }
     );
+
+    $('input[type=file]').bootstrapFileInput();
 
 });
 
@@ -44,9 +48,9 @@ $(window).on('scroll', function(){
 
     }
 
-    console.log($(window).scrollTop());
+    //console.log($(window).scrollTop());
 
-    if ($(window).scrollTop() > 560) {
+    if ($(window).scrollTop() > 912) {
         $('.speaker_data').css({
             opacity: "1",
             transform: 'translateY(-100px)'
@@ -66,6 +70,14 @@ $('.scroll_to_speakers').on('click', function(){
         800
     );
 });
+
+$('.scroll_to_anons').on('click', function(){
+    $('html, body').animate({
+            scrollTop: $('#comming_webinar').offset().top},
+        800
+    );
+});
+
 
 $('#btn_speakers').on('click', function(){
     $('html, body').animate({
@@ -105,6 +117,9 @@ $(window).on('resize', function(){
     var left = ($(window).width() / 2) - (parseInt($('#form_register').css('width')) / 2);
     $('#form_register').css("left", left);
 
+    console.log($(window).width() + "x" + $(window).height());
+    centerScreen = $(window).width() / 2 - $('.readmore').width() / 2;
+    $('.readmore').css("left", centerScreen);
 });
 
 var file;
@@ -249,12 +264,14 @@ function elmWebinars(parent){
             timeBeg = parent.parent().parent().find('.timepicker').data("DateTimePicker").date()._i;
             registerStatus = parent.parent().parent().find('.webinar_tbl_registerStatus > div > select').val();
             description = parent.parent().parent().find('.webinar_tbl_description > textarea').val();
+            pic = parent.parent().parent().find('.webinar_tbl_picture > img').attr("src");
+            pic = pic.substr(pic.lastIndexOf("/") + 1, pic.length - pic.lastIndexOf("/"));
 
-            return [id, title, dateBeg, timeBeg, registerStatus, description];
+            console.log(parent.parent().parent().find('.webinar_tbl_picture > img').attr("src"));
+            return [id, title, dateBeg, timeBeg, registerStatus, description, pic];
 }
 
 function elmSpeakers(parent) {
-
             id = parent.parent().parent().find('.speakers_tbl_id > label').attr("id");
             avatar = parent.parent().parent().find('.speakers_avatar > img').attr("id");
             fio = parent.parent().parent().find('.speakers_tbl_fio > input').val();
@@ -262,7 +279,6 @@ function elmSpeakers(parent) {
             position = parent.parent().parent().find('.speakers_tbl_position > input').val();
 
             return [id, avatar, fio, organisation, position];
-
 }
 
 function elmUsers(parent) {
@@ -282,6 +298,7 @@ $('.btnDoChange').on('click', function(){
 
     switch ($(this).parent().parent().parent().parent().prop("id")) {
         case "table_webinars": {
+            $('.no-pic').prop('visibility', 'visible');
             title = elmWebinars($(this))[1];
             dateBeg = elmWebinars($(this))[2];
             timeBeg = elmWebinars($(this))[3];
@@ -310,7 +327,6 @@ $('.btnDoChange').on('click', function(){
             position = elmUsers($(this))[4];
             email = elmUsers($(this))[5];
             fio = elmUsers($(this))[6];
-
             arrUsers[elmUsers($(this))[0]] = [avatar, fio, organisation, position];
 
             break;
@@ -334,6 +350,7 @@ function toggleEnabled(element, isDisabled) {
     element.parent().parent().find('.timepicker > input').prop("disabled", isDisabled);
     element.parent().parent().find('.webinar_tbl_registerStatus > div > select').prop("disabled", isDisabled);
     element.parent().parent().find('.webinar_tbl_description > textarea').prop("readonly", isDisabled);
+    element.parent().parent().find('#webinar_picture_upload').prop("disabled", isDisabled);
 
     element.parent().parent().find('.speakers_tbl_fio > input').prop("readonly", isDisabled);
     element.parent().parent().find('.speakers_tbl_org > input').prop("readonly", isDisabled);
@@ -362,6 +379,7 @@ $('.btnApplyChange').on('click', function(){
             timeBeg = elmWebinars($(this))[3];
             registerStatus = elmWebinars($(this))[4];
             description = elmWebinars($(this))[5];
+            pic = elmWebinars($(this))[6];
 
             updateurl = "/app_dev.php/update/webinar/"
                 + id + "/"
@@ -369,7 +387,8 @@ $('.btnApplyChange').on('click', function(){
                 + dateBeg + "/"
                 + timeBeg + "/"
                 + registerStatus + "/"
-                + description;
+                + description + "/"
+                + pic;
 
             break;
         }
@@ -467,4 +486,41 @@ $('.timepicker').on('click', function(){
 
 $('.datapicker').on('click', function(){
 
+});
+
+$('#webinar_picture_upload').on('change', function(){
+    file = this.files;
+    var data = new FormData();
+    $.each(file, function(key, value){
+        data.append(key, value);
+        console.log(value);
+    });
+
+    $.ajax({
+        url: '/uploadavatar.php?uploadfile',
+        type: 'POST',
+        data: data,
+        cache: false,
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        success: function(respond, textStatus, jqXHR) {
+            if (typeof respond.error === 'undefined') {
+                // все впорядке. файл загружен
+                var file_path = respond.files;
+                $.each(file_path, function(key, value) {
+                    $('.no-pic').prop("src", "/uploads/" + value);
+                    $(this).parent().find('.glyphicon').removeClass('glyphicon-circle-arrow-up');
+                    console.log($(this).parent().find('.glyphicon'));
+                    file = value;
+                });
+            }
+            else {
+                console.log('php: ' + respond.error);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            console.log('ajax: ' + textStatus);
+        }
+    });
 });

@@ -73,9 +73,9 @@ class WebinarController extends Controller {
     }
 
     /**
-     * @Route("/update/webinar/{id}/{title}/{date_beg}/{time_beg}/{reg_status}/{description}")
+     * @Route("/update/webinar/{id}/{title}/{date_beg}/{time_beg}/{reg_status}/{description}/{pic}")
      */
-    public function updateWebinarAction($id, $title, $date_beg, $time_beg, $reg_status, $description) {
+    public function updateWebinarAction($id, $title, $date_beg, $time_beg, $reg_status, $description, $pic) {
 
         $em = $this->getDoctrine()->getManager();
         $webinar = $em->getRepository('ChernovDAWebinarsBundle:webinars')->find($id);
@@ -84,6 +84,7 @@ class WebinarController extends Controller {
                     ->setDateBeg($date_beg)
                     ->setTimeBeg($time_beg)
                     ->setRegisterStatus($reg_status)
+                    ->setPic($pic)
                     ->setDescription($description);
 
             $em->flush();

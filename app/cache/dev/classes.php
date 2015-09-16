@@ -3004,7 +3004,7 @@ namespace
 {
 class Twig_Environment
 {
-const VERSION ='1.21.2';
+const VERSION ='1.22.1';
 protected $charset;
 protected $loader;
 protected $debug;
@@ -3031,6 +3031,9 @@ protected $templateClassPrefix ='__TwigTemplate_';
 protected $functionCallbacks = array();
 protected $filterCallbacks = array();
 protected $staging;
+private $originalCache;
+private $bcWriteCacheFile = false;
+private $bcGetCacheFilename = false;
 public function __construct(Twig_LoaderInterface $loader = null, $options = array())
 {
 if (null !== $loader) {
@@ -3050,6 +3053,18 @@ $this->addExtension(new Twig_Extension_Core());
 $this->addExtension(new Twig_Extension_Escaper($options['autoescape']));
 $this->addExtension(new Twig_Extension_Optimizer($options['optimizations']));
 $this->staging = new Twig_Extension_Staging();
+if (is_string($this->originalCache)) {
+$r = new ReflectionMethod($this,'writeCacheFile');
+if ($r->getDeclaringClass()->getName() !== __CLASS__) {
+@trigger_error('The Twig_Environment::writeCacheFile method is deprecated and will be removed in Twig 2.0.', E_USER_DEPRECATED);
+$this->bcWriteCacheFile = true;
+}
+$r = new ReflectionMethod($this,'getCacheFilename');
+if ($r->getDeclaringClass()->getName() !== __CLASS__) {
+@trigger_error('The Twig_Environment::getCacheFilename method is deprecated and will be removed in Twig 2.0.', E_USER_DEPRECATED);
+$this->bcGetCacheFilename = true;
+}
+}
 }
 public function getBaseTemplateClass()
 {
@@ -3095,28 +3110,38 @@ public function isStrictVariables()
 {
 return $this->strictVariables;
 }
-public function getCache()
+public function getCache($original = true)
 {
-return $this->cache;
+return $original ? $this->originalCache : $this->cache;
 }
 public function setCache($cache)
 {
-$this->cache = $cache ? $cache : false;
+if (is_string($cache)) {
+$this->originalCache = $cache;
+$this->cache = new Twig_Cache_Filesystem($cache);
+} elseif (false === $cache) {
+$this->originalCache = $cache;
+$this->cache = new Twig_Cache_Null();
+} elseif ($cache instanceof Twig_CacheInterface) {
+$this->originalCache = $this->cache = $cache;
+} else {
+throw new LogicException(sprintf('Cache can only be a string, false, or a Twig_CacheInterface implementation.'));
+}
 }
 public function getCacheFilename($name)
 {
-if (false === $this->cache) {
-return false;
-}
-$class = substr($this->getTemplateClass($name), strlen($this->templateClassPrefix));
-return $this->getCache().'/'.$class[0].'/'.$class[1].'/'.$class.'.php';
+@trigger_error(sprintf('The %s method is deprecated and will be removed in Twig 2.0.', __METHOD__), E_USER_DEPRECATED);
+$key = $this->cache->generateKey($name, $this->getTemplateClass($name));
+return !$key ? false : $key;
 }
 public function getTemplateClass($name, $index = null)
 {
-return $this->templateClassPrefix.hash('sha256', $this->getLoader()->getCacheKey($name)).(null === $index ?'':'_'.$index);
+$key = $this->getLoader()->getCacheKey($name).'__'.implode('__', array_keys($this->extensions));
+return $this->templateClassPrefix.hash('sha256', $key).(null === $index ?'':'_'.$index);
 }
 public function getTemplateClassPrefix()
 {
+@trigger_error(sprintf('The %s method is deprecated and will be removed in Twig 2.0.', __METHOD__), E_USER_DEPRECATED);
 return $this->templateClassPrefix;
 }
 public function render($name, array $context = array())
@@ -3134,14 +3159,19 @@ if (isset($this->loadedTemplates[$cls])) {
 return $this->loadedTemplates[$cls];
 }
 if (!class_exists($cls, false)) {
-if (false === $cache = $this->getCacheFilename($name)) {
-eval('?>'.$this->compileSource($this->getLoader()->getSource($name), $name));
+if ($this->bcGetCacheFilename) {
+$key = $this->getCacheFilename($name);
 } else {
-if (!is_file($cache) || ($this->isAutoReload() && !$this->isTemplateFresh($name, filemtime($cache)))) {
-$this->writeCacheFile($cache, $this->compileSource($this->getLoader()->getSource($name), $name));
+$key = $this->cache->generateKey($name, $cls);
 }
-require_once $cache;
+if (!$this->cache->has($key) || ($this->isAutoReload() && !$this->isTemplateFresh($name, $this->cache->getTimestamp($key)))) {
+if ($this->bcWriteCacheFile) {
+$this->writeCacheFile($key, $this->compileSource($this->getLoader()->getSource($name), $name));
+} else {
+$this->cache->write($key, $this->compileSource($this->getLoader()->getSource($name), $name));
 }
+}
+$this->cache->load($key);
 }
 if (!$this->runtimeInitialized) {
 $this->initRuntime();
@@ -3201,12 +3231,12 @@ $this->loadedTemplates = array();
 }
 public function clearCacheFiles()
 {
-if (false === $this->cache) {
-return;
-}
-foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->cache), RecursiveIteratorIterator::LEAVES_ONLY) as $file) {
+@trigger_error(sprintf('The %s method is deprecated and will be removed in Twig 2.0.', __METHOD__), E_USER_DEPRECATED);
+if (is_string($this->originalCache)) {
+foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->originalCache), RecursiveIteratorIterator::LEAVES_ONLY) as $file) {
 if ($file->isFile()) {
 @unlink($file->getPathname());
+}
 }
 }
 }
@@ -3258,7 +3288,11 @@ return $this->getCompiler()->compile($node)->getSource();
 public function compileSource($source, $name = null)
 {
 try {
-return $this->compile($this->parse($this->tokenize($source, $name)));
+$compiled = $this->compile($this->parse($this->tokenize($source, $name)), $source);
+if (isset($source[0])) {
+$compiled .='/* '.str_replace(array('*/',"\r\n","\r","\n"), array('*//* ',"\n","\n","*/\n/* "), $source)."*/\n";
+}
+return $compiled;
 } catch (Twig_Error $e) {
 $e->setTemplateFile($name);
 throw $e;
@@ -3644,25 +3678,7 @@ $this->binaryOperators = array_merge($this->binaryOperators, $operators[1]);
 }
 protected function writeCacheFile($file, $content)
 {
-$dir = dirname($file);
-if (!is_dir($dir)) {
-if (false === @mkdir($dir, 0777, true)) {
-clearstatcache(false, $dir);
-if (!is_dir($dir)) {
-throw new RuntimeException(sprintf('Unable to create the cache directory (%s).', $dir));
-}
-}
-} elseif (!is_writable($dir)) {
-throw new RuntimeException(sprintf('Unable to write in the cache directory (%s).', $dir));
-}
-$tmpFile = tempnam($dir, basename($file));
-if (false !== @file_put_contents($tmpFile, $content)) {
-if (@rename($tmpFile, $file) || (@copy($tmpFile, $file) && unlink($tmpFile))) {
-@chmod($file, 0666 & ~umask());
-return;
-}
-}
-throw new RuntimeException(sprintf('Failed to write cache file "%s".', $file));
+$this->cache->write($file, $content);
 }
 }
 }
@@ -4005,11 +4021,15 @@ $date->setTimezone($timezone);
 }
 return $date;
 }
+if (null === $date ||'now'=== $date) {
+return new DateTime($date, false !== $timezone ? $timezone : $env->getExtension('core')->getTimezone());
+}
 $asString = (string) $date;
 if (ctype_digit($asString) || (!empty($asString) &&'-'=== $asString[0] && ctype_digit(substr($asString, 1)))) {
-$date ='@'.$date;
-}
+$date = new DateTime('@'.$date);
+} else {
 $date = new DateTime($date, $env->getExtension('core')->getTimezone());
+}
 if (false !== $timezone) {
 $date->setTimezone($timezone);
 }
@@ -4774,6 +4794,23 @@ throw $e;
 public function getBlocks()
 {
 return $this->blocks;
+}
+public function getSource()
+{
+$reflector = new ReflectionClass($this);
+$file = $reflector->getFileName();
+if (!file_exists($file)) {
+return;
+}
+$source = file($file, FILE_IGNORE_NEW_LINES);
+array_splice($source, 0, $reflector->getEndLine());
+$i = 0;
+while (isset($source[$i]) &&'/* */'=== substr_replace($source[$i],'', 3, -2)) {
+$source[$i] = str_replace('*//* ','*/', substr($source[$i], 3, -2));
+++$i;
+}
+array_splice($source, $i);
+return implode("\n", $source);
 }
 public function display(array $context, array $blocks = array())
 {

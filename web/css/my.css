@@ -1,6 +1,5 @@
 body {
   background-color: lightgray;
-  max-height: 3800px;
 }
 .bgvideo {
   position: absolute;
@@ -45,6 +44,20 @@ body {
   -o-transition: transform 1s;
   transition: transform 1s;
 }
+.animated_anons_pic {
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+}
+.animated_speakers {
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+}
 .first_pageblock {
   width: 100%;
 }
@@ -77,7 +90,11 @@ body {
 }
 .company_logo {
   width: 196px;
-  height: 99px;
+}
+@media screen and (max-width: 1280px) {
+  .company_logo {
+    width: 136px;
+  }
 }
 .about_webinar {
   width: 100%;
@@ -162,6 +179,20 @@ body {
   position: relative;
   width: 24%;
 }
+@media screen and (max-width: 1444px) {
+  .speaker {
+    display: inline-block;
+    position: relative;
+    width: 33%;
+  }
+}
+@media screen and (max-width: 940px) {
+  .speaker {
+    display: inline-block;
+    position: relative;
+    width: 49%;
+  }
+}
 .speaker_foto {
   display: block;
   width: 100%;
@@ -177,6 +208,15 @@ body {
   font-size: 2.7em;
   color: white;
   text-transform: uppercase;
+  text-align: justify;
+}
+@media screen and (max-width: 1760px) {
+  .speaker_fio {
+    font-size: 2.0em;
+    color: white;
+    text-transform: uppercase;
+    text-align: justify;
+  }
 }
 .hr_fio {
   width: 104px;
@@ -359,4 +399,60 @@ body {
 .webinar_text {
   padding-left: 30%;
   padding-right: 30%;
+}
+@media screen and (min-width: 1440px) {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+@media screen and (min-width: 980px) {
+  padding-left: 15%;
+  padding-right: 15%;
+}
+.no-pic {
+  width: 100%;
+}
+.anons {
+  float: left;
+  width: 50%;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.anons-pic {
+  float: right;
+  width: 50%;
+  height: auto;
+  padding-left: 30px;
+  -webkit-transform: scale(0.4);
+  -moz-transform: scale(0.4);
+  -ms-transform: scale(0.4);
+  -o-transform: scale(0.4);
+  transform: scale(0.4);
+}
+@media screen and (min-height: 777px) {
+  .anons-pic {
+    float: right;
+    width: 50%;
+    height: auto;
+    padding-left: 30px;
+    -webkit-transform: scale(0.6);
+    -moz-transform: scale(0.6);
+    -ms-transform: scale(0.6);
+    -o-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+}
+@media screen and (min-height: 888px) {
+  .anons-pic {
+    float: right;
+    width: 50%;
+    height: auto;
+    padding-left: 30px;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
 }

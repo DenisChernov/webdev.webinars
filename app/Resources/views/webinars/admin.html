@@ -16,7 +16,8 @@
                     <td class="table-cell">Дата начала</td>
                     <td class="table-cell">Время начала</td>
                     <td class="table-cell">Статус активности</td>
-                    <td class="table-cell">Описание</td>
+                    <td class="table-cell">Анонс</td>
+                    <td class="table-cell">Картинка</td>
                     <td class="table-cell" style="display: none"></td>
                 </tr>
             {% for webinar in webinars %}
@@ -57,6 +58,17 @@
                     </td>
                     <td class="table-cell webinar_tbl_description">
                         <textarea readonly class="form-control" rows="4">{{ webinar.description }}</textarea>
+                    </td>
+                    <td class="table-cell webinar_tbl_picture">
+                        <img src="{% if webinar.pic == NULL %}/images/nopicture.png{% else %}/uploads/{{webinar.pic}}{% endif %}" class="no-pic" />
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input id="webinar_picture_upload" type="file" accept="image/*" data-filename-placement="inside">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-circle-arrow-up"></span>
+                                </span>
+                            </div>
+                        </div>
                     </td>
                     <td class="table-cell" style="padding-top: 12px">
                         <button title="Сохранить изменения" type="button" class="btn btn-default btnApplyChange" disabled><span class="glyphicon glyphicon-ok"></span></button>

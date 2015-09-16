@@ -1,5 +1,16 @@
 <div class="webinar_text">
+    {% if webinar.pic != NULL %}
+        <div class="anons">
+    {% endif %}
+            {{ webinar.description }}
+    {% if webinar.pic != NULL %}
+        </div>
+    {% endif %}
 
-    {{ webinar.description }}
-
+    {% if webinar.pic != NULL %}
+    <div class="anons-pic animated_anons_pic">
+        <!--img src="/uploads/{{webinar.pic}}" /-->
+        <img src="/images/empty_webinar_pic.jpg" />
+    </div>
+    {% endif %}
 </div>

@@ -51,6 +51,11 @@ class webinars {
     protected $registerStatus;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $pic;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -173,5 +178,28 @@ class webinars {
     public function getRegisterStatus()
     {
         return $this->registerStatus;
+    }
+
+    /**
+     * Set pic
+     *
+     * @param string $pic
+     * @return webinars
+     */
+    public function setPic($pic)
+    {
+        $this->pic = $pic;
+
+        return $this;
+    }
+
+    /**
+     * Get pic
+     *
+     * @return string 
+     */
+    public function getPic()
+    {
+        return $this->pic;
     }
 }
