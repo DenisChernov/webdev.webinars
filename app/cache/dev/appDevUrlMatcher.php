@@ -177,17 +177,32 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'chernovda_webinars_webinar_newreguser')), array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::newReguserAction',));
         }
 
-        if (0 === strpos($pathinfo, '/.')) {
-            // chernovda_webinars_webinar_admin
-            if ($pathinfo === '/.admin') {
-                return array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::adminAction',  '_route' => 'chernovda_webinars_webinar_admin',);
+        // chernovda_webinars_webinar_admin
+        if ($pathinfo === '/.admin') {
+            return array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::adminAction',  '_route' => 'chernovda_webinars_webinar_admin',);
+        }
+
+        if (0 === strpos($pathinfo, '/delete')) {
+            // chernovda_webinars_webinar_deletewebinar
+            if (0 === strpos($pathinfo, '/delete/webinar') && preg_match('#^/delete/webinar/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'chernovda_webinars_webinar_deletewebinar')), array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::deleteWebinarAction',));
             }
 
-            // chernovda_webinars_webinar_editor
-            if ($pathinfo === '/.editor') {
-                return array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::editorAction',  '_route' => 'chernovda_webinars_webinar_editor',);
+            // chernovda_webinars_webinar_deletespeaker
+            if (0 === strpos($pathinfo, '/delete/speaker') && preg_match('#^/delete/speaker/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'chernovda_webinars_webinar_deletespeaker')), array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::deleteSpeakerAction',));
             }
 
+            // chernovda_webinars_webinar_deleteuser
+            if (0 === strpos($pathinfo, '/delete/user') && preg_match('#^/delete/user/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'chernovda_webinars_webinar_deleteuser')), array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::deleteUserAction',));
+            }
+
+        }
+
+        // chernovda_webinars_webinar_editor
+        if ($pathinfo === '/.editor') {
+            return array (  '_controller' => 'ChernovDA\\WebinarsBundle\\Controller\\WebinarController::editorAction',  '_route' => 'chernovda_webinars_webinar_editor',);
         }
 
         // homepage

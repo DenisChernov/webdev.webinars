@@ -50,7 +50,7 @@ $(window).on('scroll', function(){
 
     //console.log($(window).scrollTop());
 
-    if ($(window).scrollTop() > 912) {
+    if ($(window).scrollTop() > 979) {
         $('.speaker_data').css({
             opacity: "1",
             transform: 'translateY(-100px)'
@@ -158,6 +158,81 @@ $('input[type=file]').change(function(){
     });
 });
 
+$('.upload_speakers_avatar').change(function(){
+    file = this.files;
+
+    img = $(this).parent().parent().find('.admin_speakers_avatar');
+    console.log(img);
+    var data = new FormData();
+    $.each(file, function(key, value){
+        data.append(key, value);
+    });
+
+    $.ajax({
+        url: '/uploadavatar.php?uploadfile',
+        type: 'POST',
+        data: data,
+        cache: false,
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        success: function(respond, textStatus, jqXHR) {
+            if (typeof respond.error === 'undefined') {
+                // все впорядке. файл загружен
+                var file_path = respond.files;
+                $.each(file_path, function(key, value) {
+                    img.prop("src", "/uploads/" + value);
+                    file = value;
+                });
+            }
+            else {
+                console.log('php: ' + respond.error);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            console.log('ajax: ' + textStatus);
+        }
+    });
+});
+
+$('.upload_avatar').change(function(){
+    file = this.files;
+
+
+    img = $(this).parent().parent().find('.upload_avatar_img');
+    console.log(img);
+    var data = new FormData();
+    $.each(file, function(key, value){
+        data.append(key, value);
+    });
+
+    $.ajax({
+        url: '/uploadavatar.php?uploadfile',
+        type: 'POST',
+        data: data,
+        cache: false,
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        success: function(respond, textStatus, jqXHR) {
+            if (typeof respond.error === 'undefined') {
+                // все впорядке. файл загружен
+                var file_path = respond.files;
+                $.each(file_path, function(key, value) {
+                    img.prop("src", "/uploads/" + value);
+                    file = value;
+                });
+            }
+            else {
+                console.log('php: ' + respond.error);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            console.log('ajax: ' + textStatus);
+        }
+    });
+});
+
 // запись пользователя
 $('#btnRegisterUser').on('click', function(){
     email = $('#form_register').find('#email').val();
@@ -167,7 +242,7 @@ $('#btnRegisterUser').on('click', function(){
     position = $('#form_register').find('#position').val();
     //file = $('#form_register').find('#avatar').val();
 
-    regurl = "/app_dev.php/new/reguser/" + email + "/" + pass + "/" + file + "/" + fio +"/" + organisation + "/" + position;
+    regurl = "/new/reguser/" + email + "/" + pass + "/" + file + "/" + fio +"/" + organisation + "/" + position;
 
     $.ajax({
         type: "POST",
@@ -200,6 +275,45 @@ $('#btnRegisterUser').on('click', function(){
             scrollTop: $('#listeners').offset().top},
         800
     );
+});
+
+$('.btnDeleteRecord').on('click', function(){
+    var id;
+    var deleteurl;
+
+
+
+    switch ($(this).parent().parent().parent().parent().prop("id")) {
+        case "table_webinars": {
+            id = elmWebinars($(this))[0];
+            deleteurl = "/delete/webinar/" + id;
+            break;
+        }
+        case "table_speakers": {
+            id = elmSpeakers($(this))[0];
+            deleteurl = "/delete/speaker/" + id;
+            break;
+        }
+        case "table_users": {
+            id = elmUsers($(this))[0];
+            deleteurl = "/delete/user/" + id;
+            break;
+        }
+    }
+
+    toDel = $(this).parent().parent();
+
+    $.ajax({
+       type: "POST",
+       url: deleteurl,
+       success: function(){
+            toDel.remove();
+       },
+        error: function(){
+            console.log("error delete by: " + deleteurl);
+        }
+    });
+
 
 });
 
@@ -208,7 +322,7 @@ $('.view_full_info').on('click', function(){
 });
 
 $('#btnRegisterWebinar').on('click', function(){
-   regurl = "/app_dev.php/new/webinar/" +
+   regurl = "/new/webinar/" +
        $('#form_createWebinar').find('#webinar_title').val() + "/" +
        $('#form_createWebinar').find('#webinar_dateBeg').val() + "/" +
        $('#form_createWebinar').find('#webinar_timeBeg').val() + "/" +
@@ -260,14 +374,13 @@ $('#btnRegisterWebinar').on('click', function(){
 function elmWebinars(parent){
             id = parent.parent().parent().find('.webinar_tbl_id > label').attr("id");
             title = parent.parent().parent().find('.webinar_tbl_title > input').val();
-            dateBeg = parent.parent().parent().find('.datepicker').data("DateTimePicker").date()._i;
-            timeBeg = parent.parent().parent().find('.timepicker').data("DateTimePicker").date()._i;
+            dateBeg = parent.parent().parent().find('.datepicker > input').val();
+            timeBeg = parent.parent().parent().find('.timepicker > input').val();
             registerStatus = parent.parent().parent().find('.webinar_tbl_registerStatus > div > select').val();
             description = parent.parent().parent().find('.webinar_tbl_description > textarea').val();
             pic = parent.parent().parent().find('.webinar_tbl_picture > img').attr("src");
             pic = pic.substr(pic.lastIndexOf("/") + 1, pic.length - pic.lastIndexOf("/"));
 
-            console.log(parent.parent().parent().find('.webinar_tbl_picture > img').attr("src"));
             return [id, title, dateBeg, timeBeg, registerStatus, description, pic];
 }
 
@@ -314,10 +427,6 @@ $('.btnDoChange').on('click', function(){
             position = elmSpeakers($(this))[4];
             
             arrSpeakers[elmSpeakers($(this))[0]] = [avatar, fio, organisation, position];
-
-            $(this).parent().parent().find('.speakers_avatar').append(
-                '<input style="width:66%" id="avatar" type="file" accept="image/*">'
-            );
             break;
         }
         case "table_users": {
@@ -326,9 +435,9 @@ $('.btnDoChange').on('click', function(){
             organisation = elmUsers($(this))[3];
             position = elmUsers($(this))[4];
             email = elmUsers($(this))[5];
-            fio = elmUsers($(this))[6];
-            arrUsers[elmUsers($(this))[0]] = [avatar, fio, organisation, position];
+            password = elmUsers($(this))[6];
 
+            arrUsers[elmUsers($(this))[0]] = [avatar, fio, organisation, position, email, password];
             break;
         }
     }
@@ -381,7 +490,7 @@ $('.btnApplyChange').on('click', function(){
             description = elmWebinars($(this))[5];
             pic = elmWebinars($(this))[6];
 
-            updateurl = "/app_dev.php/update/webinar/"
+            updateurl = "/update/webinar/"
                 + id + "/"
                 + title + "/"
                 + dateBeg + "/"
@@ -400,7 +509,7 @@ $('.btnApplyChange').on('click', function(){
             organisation = elmSpeakers($(this))[3];
             position = elmSpeakers($(this))[4];
 
-            updateurl = "/app_dev.php/update/speakers/"
+            updateurl = "/update/speakers/"
                 + id + "/"
                 + avatar + "/"
                 + fio + "/"
@@ -417,7 +526,7 @@ $('.btnApplyChange').on('click', function(){
             position = elmUsers($(this))[4];
             email = elmUsers($(this))[5];
             password =  elmUsers($(this))[6];
-            updateurl = "/app_dev.php/update/users/"
+            updateurl = "/update/users/"
                 + id + "/"
                 + avatar + "/"
                 + fio + "/"
@@ -455,22 +564,24 @@ $('.btnCancelChange').on('click', function(){
 
         case "table_speakers": {
             id = elmSpeakers($(this))[0];
-            $(this).parent().parent().find('.speakers_avatar > input').val(arrSpeakers[id][0]);
+            $(this).parent().parent().find('.speakers_avatar > img').prop("src", "/uploads/" + arrSpeakers[id][0]);
             $(this).parent().parent().find('.speakers_tbl_fio > input').val(arrSpeakers[id][1]);
-            $(this).parent().parent().find('.speakers_tbl_organisation > input').val(arrSpeakers[id][2]);
-            $(this).parent().parent().find('.speakers_tbl_position > div > select').val(arrSpeakers[id][3]);
+            $(this).parent().parent().find('.speakers_tbl_org > input').val(arrSpeakers[id][2]);
+            $(this).parent().parent().find('.speakers_tbl_position > input').val(arrSpeakers[id][3]);
 
             break;
         }
 
         case "table_users": {
-            id = elmSpeakers($(this))[0];
-            $(this).parent().parent().find('.users_avatar > input').val(arrUsers[id][0]);
+
+            id = elmUsers($(this))[0];
+
+            $(this).parent().parent().find('.users_avatar > img').prop("src", "/uploads/" + arrUsers[id][0]);
             $(this).parent().parent().find('.users_tbl_fio > input').val(arrUsers[id][1]);
-            $(this).parent().parent().find('.users_tbl_organisation > input').val(arrUsers[id][2]);
-            $(this).parent().parent().find('.users_tbl_position > div > select').val(arrUsers[id][3]);
+            $(this).parent().parent().find('.users_tbl_org > input').val(arrUsers[id][2]);
+            $(this).parent().parent().find('.users_tbl_position > input').val(arrUsers[id][3]);
             $(this).parent().parent().find('.users_tbl_email > input').val(arrUsers[id][4]);
-            $(this).parent().parent().find('.users_tbl_password > div > select').val(arrUsers[id][5]);
+            $(this).parent().parent().find('.users_tbl_password > input').val(arrUsers[id][5]);
 
             break;
         }

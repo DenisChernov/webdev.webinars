@@ -71,9 +71,7 @@
                         </div>
                     </td>
                     <td class="table-cell" style="padding-top: 12px">
-                        <button title="Сохранить изменения" type="button" class="btn btn-default btnApplyChange" disabled><span class="glyphicon glyphicon-ok"></span></button>
-                        <button title="Отменить изменения" type="button" class="btn btn-default btnCancelChange" disabled><span class="glyphicon glyphicon-remove"></span></button>
-                        <button title="Внести изменения" type="button" class="btn btn-default btnDoChange"><span class="glyphicon glyphicon-pencil"></span></button>
+                        {% include 'webinars/control_buttons.html' %}
                     </td>
                 </tr>
             {% endfor %}
@@ -96,7 +94,8 @@
                                 <label class="control-label" id="{{ speaker.id }}">{{ speaker.id }}</label>
                             </td>
                             <td class="table-cell speakers_avatar">
-                                <img class="admin_speakers_avatar" id="{{ speaker.pic }}" src="/images/{{ speaker.pic }}"/>
+                                <img class="upload_avatar_img" id="{{ speaker.pic }}" src="/images/{{ speaker.pic }}"/>
+                                <input class="upload_avatar" style="width:66%" id="avatar" type="file" accept="image/*"  data-filename-placement="inside">
                             </td>
                             <td class="table-cell speakers_tbl_fio">
                                 <input type="text" class="form-control" readonly value="{{ speaker.fio }}"/>
@@ -108,9 +107,7 @@
                                 <input type="text" class="form-control" readonly value="{{ speaker.position }}"/>
                             </td>
                             <td class="table-cell" style="padding-top: 12px; width:4%;">
-                                <button title="Сохранить изменения" type="button" class="btn btn-default btnApplyChange" disabled><span class="glyphicon glyphicon-ok"></span></button>
-                                <button title="Отменить изменения" type="button" class="btn btn-default btnCancelChange" disabled><span class="glyphicon glyphicon-remove"></span></button>
-                                <button title="Внести изменения" type="button" class="btn btn-default btnDoChange"><span class="glyphicon glyphicon-pencil"></span></button>
+                                {% include 'webinars/control_buttons.html' %}
                             </td>
                         </tr>
                     {% endfor %}
@@ -135,7 +132,8 @@
                             <label class="control-label" id="{{ reguser.id }}">{{ reguser.id }}</label>
                         </td>
                         <td class="table-cell users_avatar">
-                            <img class="admin_speakers_avatar" id="{{ reguser.avatar }}" src="/images/{{ reguser.avatar }}"/>
+                            <img class="upload_avatar_img" id="{{ reguser.avatar }}" src="/uploads/{{ reguser.avatar }}"/>
+                            <input class="upload_avatar" style="width:66%" id="user_avatar" type="file" accept="image/*"  data-filename-placement="inside">
                         </td>
                         <td class="table-cell users_tbl_fio">
                             <input type="text" class="form-control" readonly value="{{ reguser.fio }}"/>
@@ -153,9 +151,7 @@
                             <input type="text" class="form-control" readonly value="{{ reguser.password }}"/>
                         </td>
                         <td class="table-cell" style="padding-top: 12px; width:4%;">
-                            <button title="Сохранить изменения" type="button" class="btn btn-default btnApplyChange" disabled><span class="glyphicon glyphicon-ok"></span></button>
-                            <button title="Отменить изменения" type="button" class="btn btn-default btnCancelChange" disabled><span class="glyphicon glyphicon-remove"></span></button>
-                            <button title="Внести изменения" type="button" class="btn btn-default btnDoChange"><span class="glyphicon glyphicon-pencil"></span></button>
+                            {% include 'webinars/control_buttons.html' %}
                         </td>
                     </tr>
                     {% endfor %}

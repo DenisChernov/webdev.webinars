@@ -220,6 +220,53 @@ class WebinarController extends Controller {
     }
 
     /**
+     * @Route("/delete/webinar/{id}")
+     */
+    public function deleteWebinarAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $webinar = $em->getRepository('ChernovDAWebinarsBundle:webinars')->find($id);
+        if ($webinar) {
+            $em->remove($webinar);
+            $em->flush();
+        }
+
+        return $this->render('webinars/success.html.twig');
+    }
+
+    /**
+     * @Route("/delete/speaker/{id}")
+     */
+    public function deleteSpeakerAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $speaker = $em->getRepository('ChernovDAWebinarsBundle:speakers')->find($id);
+        if ($speaker) {
+            $em->remove($speaker);
+            $em->flush();
+        }
+
+        return $this->render('webinars/success.html.twig');
+    }
+
+    /**
+     * @Route("/delete/user/{id}")
+     */
+    public function deleteUserAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('ChernovDAWebinarsBundle:users')->find($id);
+        if ($user) {
+            $em->remove($user);
+            $em->flush();
+        }
+
+        return $this->render('webinars/success.html.twig');
+    }
+
+     /**
      * @Route("/.editor")
      */
     public function editorAction() {

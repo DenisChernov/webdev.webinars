@@ -1,5 +1,6 @@
 body {
   background-color: lightgray;
+  height: auto;
 }
 .bgvideo {
   position: absolute;
@@ -102,7 +103,7 @@ body {
   position: fixed;
 }
 .first_page {
-  background: url('video.png');
+  background: url('/images/video.png');
   background-size: cover;
   float: left;
   width: 100%;
@@ -122,6 +123,8 @@ body {
   display: block;
   font-size: 1.5em;
   text-align: center;
+  border-radius: 10px;
+  border-color: rgba(240, 248, 255, 0.13);
 }
 .web_register_status {
   display: block;
@@ -269,11 +272,10 @@ body {
   padding: 2px 10px 2px 10px;
 }
 .users_who_come {
-  position: absolute;
+  position: relative;
   margin-left: 25%;
-  margin-right: 25%;
+  margin-right: 20%;
   padding-top: 40px;
-  display: flex;
 }
 .reg_user_header {
   padding-top: 100px;
@@ -311,6 +313,8 @@ body {
 }
 .view_full_info {
   text-decoration: none;
+  position: relative;
+  display: inline-block;
 }
 .view_full_info:hover {
   text-decoration: none;
@@ -338,7 +342,7 @@ body {
   display: table-cell;
   border: 1px dotted;
 }
-.table-cell .admin_speakers_avatar {
+.table-cell .upload_avatar_img {
   width: 100%;
 }
 .speakers_avatar {
@@ -419,31 +423,35 @@ body {
   justify-content: center;
   align-items: center;
 }
+.anons-pic-img {
+  width: 82%;
+  height: auto;
+}
 .anons-pic {
   float: right;
   width: 50%;
   height: auto;
   padding-left: 30px;
-  -webkit-transform: scale(0.4);
-  -moz-transform: scale(0.4);
-  -ms-transform: scale(0.4);
-  -o-transform: scale(0.4);
-  transform: scale(0.4);
+  -webkit-transform: scale(0.6) translateY(-40%);
+  -moz-transform: scale(0.6) translateY(-40%);
+  -ms-transform: scale(0.6) translateY(-40%);
+  -o-transform: scale(0.6) translateY(-40%);
+  transform: scale(0.6) translateY(-40%);
 }
-@media screen and (min-height: 777px) {
+@media screen and (min-height: 740px) {
   .anons-pic {
     float: right;
     width: 50%;
     height: auto;
     padding-left: 30px;
-    -webkit-transform: scale(0.6);
-    -moz-transform: scale(0.6);
-    -ms-transform: scale(0.6);
-    -o-transform: scale(0.6);
-    transform: scale(0.6);
+    -webkit-transform: scale(0.8) translateY(-15%);
+    -moz-transform: scale(0.8) translateY(-15%);
+    -ms-transform: scale(0.8) translateY(-15%);
+    -o-transform: scale(0.8) translateY(-15%);
+    transform: scale(0.8) translateY(-15%);
   }
 }
-@media screen and (min-height: 888px) {
+@media screen and (min-height: 850px) {
   .anons-pic {
     float: right;
     width: 50%;
