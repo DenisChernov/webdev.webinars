@@ -10,6 +10,10 @@
     {% if webinar.pic != NULL %}
     <div class="anons-pic animated_anons_pic">
         <img class="anons-pic-img" src="/uploads/{{webinar.pic}}" />
+    </div>
+    {% endif %}
+    {% if webinar.pic == NULL %}
+    <div id="map" class="yandex_map">
 
     </div>
     {% endif %}

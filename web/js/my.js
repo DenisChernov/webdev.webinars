@@ -5,8 +5,26 @@
 var arrWebinars = [];
 var arrSpeakers = [];
 var arrUsers = [];
-
+var map;
 var centerScreen;
+var myMap;
+var myPlacemark;
+
+function init(){
+    myMap = new ymaps.Map("map", {
+        center: [68.95961673, 33.07782454],
+        zoom: 16
+    });
+
+    myPlacemark = new ymaps.Placemark([68.95961673, 33.07782454], {
+        hintContent: 'Вебинар тут!',
+        balloonContent: 'Отель Park-Inn'
+    });
+
+    myMap.geoObjects.add(myPlacemark);
+
+    myMap.setType(YMaps.MapType.MAP);
+}
 
 $(function(){
     $('.datepicker').datetimepicker({
@@ -24,10 +42,14 @@ $(function(){
 
     $('input[type=file]').bootstrapFileInput();
 
+    ymaps.ready(init);
+
+
 });
 
+
 $(window).on('scroll', function(){
-    if ($(window).scrollTop() > 300) {
+    if ($(window).scrollTop() > 150) {
         $('.header_mnu').addClass('show_bg_header_mnu');
         $('.company_logo').css({
             width: "77px",
@@ -82,6 +104,13 @@ $('.scroll_to_anons').on('click', function(){
 $('#btn_speakers').on('click', function(){
     $('html, body').animate({
             scrollTop: $('#speakers').offset().top},
+        800
+    );
+});
+
+$('#btn_anons').on('click', function(){
+    $('html, body').animate({
+            scrollTop: $('#comming_webinar').offset().top},
         800
     );
 });
