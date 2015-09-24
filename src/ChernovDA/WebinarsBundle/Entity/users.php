@@ -59,6 +59,16 @@ class users
     protected $password;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $onCommercial;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $onBudget;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -204,5 +214,51 @@ class users
     public function getWork()
     {
         return $this->work;
+    }
+
+    /**
+     * Set onCommercial
+     *
+     * @param boolean $onCommercial
+     * @return users
+     */
+    public function setOnCommercial($onCommercial)
+    {
+        $this->onCommercial = $onCommercial;
+
+        return $this;
+    }
+
+    /**
+     * Get onCommercial
+     *
+     * @return boolean 
+     */
+    public function getOnCommercial()
+    {
+        return $this->onCommercial;
+    }
+
+    /**
+     * Set onBudget
+     *
+     * @param boolean $onBudget
+     * @return users
+     */
+    public function setOnBudget($onBudget)
+    {
+        $this->onBudget = $onBudget;
+
+        return $this;
+    }
+
+    /**
+     * Get onBudget
+     *
+     * @return boolean 
+     */
+    public function getOnBudget()
+    {
+        return $this->onBudget;
     }
 }

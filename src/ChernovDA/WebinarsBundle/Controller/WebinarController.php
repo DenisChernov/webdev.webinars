@@ -170,16 +170,18 @@ class WebinarController extends Controller {
     }
 
     /**
-     * @Route("/new/reguser/{email}/{password}/{avatar}/{fio}/{organisation}/{position}")
+     * @Route("/new/reguser/{email}/{password}/{avatar}/{fio}/{organisation}/{position}/{isCommercial}/{isBudget}")
      */
-    public function newReguserAction($email, $password, $avatar, $fio, $organisation, $position) {
+    public function newReguserAction($email, $password, $avatar, $fio, $organisation, $position, $isCommercial, $isBudget) {
         $regusers = new users();
         $regusers->setAvatar($avatar)
                  ->setEmail($email)
                  ->setPassword($password)
                  ->setPosition($position)
                  ->setFio($fio)
-                 ->setWork($organisation);
+                 ->setWork($organisation)
+                 ->setOnCommercial($isCommercial)
+                 ->setOnBudget($isBudget);
         $em = $this->getDoctrine()->getManager();
         $em->persist($regusers);
         $em->flush();

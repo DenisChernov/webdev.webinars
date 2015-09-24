@@ -1,18 +1,19 @@
 <div class="webinar_text">
-    {% if webinar.pic != NULL %}
+    {% if webinar.pic != "nopicture.png" %}
         <div class="anons">
     {% endif %}
+            {{ webinar.whereis }} <br>
             {{ webinar.description }}
     {% if webinar.pic != NULL %}
         </div>
     {% endif %}
 
-    {% if webinar.pic != NULL %}
+    {% if webinar.pic != "nopicture.png" %}
     <div class="anons-pic animated_anons_pic">
         <img class="anons-pic-img" src="/uploads/{{webinar.pic}}" />
     </div>
     {% endif %}
-    {% if webinar.pic == NULL %}
+    {% if webinar.pic == "nopicture.png" %}
     <div id="map" class="yandex_map">
 
     </div>

@@ -8,28 +8,34 @@
                 <div class="modal-body">
 
                     <label for="email" class="control-label">Email</label>
-                    <input class="form-control" id="email" type="email" placeholder="Ваш email, будет использован как логин">
+                    <input class="required_field form-control" autocomplete="on" id="email" type="email"  required="true">
 
-                    <label for="password" class="control-label">Пароль</label>
-                    <input class="form-control" id="password" type="password" placeholder="Ваш пароль для доступа к профилю">
+                    <!--label for="password" class="control-label">Пароль</label>
+                    <input class="required_field form-control" id="password" type="password" placeholder="Ваш пароль для доступа к профилю" required="true"-->
 
                     <label for="fio" class="control-label">ФИО</label>
-                    <input class="form-control" id="fio" type="text" placeholder="Ваши фамилия, имя, отчество">
+                    <input class="required_field form-control" autocomplete="on" id="fio" type="text" placeholder="Ваши фамилия, имя, отчество" required="true">
 
                     <label for="organisation" class="control-label">Организация</label>
-                    <input class="form-control" id="organisation" type="text" placeholder="Ваша организация">
+                    <input class="required_field form-control" autocomplete="on" id="organisation" type="text" placeholder="Ваша организация" required="true">
 
                     <label for="position" class="control-label">Должность</label>
-                    <input class="form-control" id="position" type="text" placeholder="Ваша должность">
+                    <input class="form-control" autocomplete="on" id="position" type="text" placeholder="Ваша должность">
 
-                    <label for="avatar" class="control-label">Ваше фото</label>
-                    <input id="avatar" type="file" accept="image/*"  title="Загрузить..." data-filename-placement="inside">
-
-                    <img class="avatar" src="/images/nofoto.png"/>
+                    <fieldset class="fieldset-section">
+                        <label class="control-label">Секция</label><br>
+                        <input class="checkbox-register-form" type="checkbox" id="section_commercial" value="Коммерческая" />
+                        <label for="section_commercial">Коммерческая</label><br>
+                        <input class="checkbox-register-form" type="checkbox" id="section_budget" value="Бюджетная" />
+                        <label for="section_budget">Бюджетная</label>
+                    </fieldset>
+                    <!--label for="avatar" class="control-label">Ваше фото</label>
+                    <input id="avatar" type="file" accept="image/*"  title="Загрузить..." data-filename-placement="inside" required>
+                    <img class="avatar" src="/images/nofoto.png"/-->
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" id="btnRegisterUser">Зарегистрироваться</button>
+                    <button type="button" class="btn btn-default" id="btnRegisterUser" disabled>Зарегистрироваться</button>
                 </div>
             </div>
         </div>

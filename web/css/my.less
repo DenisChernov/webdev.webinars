@@ -1,3 +1,5 @@
+@site_background: #DFE8FF;
+
 body {
     background-color: #C0BAA9;
     //max-height: 3800px;
@@ -16,27 +18,35 @@ body {
 }
 
 .animated_resize {
-  -webkit-transition: width 500ms, height 500ms;
-  -moz-transition: width 500ms, height 500ms;
-  -ms-transition: width height 500ms, height 500ms;
-  -o-transition: width 500ms, height 500ms;
-  transition: width 500ms, height 500ms;
+  -webkit-transition: width 1000ms, height 1000ms, padding 1000ms;
+  -moz-transition: width 1000ms, height 1000ms, padding 1000ms;
+  -ms-transition: width height 1000ms, height 1000ms, padding 1000ms;
+  -o-transition: width 1000ms, height 1000ms, padding 1000ms;
+  transition: width 1000ms, height 1000ms, padding 1000ms;
 }
 
 .animated_show_bg {
-  -webkit-transition: background 800ms;
-  -moz-transition: background 800ms;
-  -ms-transition: background 800ms;
-  -o-transition: background 800ms;
-  transition: background 800ms;
+  -webkit-transition: height 800ms ease-in-out, background 1100ms ease-in-out;
+  -moz-transition: height 800ms ease-in-out, background 1100ms ease-in-out;
+  -ms-transition: height 800ms ease-in-out, background 1100ms ease-in-out;
+  -o-transition: height 800ms ease-in-out, background 1100ms ease-in-out;
+  transition: height 800ms ease-in-out, background 1100ms ease-in-out;
 }
 
 .animated_margin {
-  -webkit-transition: margin 800ms;
-  -moz-transition: margin 800ms;
-  -ms-transition: margin 800ms;
-  -o-transition: margin 800ms;
-  transition: margin 800ms;
+  -webkit-transition: margin 800ms, color 800ms;
+  -moz-transition: margin 800ms, color 800ms;
+  -ms-transition: margin 800ms, color 800ms;
+  -o-transition: margin 800ms, color 800ms;
+  transition: margin 800ms, color 800ms;
+}
+
+.animated_color_font {
+  -webkit-transition: color 800ms;
+  -moz-transition: color 800ms;
+  -ms-transition: color 800ms;
+  -o-transition: color 800ms;
+  transition: color 800ms;
 }
 
 .animated_tablerow {
@@ -82,9 +92,10 @@ body {
   top: 0;
   position: fixed;
   width: 100%;
-  height: 40px;
+  height: 80px;
   z-index: 5000;
-  background: rgba(151, 240, 149, 0);
+  background: rgba(255,255,255, 0);
+  border-bottom: 1px solid white;
 }
 
 .header_mnu_buttons {
@@ -95,7 +106,7 @@ body {
 }
 
 .header_mnu_btn {
-  color: yellow;
+  color: white;
   font-weight: bold;
   padding-right: 8px;
 
@@ -105,14 +116,9 @@ body {
   }
 }
 
-.show_bg_header_mnu {
-  background: rgba(151, 240, 149, 1);
-}
-
-
 .company_logo {
-  width: 196px;
-//    height: 99px;
+  height: 70px;
+  padding: 10px 0 0 10px;
 }
 
 @media screen and (max-width: 1280px) {
@@ -145,15 +151,29 @@ body {
 
 .web_data {
   display: block;
-  width: 834px;
+  width: 960px;
+  line-height: 2;
+
+  .one_section {
+    line-height: 1;
+  }
 }
 
 .web_description {
   display: block;
-  font-size: 1.5em;
+  font-size: 2.5em;
   text-align: center;
-  border-radius: 10px;
-  background-color: rgba(240, 248, 255, 0.13);
+  color: white;
+  //border-radius: 10px;
+  //background-color: rgba(240, 248, 255, 0.13);
+}
+
+.schedule_commercial {
+  .web_description;
+}
+
+.schedule_budget {
+  .web_description;
 }
 
 .web_register_status {
@@ -170,11 +190,24 @@ body {
   color: whitesmoke;
   text-transform: uppercase;
   text-align: center;
+  line-height: 1.4;
+
+  .title-big-1c {
+    height: 92px;
+    float: right;
+  }
 }
 
 .btnRegister {
   display: flex;
   justify-content: center;
+  padding-top: 50px;
+
+  .btn-register {
+    background-color: yellow;
+    color: grey;
+    font-weight: bold;
+  }
 }
 
 .readmore {
@@ -197,8 +230,9 @@ body {
 .second_page {
   float: left;
   width: 100%;
-  background-color: black;
+  background-color: @site_background;
   line-height: 0;
+  padding: 20px 8% 0 8%;
 }
 
 .info_who_come {
@@ -211,69 +245,59 @@ body {
 }
 
 .speakers_data {
-
+//  padding-top: 20px;
+  //padding: 20px 8% 0 8%;
 }
 
 .speaker_data {
   position: absolute;
 //  top: 440px;
-  top: 600px;
-  opacity: 0;
+  //top: 600px;
+  opacity: 1;
   width: 100%;
   text-align: center;
   z-index: 2000;
+  top: 60px;
+
+  .speaker_fio {
+    font-size: 2.7em;
+    color: black;
+    //text-transform: uppercase;
+    text-align: justify;
+  }
 }
 
 .speaker {
   display: inline-block;
   position: relative;
-  width: 24.8%;
+  width: 24.7%;
+  padding-top: 100px;
 }
 
-@media screen and (max-width: 1490px) {
+@media screen and (max-width: 1760px) {
   .speaker {
     display: inline-block;
     position: relative;
     width: 33%;
+    padding-top: 100px;
   }
 }
 
-@media screen and (max-width: 1102px) {
+@media screen and (max-width: 1550px) {
   .speaker {
     display: inline-block;
     position: relative;
-    width: 49.5%;
+    width: 49%;
+    padding-top: 100px;
   }
 }
-
 
 .speaker_foto {
   display: block;
-  width: 100%;
+  width: 94%;
   height: 600px;
   line-height: 0;
   vertical-align: bottom;
-
-  opacity:0.7;
-  -moz-opacity:0.7;
-  filter: alpha(opacity=70) black;
-  -khtml-opacity: 0.5;
-}
-
-.speaker_fio {
-  font-size: 2.7em;
-  color: white;
-  text-transform: uppercase;
-  text-align: justify;
-}
-
-@media screen and (max-width: 1760px) {
-  .speaker_fio {
-    font-size: 2.0em;
-    color: white;
-    text-transform: uppercase;
-    text-align: justify;
-  }
 }
 
 .hr_fio {
@@ -289,9 +313,10 @@ body {
 
 .third_page {
   float: left;
-  background-color: white;
+  background-color: @site_background;
   width: 100%;
-  height: 100vh;
+  //height: 100vh;
+  height: 100%;
 }
 
 /*
@@ -353,13 +378,13 @@ body {
 
   .registered_users {
     text-transform: uppercase;
-    font-size: 4em;
+    font-size: 3em;
   }
 }
 
 .reg_user_block {
-  display: table;
-  width: 30%;
+//  display: table;
+//  width: 30%;
 
   .user_avatar {
     max-width: 250px;
@@ -370,6 +395,7 @@ body {
   .user_fio {
     font-weight: bolder;
     color: black;
+    font-size: 1.3em;
   }
 
   .user_work {
@@ -385,13 +411,13 @@ body {
 
   .table {
     display: table;
+    padding: 10px;
   }
 
   .table-row {
     display: table-row;
     text-align: center;
     vertical-align: bottom;
-
   }
 
 }
@@ -400,12 +426,16 @@ body {
   text-decoration: none;
   position: relative;
   display: inline-block;
+  padding: 10px;
 
   &:hover {
     text-decoration: none;
   }
 }
 
+.page_admin {
+
+}
 
 .admin_page {
   position: absolute;
@@ -484,7 +514,7 @@ body {
 
 .comming_webinar_page {
   float: left;
-  background-color: white;
+  background-color: @site_background;
   width: 100%;
   height: auto;
 }
@@ -494,8 +524,8 @@ body {
   text-align: center;
 
   .webinar_iscomming {
-    text-transform: uppercase;
-    font-size: 4em;
+    //text-transform: uppercase;
+    font-size: 3em;
   }
 }
 
@@ -504,18 +534,18 @@ body {
   text-align: center;
 
   .webinar_inprogress {
-    text-transform: uppercase;
-    font-size: 4em;
+    //text-transform: uppercase;
+    font-size: 3em;
   }
 }
 
 .webinar_text {
-  padding-left: 30%;
-  padding-right: 30%;
-  font-size: 2.4em;
-  text-align: justify;
+  padding: 2% 30% 0 30%;
+  font-size: 2.0em;
+  text-align: center;
 }
 
+/*
 @media screen and(max-height: 710px) {
   padding-left: 30%;
   padding-right: 30%;
@@ -532,6 +562,7 @@ body {
   padding-left: 15%;
   padding-right: 15%;
 }
+*/
 
 .no-pic {
 //  visibility: hidden;
@@ -596,5 +627,218 @@ body {
   width: 100%;
   height: 440px;
   float: right;
-  padding: 3% 0 3% 0;
+  padding: 2% 10% 2% 10%;
+}
+
+.scheduler {
+  padding-top: 40px;
+  float: left;
+  background-color: @site_background;
+  width: 100%;
+  display: table;
+
+  .time {
+    font-size: 4em;
+  }
+
+  .schedule_type {
+    font-size: 1.7em;
+  }
+
+  .schedule_left {
+    display: table-cell;
+    padding-left: 10%;
+    padding-right: 5%;
+    width: 50%;
+  }
+
+  .schedule_right {
+    display: table-cell;
+    padding-right: 13%;
+    width: 50%;
+  }
+
+  .topic {
+    display: table-cell;
+    font-size: 1.5em;
+  }
+
+  .table-cell {
+    display: table-cell;
+    border: 0;
+    height: 3em;
+  }
+
+  .table-row {
+    display: table-row;
+    border: 0px;
+  }
+
+  .schedule_type {
+    padding-left: 10%;
+    width: 100%;
+    vertical-align: top;
+    font-size: 2em;
+  }
+}
+
+
+.fieldset-section {
+  line-height: 2;
+
+  /* Cначала обозначаем стили для IE8 и более старых версий
+т.е. здесь мы немного облагораживаем стандартный чекбокс. */
+  .checkbox-register-form {
+    vertical-align: top;
+    margin: 0 3px 0 0;
+    width: 17px;
+    height: 17px;
+  }
+  /* Это для всех браузеров, кроме совсем старых, которые не поддерживают
+  селекторы с плюсом. Показываем, что label кликабелен. */
+  .checkbox-register-form + label {
+    cursor: pointer;
+  }
+
+  /* Далее идет оформление чекбокса в современных браузерах, а также IE9 и выше.
+  Благодаря тому, что старые браузеры не поддерживают селекторы :not и :checked,
+  в них все нижеследующие стили не сработают. */
+
+  /* Прячем оригинальный чекбокс. */
+  .checkbox-register-form:not(checked) {
+    position: absolute;
+    opacity: 0;
+  }
+  .checkbox-register-form:not(checked) + label {
+    position: relative; /* будем позиционировать псевдочекбокс относительно label */
+    padding: 0 0 0 60px; /* оставляем слева от label место под псевдочекбокс */
+  }
+  /* Оформление первой части чекбокса в выключенном состоянии (фон). */
+  .checkbox-register-form:not(checked) + label:before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 50px;
+    height: 26px;
+    border-radius: 13px;
+    background: #CDD1DA;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, .2);
+  }
+  /* Оформление второй части чекбокса в выключенном состоянии (переключатель). */
+  .checkbox-register-form:not(checked) + label:after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 2px;
+    width: 22px;
+    height: 22px;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+    transition: all .2s; /* анимация, чтобы чекбокс переключался плавно */
+  }
+  /* Меняем фон чекбокса, когда он включен. */
+  .checkbox-register-form:checked + label:before {
+    background: #9FD468;
+  }
+  /* Сдвигаем переключатель чекбокса, когда он включен. */
+  .checkbox-register-form:checked + label:after {
+    left: 26px;
+  }
+  /* Показываем получение фокуса. */
+  .checkbox-register-form:focus + label:before {
+    box-shadow: 0 0 0 3px rgba(255, 255, 0, .5);
+  }
+}
+
+.footer {
+  float: left;
+  width: 100%;
+  background: url("/images/footer.jpg") repeat-x center;
+  line-height: 14pt;
+
+  .botlight {
+    background: url(/images/botlight.png) left top no-repeat;
+    padding-left: 30px;
+    max-width: 940px;
+    background-position: -63px 0;
+    margin: 0 auto;
+    min-width: 960px;
+
+  }
+
+  #foot {
+    min-width: 940px; padding: 0 20px; max-width: 940px;
+    margin: 0 auto;
+  }
+
+  .blogo {margin: 46px 0; display: block;}
+
+  .copyright span {font-size: 13px;}
+
+  .copyright {padding-bottom: 30px;}
+
+  .botcont a {color: #FFF; font-size: 14px; margin: 10px 0;}
+
+  .botcont p {font-size: 18px; padding-bottom: 10px; letter-spacing: -0.7;}
+
+  .botcont p b {font-size: 13px;}
+
+  .spflinks, .spfcont {
+    display: table;
+    width: 84%;
+    margin-top: 67px;
+    float: right;
+  }
+  .spblogo {margin: 30px 0 !important; }
+  .spflogo {background: none !important; margin-bottom: 10px !important; padding-bottom: 0 !important;}
+
+  .spfcont {  margin-top: 54px;   width: 81%; }
+  .spfcont .botcont {  display: table-cell;   color: #bdbdbd; padding: 0; margin: 0;}
+
+  .spfcont .botcont #bsocial2{ display: table;  padding: 0 !important; float: right;  margin: 0;}
+  .spfcont .botcont #bsocial2 a { margin-top: 0; margin-bottom: 0;}
+
+  .spfcont .botcont:last-child {vertical-align: bottom; padding-bottom: 3px;}
+
+  #bsocial2 a.fb {display: block; width: 24px; height: 24px; background: url(/images/fb.png) top left no-repeat; float: left;}
+
+  #bsocial2 a.in {display: block; width: 24px; height: 24px; background: url(/images/in.png) top left no-repeat; float: left; margin-left:10px;}
+
+  #bsocial2 a.tw {display: block; width: 24px; height: 24px; background: url(/images/tw.png) top left no-repeat; float: left; margin-left:10px;}
+
+  #bsocial2 a.vk {display: block; width: 24px; height: 24px; background: url(/images/vk.png) top left no-repeat; float: left; margin-left:10px;}
+
+  .scol1, .scol2 {
+    display: table-cell;
+    text-align: center;
+  }
+
+  .scol1:last-child {
+    text-align: right;
+  }
+
+  .scol1 h1 a, .scol2 h1 a {
+    color: #FFF;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 21px;
+    letter-spacing: -0.5;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .scol1 h1 a:hover, .scol2 h1 a:hover {
+    text-decoration: underline;
+  }
+
+  .flogo {
+    color: #bdbdbd;
+    float: left;
+    background:  url(/images/bline.gif) bottom left repeat-x;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    transform: translateY(-8%);
+  }
 }

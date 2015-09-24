@@ -23,34 +23,10 @@
     </div>
 
 {#*****************************************#}
-{# Вставка с описанием ближайшего вебинара #}
-    <div class="comming_webinar_page" id="comming_webinar">
-        <div class="animated_show_visible">
-        {% for webinar in webinars %}
-            {% if webinar.registerStatus == 0 %}
-                <div class="webinar_description">
-                    <div class="webinar_iscomming_header">
-                        <p class="webinar_iscomming">Вебинар скоро начнется!</p>
-                        <hr class="hr_fio">
-                    </div>
-                    {% include 'webinars/comming_webinar.html' with { 'webinar' : webinar} %}
-                </div>
-            {% elseif webinar.registerStatus == 1 %}
-                <div class="webinar_description">
-                    <div class="webinar_inprogress_header">
-                        <p class="webinar_inprogress">Вебинар уже идет!</p>
-                        <hr class="hr_fio">
-                    </div>
-                    {% include 'webinars/comming_webinar.html' with { 'webinar' : webinar} %}
-                </div>
-            {% endif %}
-        {% endfor %}
-        </div>
-    </div>
-{#*****************************************#}
+
 {# Вторая страница #}
     <div class="second_page" id="speakers">
-        {% include 'webinars/block_header.html' with {'header' : 'Список докладчиков', 'color' : 'white'} %}
+        <!-- include 'webinars/block_header.html' with {'header' : 'Список докладчиков', 'color' : 'white'}  %}-->
         <div class="speakers_data">
             {% for speaker in speakers %}
                 {% include 'webinars/webinar_speakers.html' with {'speaker' : speaker } %}
@@ -59,18 +35,70 @@
     </div>
 {#*****************************************#}
 
+<div class="scheduler">
+    {% for webinar in webinars %}
+        {% include 'webinars/scheduler.html' with {'webinars' : webinar }%}
+    {% endfor %}
+</div>
+
 {# Третья страница #}
     <div class="third_page" id="listeners">
         <div class="reg_user_header">
-            <p class="registered_users">Зарегистрированные участники</p>
+            <p class="registered_users">Зарегистрированные участники<br> на коммерческую секцию:</p>
             <hr class="hr_fio">
         </div>
-        <div class="users_who_come">
+        <div class="users_who_come section_commercial">
             {% for user in users %}
-                {% include 'webinars/reg_users.html' with {'user' : user} %}
+                {% if user.onCommercial %}
+                    {% include 'webinars/reg_users.html' with {'user' : user} %}
+                {% endif %}
             {% endfor %}
-        <div>
+        </div>
+        <div class="reg_user_header">
+            <p class="registered_users">Зарегистрированные участники<br> на бюджетную секцию:</p>
+            <hr class="hr_fio">
+
+        </div>
+        <div class="users_who_come section_budget">
+            {% for user in users %}
+                {% if user.onBudget %}
+                    {% include 'webinars/reg_users.html' with {'user' : user} %}
+                {%  endif %}
+            {% endfor %}
+        </div>
     </div>
 {#*****************************************#}
 
+    {# Вставка с описанием ближайшего вебинара #}
+    <div class="comming_webinar_page" id="comming_webinar">
+        <div class="animated_show_visible">
+            {% for webinar in webinars %}
+                {% if webinar.registerStatus == 0 %}
+                    <div class="webinar_description">
+                        <div class="webinar_iscomming_header">
+                            <p class="webinar_iscomming">До начала семинара</p>
+                            <!--hr class="hr_fio"-->
+                            <div id="timer-area">
+                            </div>
+                        </div>
+                        {% include 'webinars/comming_webinar.html' with { 'webinar' : webinar} %}
+                    </div>
+                {% elseif webinar.registerStatus == 1 %}
+                    <div class="webinar_description">
+                        <div class="webinar_inprogress_header">
+                            <p class="webinar_inprogress">Семинар уже идет!</p>
+                            <hr class="hr_fio">
+                        </div>
+                        {% include 'webinars/comming_webinar.html' with { 'webinar' : webinar} %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {#*****************************************#}
+{# Подвал#}
+    <div class="footer">
+        {% include 'webinars/footer.html' %}
+    </div>
+{# ******************************************** #}
 {% endblock %}

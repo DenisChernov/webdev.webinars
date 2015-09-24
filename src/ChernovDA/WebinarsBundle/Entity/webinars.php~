@@ -41,6 +41,31 @@ class webinars {
     protected $time_beg;
 
     /**
+     * @ORM\Column(type="string", options={"default" = "00:00"})
+     */
+    protected $time_beg_commercial = "00:00";
+
+    /**
+     * @ORM\Column(type="text", options={"default" = "Незаполнено"})
+     */
+    protected $schedule_commercial;
+
+    /**
+     * @ORM\Column(type="string", options={"default" = "00:00"})
+     */
+    protected $time_beg_budget = "00:00";
+
+    /**
+     * @ORM\Column(type="text", options={"default" = "Незаполнено"})
+     */
+    protected $schedule_budget;
+
+    /**
+     * @ORM\Column(type="string", options={"default" = "Пока не указано"})
+     */
+    protected $whereis;
+
+    /**
      * @ORM\Column(type="string");
      */
     protected $description;
@@ -201,5 +226,120 @@ class webinars {
     public function getPic()
     {
         return $this->pic;
+    }
+
+    /**
+     * Set time_beg_commercial
+     *
+     * @param string $timeBegCommercial
+     * @return webinars
+     */
+    public function setTimeBegCommercial($timeBegCommercial)
+    {
+        $this->time_beg_commercial = $timeBegCommercial;
+
+        return $this;
+    }
+
+    /**
+     * Get time_beg_commercial
+     *
+     * @return string 
+     */
+    public function getTimeBegCommercial()
+    {
+        return $this->time_beg_commercial;
+    }
+
+    /**
+     * Set time_beg_budget
+     *
+     * @param string $timeBegBudget
+     * @return webinars
+     */
+    public function setTimeBegBudget($timeBegBudget)
+    {
+        $this->time_beg_budget = $timeBegBudget;
+
+        return $this;
+    }
+
+    /**
+     * Get time_beg_budget
+     *
+     * @return string 
+     */
+    public function getTimeBegBudget()
+    {
+        return $this->time_beg_budget;
+    }
+
+    /**
+     * Set whereis
+     *
+     * @param string $whereis
+     * @return webinars
+     */
+    public function setWhereis($whereis)
+    {
+        $this->whereis = $whereis;
+
+        return $this;
+    }
+
+    /**
+     * Get whereis
+     *
+     * @return string 
+     */
+    public function getWhereis()
+    {
+        return $this->whereis;
+    }
+
+    /**
+     * Set schedule_commercial
+     *
+     * @param string $scheduleCommercial
+     * @return webinars
+     */
+    public function setScheduleCommercial($scheduleCommercial)
+    {
+        $this->schedule_commercial = $scheduleCommercial;
+
+        return $this;
+    }
+
+    /**
+     * Get schedule_commercial
+     *
+     * @return string 
+     */
+    public function getScheduleCommercial()
+    {
+        return $this->schedule_commercial;
+    }
+
+    /**
+     * Set schedule_budget
+     *
+     * @param string $scheduleBudget
+     * @return webinars
+     */
+    public function setScheduleBudget($scheduleBudget)
+    {
+        $this->schedule_budget = $scheduleBudget;
+
+        return $this;
+    }
+
+    /**
+     * Get schedule_budget
+     *
+     * @return string 
+     */
+    public function getScheduleBudget()
+    {
+        return $this->schedule_budget;
     }
 }

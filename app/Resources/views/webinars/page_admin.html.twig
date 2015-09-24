@@ -3,10 +3,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="page_admin">
     {% include 'webinars/header_mnu.html' %}
     {# Форма создания вебинара #}
     {% include 'webinars/form_newwebinar.html' %}
-    {###########################}
-
+    {# ######################### #}
     {% include 'webinars/admin.html' %}
+    </div>
 {% endblock %}

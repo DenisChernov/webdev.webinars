@@ -17,7 +17,7 @@ function init(){
     });
 
     myPlacemark = new ymaps.Placemark([68.95961673, 33.07782454], {
-        hintContent: 'Вебинар тут!',
+        hintContent: 'Семинар тут!',
         balloonContent: 'Отель Park-Inn'
     });
 
@@ -29,7 +29,7 @@ function init(){
 $(function(){
     $('.datepicker').datetimepicker({
             locale: 'ru',
-            format: 'DD-MM-YYYY',
+            format: 'DD MMMM YYYY',
             showTodayButton: true
         }
     );
@@ -44,26 +44,94 @@ $(function(){
 
     ymaps.ready(init);
 
+    /**
+     *  Приведение минут к верхнему индексу
+     */
+    $('.time_sup').each(function(){
+        timeedit = $(this).text();
+        l = timeedit.substr(0, timeedit.indexOf(':'));
+        r = timeedit.substr(timeedit.indexOf(':') + 1, timeedit.length - timeedit.indexOf(':'));
+        $(this).html(l + "<sup>" + r + "</sup>");
+    });
+    /**************************************/
+
+
+
+    var countdown = new Countdown({
+        year: 2015,
+        month: 10,
+        day: 14,
+        hour: 10,
+        minutes: 00,
+        width: 440,
+        height: 100,
+        hideLabels : false,
+        hideLine : false,
+        style: "boring",
+        inline: true,
+        rangeHi: "month",
+        target: "timer-area",
+        //padding: 0.8,
+        numbers : {
+            font : "Arial",
+            color : "#FFFFFF",
+            bkgd : "#365D8B",
+            rounded : 0.15, // percentage of size
+            shadow : {
+                x : 0, // x offset (in pixels)
+                y : 3, // y offset (in pixels)
+                s : 4, // spread
+                c : "#000000", // color
+                a : 0.4 // alpha
+            }
+        },
+        labels : {
+            font   : "Arial",
+            color  : "#000000",
+            offset : 0, // Number of pixels to push the labels down away from numbers.
+            textScale  : 0.7, // Percentage of size
+            weight : "normal" // < - no comma on last item!
+        }
+    });
 
 });
 
 
 $(window).on('scroll', function(){
     if ($(window).scrollTop() > 150) {
-        $('.header_mnu').addClass('show_bg_header_mnu');
         $('.company_logo').css({
-            width: "77px",
-            height: "40px"
+           height: "40px",
+           padding: "0 0 0 10px"
         });
-        $('.header_mnu_buttons').css("margin", "10px 20px 0 0");
+        $('.company_logo').attr("src", "/images/cpc-logo-full-color.png");
+        $('.header_mnu').css({
+           height: "40px",
+           background: "rgba(255, 255, 255, 0.89)"
+        });
+        $('.header_mnu_buttons').css({
+            margin : "10px 20px 0 0",
+        });
+        $('.header_mnu_btn').css({
+           color: "orange"
+        });
     }
     else {
-        $('.header_mnu').removeClass('show_bg_header_mnu');
         $('.company_logo').css({
-            width: "196px",
-            height: "99px"
+            height: "70px",
+            padding: "10px 0 0 10px"
         });
-        $('.header_mnu_buttons').css("margin", "30px 20px 0 0");
+        $('.company_logo').attr("src", "/images/cpc-logo-white.png");
+        $('.header_mnu').css({
+            height: "80px",
+            background: "rgba(255, 255, 255, 0)"
+        });
+        $('.header_mnu_buttons').css({
+            margin : "30px 20px 0 0",
+        });
+        $('.header_mnu_btn').css({
+            color: "white"
+        });
+
     }
 
     if ($(window).scrollTop() > 457) {
@@ -71,8 +139,9 @@ $(window).on('scroll', function(){
     }
 
     //console.log($(window).scrollTop());
+    console.log($(window).width());
 
-    if ($(window).scrollTop() > 979) {
+/*    if ($(window).scrollTop() > 127) {
         $('.speaker_data').css({
             opacity: "1",
             transform: 'translateY(-100px)'
@@ -83,7 +152,7 @@ $(window).on('scroll', function(){
             opacity: "0",
             transform: 'translateY(0px)'
         })
-    }
+    }*/
 });
 
 $('.scroll_to_speakers').on('click', function(){
@@ -130,6 +199,15 @@ $('#btn_listeners').on('click', function(){
 });
 
 $('#btn_register').on('click', function(){
+    var width = $(window).width();
+    var height = $(window).height();
+    var left = ($(window).width() / 2) - (parseInt($('#form_register').css('width')) / 2);
+
+    //$('.form_register').css({"left" : left, "top" : "100px"});
+    $('#form_register').modal('show');
+});
+
+$('#btn_register_user').on('click', function(){
     var width = $(window).width();
     var height = $(window).height();
     var left = ($(window).width() / 2) - (parseInt($('#form_register').css('width')) / 2);
@@ -265,29 +343,55 @@ $('.upload_avatar').change(function(){
 // запись пользователя
 $('#btnRegisterUser').on('click', function(){
     email = $('#form_register').find('#email').val();
-    pass = $('#form_register').find('#password').val();
+    //pass = $('#form_register').find('#password').val();
     fio = $('#form_register').find('#fio').val();
     organisation = $('#form_register').find('#organisation').val();
     position = $('#form_register').find('#position').val();
+    if (position.length == 0)
+        position = " ";
+    isCommercial = $('#form_register').find("#section_commercial").prop("checked");
+    isBudget = $('#form_register').find("#section_budget").prop("checked");
     //file = $('#form_register').find('#avatar').val();
 
-    regurl = "/new/reguser/" + email + "/" + pass + "/" + file + "/" + fio +"/" + organisation + "/" + position;
+    regurl = "/new/reguser/" + email + "/"
+            + /*pass +*/ " /"
+            + /*file +*/ " /"
+            + fio + "/"
+            + organisation + "/"
+            + position + "/"
+            + isCommercial + "/"
+            + isBudget;
 
     $.ajax({
         type: "POST",
         url: regurl,
         success: function(){
-            $('.users_who_come').append(
-                "<a href='#' class='view_full_info'>" +
-                "<div class='reg_user_block table'>" +
-                    "<div class='user_picture table-row animated_tablerow'>" +
-                        "<img class='user_avatar' src='/uploads/" + file + "'/>" +
-                    "</div>" +
+            if (isCommercial) {
+                $('.section_commercial').append(
+                    "<a href='#' class='view_full_info'>" +
+                    "<div class='reg_user_block table'>" +
+//                    "<div class='user_picture table-row animated_tablerow'>" +
+//                        "<img class='user_avatar' src='/uploads/" + file + "'/>" +
+//                    "</div>" +
                     "<div class='user_bio table-row'>" +
-                        "<div class='user_fio'>" + fio + "</div>" +
-                    "<div class='user_work'>" + position + " в " + organisation + "</div>" +
-                "</div></div></a>"
-            );
+                    "<div class='user_fio'>" + fio + "</div>" +
+                    "<div class='user_work'>" + organisation + "</div>" +
+                    "</div></div></a>"
+                );
+            }
+            if (isBudget) {
+                $('.section_budget').append(
+                    "<a href='#' class='view_full_info'>" +
+                    "<div class='reg_user_block table'>" +
+//                    "<div class='user_picture table-row animated_tablerow'>" +
+//                        "<img class='user_avatar' src='/uploads/" + file + "'/>" +
+//                    "</div>" +
+                    "<div class='user_bio table-row'>" +
+                    "<div class='user_fio'>" + fio + "</div>" +
+                    "<div class='user_work'>" + organisation + "</div>" +
+                    "</div></div></a>"
+                );
+            }
         }
     });
 
@@ -296,8 +400,10 @@ $('#btnRegisterUser').on('click', function(){
     $('#form_register').find('#fio').val("");
     $('#form_register').find('#organisation').val("");
     $('#form_register').find('#position').val("");
-    $('#form_register').find('.avatar').prop("src", "/images/nofoto.png");
-    $('#form_register').find('#avatar').val("");
+    $('#form_register').find('#section_commercial').prop("checked", "false");
+    $('#form_register').find('#section_budget').prop("checked", "false");
+//    $('#form_register').find('.avatar').prop("src", "/images/nofoto.png");
+//    $('#form_register').find('#avatar').val("");
 
     $('#form_register').modal('hide');
     $('html, body').animate({
@@ -415,7 +521,8 @@ function elmWebinars(parent){
 
 function elmSpeakers(parent) {
             id = parent.parent().parent().find('.speakers_tbl_id > label').attr("id");
-            avatar = parent.parent().parent().find('.speakers_avatar > img').attr("id");
+            avatar = parent.parent().parent().find('.speakers_avatar > img').attr("src");
+            avatar = avatar.substr(avatar.lastIndexOf("/") + 1, avatar.length - avatar.lastIndexOf("/"));
             fio = parent.parent().parent().find('.speakers_tbl_fio > input').val();
             organisation = parent.parent().parent().find('.speakers_tbl_org > input').val();
             position = parent.parent().parent().find('.speakers_tbl_position > input').val();
@@ -663,4 +770,82 @@ $('#webinar_picture_upload').on('change', function(){
             console.log('ajax: ' + textStatus);
         }
     });
+});
+
+/*
+$('#email').bind('input propertychange', function(){
+    var enableRegister = false;
+    $("input[type=text]").each(function(){
+       if ($(this).val().length > 0) {
+           enableRegister = true;
+       } else {
+           enableRegister = false;
+           return false;
+       }
+    });
+
+    if ($('#password').val().length == 0) {
+        enableRegister = false;
+    }
+
+
+    $('#btnRegisterUser').prop("disabled", enableRegister);
+}); */
+
+$('.required_field').bind('input propertychange', function(){
+    var disableRegister = true;
+    $(".required_field").each(function(){
+        if ($(this).val().length > 0) {
+            disableRegister = false;
+        } else {
+            disableRegister = true;
+            return false;
+        }
+    });
+
+    if (!disableRegister) {
+        if ($('#section_commercial').prop('checked') || $('#section_budget').prop('checked')) {
+            disableRegister = false;
+        } else {
+            disableRegister = true;
+        }
+    }
+
+    $('#btnRegisterUser').prop("disabled", disableRegister);
+});
+
+$('#section_commercial').on('click', function(){
+   if ($(this).prop("checked")) {
+       var disableRegister = true;
+       $(".required_field").each(function(){
+           if ($(this).val().length > 0) {
+               disableRegister = false;
+           } else {
+               disableRegister = true;
+               return false;
+           }
+       });
+       $('#btnRegisterUser').prop("disabled", disableRegister);
+   } else if ($('#section_budget').prop("checked") == false){
+       $('#btnRegisterUser').prop("disabled", true);
+   }
+
+});
+
+$('#section_budget').on('click', function(){
+    if ($(this).prop("checked")) {
+        var disableRegister = true;
+        $(".required_field").each(function(){
+            if ($(this).val().length > 0) {
+                disableRegister = false;
+            } else {
+                disableRegister = true;
+                return false;
+            }
+        });
+        $('#btnRegisterUser').prop("disabled", disableRegister);
+    } else if ($('#section_commercial').prop("checked") == false){
+        $('#btnRegisterUser').prop("disabled", true);
+    }
+
 });

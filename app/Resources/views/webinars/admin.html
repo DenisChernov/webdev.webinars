@@ -21,6 +21,7 @@
                     <td class="table-cell" style="display: none"></td>
                 </tr>
             {% for webinar in webinars %}
+                <div style="display: none;" id="timer-area"></div>
                 <tr class="table-row" id="{{webinar.id}}">
                     <td class="table-cell webinar_tbl_id">
                         <label class="control-label" id="{{ webinar.id }}">{{ webinar.id }}</label>
@@ -94,7 +95,7 @@
                                 <label class="control-label" id="{{ speaker.id }}">{{ speaker.id }}</label>
                             </td>
                             <td class="table-cell speakers_avatar">
-                                <img class="upload_avatar_img" id="{{ speaker.pic }}" src="/images/{{ speaker.pic }}"/>
+                                <img class="upload_avatar_img" id="{{ speaker.pic }}" src="/uploads/{{ speaker.pic }}"/>
                                 <input class="upload_avatar" style="width:66%" id="avatar" type="file" accept="image/*"  data-filename-placement="inside">
                             </td>
                             <td class="table-cell speakers_tbl_fio">

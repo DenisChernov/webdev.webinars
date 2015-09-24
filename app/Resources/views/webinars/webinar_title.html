@@ -1,25 +1,42 @@
 <div class="web_data">
-    <p class="title-big">{{ webinar.title }}</p>
-    <p class="web_description">
-        Комплекс семинаров, проводимых компанией ИТ Консалтинг
-    </p>
+    <div class="one_section">
+        <p class="title-big">
+            {{ webinar.title }}
+            <img class="title-big-1c" src="/images/1c-logo.png"/>
+        </p>
+        <p class="web_description">
+            {{ webinar.dateBeg }}<br>
+            {{ webinar.whereis }}
+        </p>
+    </div>
+<br>
+    <div class="one_section">
+        <p class="schedule_commercial">
+            <span class="time_sup">{{ webinar.timeBegCommercial }}</span> коммерческая секция
+        </p>
+        <p class="schedule_budget">
+            <span class="time_sup">{{ webinar.timeBegBudget }}</span> бюджетная секция
+        </p>
+    </div>
+    <br>
     <p class="web_register_status">
         {% if webinar.registerStatus == 2 %}
             Регистрация закрыта
         {% elseif webinar.registerStatus == 1 %}
             Семинар уже начался
         {% elseif webinar.registerStatus == 0 %}
-            Семинар будет доступен с {{ webinar.dateBeg }} в {{ webinar.timeBeg }}
+            участие беслатное<br>
+            Регистрация обязательна
         {% endif %}
     </p>
     {% if webinar.registerStatus == 0 %}
         <div class="btnRegister">
-            <button type="button" class="btn btn-warning btn-lg" id="btn_register">РЕГИСТРАЦИЯ</button>
+            <button type="button" class="btn btn-register btn-lg" id="btn_register">РЕГИСТРАЦИЯ</button>
         </div>
     {% endif %}
 
-    <div class="readmore">
+    <!--div class="readmore">
         <a href="#comming_webinar" class="read_more scroll_to_anons">Подробнее</a><br>
         <a href="#comming_webinar" class="scroll_to_anons"><img src="/images/arrows-down-yellow.png"/></a>
-    </div>
+    </div-->
 </div>
