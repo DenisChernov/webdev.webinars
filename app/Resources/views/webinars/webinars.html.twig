@@ -24,6 +24,13 @@
 
 {#*****************************************#}
 
+    <div class="webinar_iscomming_header">
+        <p class="webinar_iscomming">До начала семинара</p>
+        <!--hr class="hr_fio"-->
+        <div id="timer-area">
+        </div>
+    </div>
+
 {# Вторая страница #}
     <div class="second_page" id="speakers">
         <!-- include 'webinars/block_header.html' with {'header' : 'Список докладчиков', 'color' : 'white'}  %}-->
@@ -75,12 +82,6 @@
             {% for webinar in webinars %}
                 {% if webinar.registerStatus == 0 %}
                     <div class="webinar_description">
-                        <div class="webinar_iscomming_header">
-                            <p class="webinar_iscomming">До начала семинара</p>
-                            <!--hr class="hr_fio"-->
-                            <div id="timer-area">
-                            </div>
-                        </div>
                         {% include 'webinars/comming_webinar.html' with { 'webinar' : webinar} %}
                     </div>
                 {% elseif webinar.registerStatus == 1 %}

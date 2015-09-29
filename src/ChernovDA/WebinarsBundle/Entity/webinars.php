@@ -46,7 +46,7 @@ class webinars {
     protected $time_beg_commercial = "00:00";
 
     /**
-     * @ORM\Column(type="text", options={"default" = "Незаполнено"})
+     * @ORM\Column(type="text")
      */
     protected $schedule_commercial;
 
@@ -56,7 +56,7 @@ class webinars {
     protected $time_beg_budget = "00:00";
 
     /**
-     * @ORM\Column(type="text", options={"default" = "Незаполнено"})
+     * @ORM\Column(type="text")
      */
     protected $schedule_budget;
 

@@ -69,6 +69,11 @@ class users
     protected $onBudget;
 
     /**
+     * @ORM\Column(type="string", options={"default" = " "})
+     */
+    protected $phone = " ";
+
+    /**
      * Get id
      *
      * @return integer 
@@ -260,5 +265,28 @@ class users
     public function getOnBudget()
     {
         return $this->onBudget;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return users
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
     }
 }

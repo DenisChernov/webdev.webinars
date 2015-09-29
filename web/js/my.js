@@ -55,8 +55,6 @@ $(function(){
     });
     /**************************************/
 
-
-
     var countdown = new Countdown({
         year: 2015,
         month: 10,
@@ -99,35 +97,35 @@ $(function(){
 
 $(window).on('scroll', function(){
     if ($(window).scrollTop() > 150) {
-        $('.company_logo').css({
+/*        $('.company_logo').css({
            height: "40px",
            padding: "0 0 0 10px"
-        });
+        });*/
         $('.company_logo').attr("src", "/images/cpc-logo-full-color.png");
         $('.header_mnu').css({
-           height: "40px",
+//           height: "40px",
            background: "rgba(255, 255, 255, 0.89)"
         });
-        $('.header_mnu_buttons').css({
+/*        $('.header_mnu_buttons').css({
             margin : "10px 20px 0 0",
-        });
+        });*/
         $('.header_mnu_btn').css({
-           color: "orange"
+           color: "#727272"
         });
     }
     else {
-        $('.company_logo').css({
+/*        $('.company_logo').css({
             height: "70px",
             padding: "10px 0 0 10px"
-        });
+        });*/
         $('.company_logo').attr("src", "/images/cpc-logo-white.png");
         $('.header_mnu').css({
             height: "80px",
             background: "rgba(255, 255, 255, 0)"
         });
-        $('.header_mnu_buttons').css({
+/*        $('.header_mnu_buttons').css({
             margin : "30px 20px 0 0",
-        });
+        });*/
         $('.header_mnu_btn').css({
             color: "white"
         });
@@ -351,6 +349,7 @@ $('#btnRegisterUser').on('click', function(){
         position = " ";
     isCommercial = $('#form_register').find("#section_commercial").prop("checked");
     isBudget = $('#form_register').find("#section_budget").prop("checked");
+    telnumber = $('#form_register').find('#telnumber').val();
     //file = $('#form_register').find('#avatar').val();
 
     regurl = "/new/reguser/" + email + "/"
@@ -358,9 +357,14 @@ $('#btnRegisterUser').on('click', function(){
             + /*file +*/ " /"
             + fio + "/"
             + organisation + "/"
-            + position + "/"
-            + isCommercial + "/"
-            + isBudget;
+            + position
+            + (isCommercial  == true ? "/1/" : "/0/")
+            + (isBudget == true ? "1/" : "0/")
+            + telnumber;
+    if (telnumber == "")
+        telnumber = "не указан";
+
+    sendmailurl = "/email/" + fio + "/" + organisation + "/" + position + (isCommercial  == true ? "/1/" : "/0/") + (isBudget == true ? "1/" : "0/") + telnumber + "/" + email;
 
     $.ajax({
         type: "POST",
@@ -393,6 +397,13 @@ $('#btnRegisterUser').on('click', function(){
                 );
             }
         }
+    });
+
+
+
+    $.ajax({
+        type:"POST",
+        url: sendmailurl
     });
 
     $('#form_register').find('#email').val("");
@@ -538,8 +549,10 @@ function elmUsers(parent) {
             position = parent.parent().parent().find('.users_tbl_position > input').val();
             email = parent.parent().parent().find('.users_tbl_email > input').val();
             password = parent.parent().parent().find('.users_tbl_password > input').val();
+            onCommercial = parent.parent().parent().find('.users_tbl_commercial > div > select').val();
+            onBudget = parent.parent().parent().find('.users_tbl_budget > div > select').val();
 
-            return [id, avatar, fio, organisation, position, email, password];
+            return [id, avatar, fio, organisation, position, email, password, onCommercial, onBudget];
 }
 
 $('.btnDoChange').on('click', function(){
@@ -572,8 +585,9 @@ $('.btnDoChange').on('click', function(){
             position = elmUsers($(this))[4];
             email = elmUsers($(this))[5];
             password = elmUsers($(this))[6];
-
-            arrUsers[elmUsers($(this))[0]] = [avatar, fio, organisation, position, email, password];
+            onCommercial = elmUsers($(this))[7];
+            onBudget = elmUsers($(this))[8];
+            arrUsers[elmUsers($(this))[0]] = [avatar, fio, organisation, position, email, password, onCommercial, onBudget];
             break;
         }
     }
@@ -606,6 +620,8 @@ function toggleEnabled(element, isDisabled) {
     element.parent().parent().find('.users_tbl_position > input').prop("readonly", isDisabled);
     element.parent().parent().find('.users_tbl_email > input').prop("readonly", isDisabled);
     element.parent().parent().find('.users_tbl_password > input').prop("readonly", isDisabled);
+    element.parent().parent().find('.users_tbl_commercial > div > select').prop("disabled", isDisabled);
+    element.parent().parent().find('.users_tbl_budget > div > select').prop("disabled", isDisabled);
 }
 
 $('.btnApplyChange').on('click', function(){
@@ -662,14 +678,18 @@ $('.btnApplyChange').on('click', function(){
             position = elmUsers($(this))[4];
             email = elmUsers($(this))[5];
             password =  elmUsers($(this))[6];
+            onCommercial = elmUsers($(this))[7];
+            onBudget = elmUsers($(this))[8];
             updateurl = "/update/users/"
                 + id + "/"
-                + avatar + "/"
+                + " /"
                 + fio + "/"
                 + organisation + "/"
                 + position + "/"
                 + email + "/"
-                + password;
+                + " /"
+                + onCommercial + "/"
+                + onBudget;
 
             break;
         }
@@ -718,7 +738,8 @@ $('.btnCancelChange').on('click', function(){
             $(this).parent().parent().find('.users_tbl_position > input').val(arrUsers[id][3]);
             $(this).parent().parent().find('.users_tbl_email > input').val(arrUsers[id][4]);
             $(this).parent().parent().find('.users_tbl_password > input').val(arrUsers[id][5]);
-
+            $(this).parent().parent().find('.users_tbl_commercial > div > select').val(arrUsers[id][7]);
+            $(this).parent().parent().find('.users_tbl_budget > div > select').val(arrUsers[id][8]);
             break;
         }
     }

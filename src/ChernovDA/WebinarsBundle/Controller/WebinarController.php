@@ -136,9 +136,9 @@ class WebinarController extends Controller {
     }
 
     /**
-     * @Route("/update/users/{id}/{avatar}/{fio}/{organisation}/{position}/{email}/{password}")
+     * @Route("/update/users/{id}/{avatar}/{fio}/{organisation}/{position}/{email}/{password}/{onCommercial}/{onBudget}")
      */
-    public function updateUsersAction($id, $avatar, $fio, $organisation, $position, $email, $password) {
+    public function updateUsersAction($id, $avatar, $fio, $organisation, $position, $email, $password, $onCommercial, $onBudget) {
         $webinar = $this->getDoctrine()->getRepository('ChernovDAWebinarsBundle:webinars')->findAll();
         $speakers = $this->getDoctrine()->getRepository('ChernovDAWebinarsBundle:speakers')->findAll();
 
@@ -150,7 +150,9 @@ class WebinarController extends Controller {
                 ->setPosition($position)
                 ->setEmail($email)
                 ->setWork($organisation)
-                ->setPassword($password);
+                ->setPassword($password)
+                ->setOnCommercial($onCommercial)
+                ->setOnBudget($onBudget);
 
             $em->flush();
         }
@@ -170,9 +172,9 @@ class WebinarController extends Controller {
     }
 
     /**
-     * @Route("/new/reguser/{email}/{password}/{avatar}/{fio}/{organisation}/{position}/{isCommercial}/{isBudget}")
+     * @Route("/new/reguser/{email}/{password}/{avatar}/{fio}/{organisation}/{position}/{isCommercial}/{isBudget}/{telnumber}")
      */
-    public function newReguserAction($email, $password, $avatar, $fio, $organisation, $position, $isCommercial, $isBudget) {
+    public function newReguserAction($email, $password, $avatar, $fio, $organisation, $position, $isCommercial, $isBudget, $telnumber) {
         $regusers = new users();
         $regusers->setAvatar($avatar)
                  ->setEmail($email)
@@ -181,7 +183,8 @@ class WebinarController extends Controller {
                  ->setFio($fio)
                  ->setWork($organisation)
                  ->setOnCommercial($isCommercial)
-                 ->setOnBudget($isBudget);
+                 ->setOnBudget($isBudget)
+                 ->setPhone($telnumber);
         $em = $this->getDoctrine()->getManager();
         $em->persist($regusers);
         $em->flush();
@@ -196,6 +199,7 @@ class WebinarController extends Controller {
      * @Route("/.admin")
      */
     public function adminAction() {
+
         $em = $this->getDoctrine()->getManager();
 
         $webinar = $em->getRepository('ChernovDAWebinarsBundle:webinars')
@@ -297,4 +301,32 @@ class WebinarController extends Controller {
         );
     }
 
+
+    /**
+     * @Route ("/email/{fio}/{organisation}/{position}/{isCommercial}/{isBudget}/{phone}/{email}")
+     */
+    public function emailAction($fio, $organisation, $position, $isCommercial, $isBudget, $phone, $email) {
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Регистрация на Семинар по 1С')
+            ->setFrom('autosender@it-pole.com')
+            ->setTo('seminar@it-murman.ru')
+            ->setBody($this->renderView('webinars/reguser_emails.html.twig', array(
+                "user" => $fio,
+                "org" => $organisation,
+                "position" => $position,
+                "commercial_flag" => $isCommercial,
+                "budget_flag" => $isBudget,
+                "phone_number" => $phone,
+                "email" => $email
+            )),
+                'text/html');
+
+        $this->get('mailer')->send($message);
+
+        return $this->render(
+            'webinars/user_profile.html.twig', array(
+            )
+        );
+    }
 }

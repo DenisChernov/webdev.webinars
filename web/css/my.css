@@ -1,6 +1,7 @@
 body {
   background-color: #C0BAA9;
   height: auto;
+  font-family: Calibri !important;
 }
 .bgvideo {
   position: absolute;
@@ -241,7 +242,7 @@ body {
 .speaker_foto {
   display: block;
   width: 94%;
-  height: 600px;
+  height: 350px;
   line-height: 0;
   vertical-align: bottom;
 }
@@ -410,6 +411,7 @@ body {
 .webinar_iscomming_header {
   padding-top: 100px;
   text-align: center;
+  background: #dfe8ff;
 }
 .webinar_iscomming_header .webinar_iscomming {
   font-size: 3em;
@@ -660,11 +662,11 @@ body {
 .footer .spfcont {
   display: table;
   width: 84%;
-  margin-top: 67px;
+  margin-top: 40px;
   float: right;
 }
 .footer .spblogo {
-  margin: 30px 0 !important;
+  margin: 18px 0 -25px 0 !important;
 }
 .footer .spflogo {
   background: none !important;
@@ -672,7 +674,7 @@ body {
   padding-bottom: 0 !important;
 }
 .footer .spfcont {
-  margin-top: 54px;
+  margin-top: 39px;
   width: 81%;
 }
 .footer .spfcont .botcont {
@@ -755,4 +757,7 @@ body {
   padding-bottom: 30px;
   margin-bottom: 30px;
   transform: translateY(-8%);
+}
+lower {
+  text-transform: lowercase;
 }

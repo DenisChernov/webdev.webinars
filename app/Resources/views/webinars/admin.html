@@ -1,7 +1,7 @@
 <div class="admin_page">
 
     <ul class="nav nav-tabs">
-        <li><a href="#tab_webinars" data-toggle="tab">Вебинары<button type="button" id="btn_newWebinar" class="btn btn-default btn-lg btnAdd>"><span class="glyphicon glyphicon-plus"></span></button></a></li>
+        <li><a href="#tab_webinars" data-toggle="tab">Семинары<button type="button" id="btn_newWebinar" class="btn btn-default btn-lg btnAdd>"><span class="glyphicon glyphicon-plus"></span></button></a></li>
         <li class="active"><a href="#tab_speakers" data-toggle="tab">Спикеры<button id="btn_newSpeaker" type="button" class="btn btn-default btn-lg btnAdd>"><span class="glyphicon glyphicon-plus"></span></button></a></li>
         <li><a href="#tab_users" data-toggle="tab">Участники<button type="button" id="btn_newUser" class="btn btn-default btn-lg btnAdd>"><span class="glyphicon glyphicon-plus"></span></button></a></li>
     </ul>
@@ -120,22 +120,24 @@
                 <table class="table table-stripped" id="table_users">
                     <tr class="table-caption">
                         <td class="table-cell">#</td>
-                        <td class="table-cell">Фотография</td>
+                        <!--td class="table-cell">Фотография</td-->
                         <td class="table-cell">ФИО</td>
                         <td class="table-cell">Организация</td>
                         <td class="table-cell">Должность</td>
                         <td class="table-cell">E-mail</td>
-                        <td class="table-cell">Пароль</td>
+                        <!--td class="table-cell">Пароль</td-->
+                        <td class="table-cell">Коммерческая</td>
+                        <td class="table-cell">Бюджетная</td>
                     </tr>
                     {% for reguser in users %}
                     <tr class="table-row">
                         <td class="table-cell users_tbl_id">
                             <label class="control-label" id="{{ reguser.id }}">{{ reguser.id }}</label>
                         </td>
-                        <td class="table-cell users_avatar">
+                        <!--td class="table-cell users_avatar">
                             <img class="upload_avatar_img" id="{{ reguser.avatar }}" src="/uploads/{{ reguser.avatar }}"/>
                             <input class="upload_avatar" style="width:66%" id="user_avatar" type="file" accept="image/*"  data-filename-placement="inside">
-                        </td>
+                        </td-->
                         <td class="table-cell users_tbl_fio">
                             <input type="text" class="form-control" readonly value="{{ reguser.fio }}"/>
                         </td>
@@ -148,9 +150,28 @@
                         <td class="table-cell users_tbl_email">
                             <input type="text" class="form-control" readonly value="{{ reguser.email }}"/>
                         </td>
-                        <td class="table-cell users_tbl_password">
+                        <!--td class="table-cell users_tbl_password">
                             <input type="text" class="form-control" readonly value="{{ reguser.password }}"/>
+                        </td-->
+                        <td class="table-cell users_tbl_commercial">
+                            <!--input type="text" class="form-control" readonly value="{{ reguser.onCommercial }}"/-->
+                            <div class="selectContainer">
+                                <select disabled name="onCommercial" class="form-control">
+                                    <option value="0" {% if reguser.onCommercial == 0 %} selected {% endif %}>Нет</option>
+                                    <option value="1" {% if reguser.onCommercial == 1 %} selected {% endif %}>Да</option>
+                                </select>
+                            </div>
                         </td>
+                        <td class="table-cell users_tbl_budget">
+                            <!--input type="text" class="form-control" readonly value="{{ reguser.onBudget }}"/-->
+                            <div class="selectContainer">
+                                <select disabled name="onBudget" class="form-control">
+                                    <option value="0" {% if reguser.onBudget == 0 %} selected {% endif %}>Нет</option>
+                                    <option value="1" {% if reguser.onBudget == 1 %} selected {% endif %}>Да</option>
+                                </select>
+                            </div>
+                        </td>
+
                         <td class="table-cell" style="padding-top: 12px; width:4%;">
                             {% include 'webinars/control_buttons.html' %}
                         </td>
