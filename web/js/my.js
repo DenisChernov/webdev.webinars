@@ -218,6 +218,10 @@ $('#btn_newWebinar').on('click', function(){
     $('#form_createWebinar').modal('show');
 });
 
+$('#btn_newSpeaker').on('click', function(){
+    $('#form_createSpeaker').modal('show');
+});
+
 $(window).on('resize', function(){
     var left = ($(window).width() / 2) - (parseInt($('#form_register').css('width')) / 2);
     $('#form_register').css("left", left);
@@ -513,6 +517,51 @@ $('#btnRegisterWebinar').on('click', function(){
 
 });
 
+$('#btnRegisterSpeaker').on('click', function(){
+    avatar = $('#form_createSpeaker').find('#speaker_avatar').attr("src");
+    avatar = avatar.substr(avatar.lastIndexOf("/") + 1, avatar.length - avatar.lastIndexOf("/"));
+
+    regurl = "/new/speaker/" +
+        $('#form_createSpeaker').find('#speaker_fio').val() + "/" +
+        $('#form_createSpeaker').find('#speaker_org').val() + "/" +
+        $('#form_createSpeaker').find('#speaker_position').val() + "/" + avatar;
+
+    console.log(regurl);
+    $.ajax({
+        type: "POST",
+        url: regurl,
+        success: function(){
+            $('#table_speakers > tbody').append(
+                '<tr class="table-row">' +
+                '<td class="table-cell speakers_tbl_id">' +
+                '<label class="control-label">+</label>' +
+                '</td>' +
+                '<td class="table-cell speakers_avatar">' +
+                '<img id="' + avatar + '" class="upload_avatar_img" src="/uploads/' + avatar + '"/>' +
+                '</td>' +
+                '<td class="table-cell speaker_tbl_fio">' +
+                '<input class="form-control" type="text" value="' + $('#form_createSpeaker').find('#speaker_fio').val() + '"/>' +
+                '</td>' +
+                '<td class="table-cell speaker_tbl_org">' +
+                '<input class="form-control" type="text" value="' + $('#form_createSpeaker').find('#speaker_org').val() + '"/>' +
+                '</td>' +
+                '<td class="table-cell speaker_tbl_position">' +
+                '<input class="form-control" type="text" value="' + $('#form_createSpeaker').find('#speaker_position').val() + '"/>' +
+                '</td>' +
+                '</tr>'
+            );
+        }
+    });
+    $('#form_createSpeaker').find('#speaker_fio').val("");
+    $('#form_createSpeaker').find('#speaker_org').val("");
+    $('#form_createSpeaker').find('#speaker_position').val("");
+    $('#form_createSpeaker').find('#speaker_avatar').attr("src", "/images/nofoto.png");
+//    $('#form_register').find('#avatar').val("");
+
+    $('#form_createSpeaker').modal('hide');
+
+});
+
 /*
     Хранит в себе массив элементов находящихся у родительской строки таблицы
     [id, title, dateBeg, timeBeg, registerStatus, description]
@@ -793,6 +842,43 @@ $('#webinar_picture_upload').on('change', function(){
     });
 });
 
+$('#speaker_picture_upload').on('change', function(){
+    file = this.files;
+    var data = new FormData();
+    $.each(file, function(key, value){
+        data.append(key, value);
+        console.log(value);
+    });
+
+    $.ajax({
+        url: '/uploadavatar.php?uploadfile',
+        type: 'POST',
+        data: data,
+        cache: false,
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        success: function(respond, textStatus, jqXHR) {
+            if (typeof respond.error === 'undefined') {
+                // все впорядке. файл загружен
+                var file_path = respond.files;
+                $.each(file_path, function(key, value) {
+                    $('.no-pic_speaker').prop("src", "/uploads/" + value);
+                    $(this).parent().find('.glyphicon').removeClass('glyphicon-circle-arrow-up');
+                    console.log($(this).parent().find('.glyphicon'));
+                    file = value;
+                });
+            }
+            else {
+                console.log('php: ' + respond.error);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            console.log('ajax: ' + textStatus);
+        }
+    });
+});
+
 /*
 $('#email').bind('input propertychange', function(){
     var enableRegister = false;
@@ -825,14 +911,38 @@ $('.required_field').bind('input propertychange', function(){
     });
 
     if (!disableRegister) {
-        if ($('#section_commercial').prop('checked') || $('#section_budget').prop('checked')) {
+        if (($('#section_commercial').prop('checked') || $('#section_budget').prop('checked')) && $('#pd').prop("checked")) {
             disableRegister = false;
         } else {
             disableRegister = true;
         }
     }
-
     $('#btnRegisterUser').prop("disabled", disableRegister);
+});
+
+$('#pd').on('click', function(){
+    if ($(this).prop("checked")) {
+        var disableRegister = true;
+        $(".required_field").each(function () {
+            if ($(this).val().length > 0) {
+                disableRegister = false;
+            } else {
+                disableRegister = true;
+                return false;
+            }
+        });
+
+        if (!disableRegister) {
+            if ($('#section_commercial').prop('checked') || $('#section_budget').prop('checked')) {
+                disableRegister = false;
+            } else {
+                disableRegister = true;
+            }
+        }
+        $('#btnRegisterUser').prop("disabled", disableRegister);
+    } else {
+        $('#btnRegisterUser').prop("disabled", true);
+    }
 });
 
 $('#section_commercial').on('click', function(){
@@ -846,11 +956,12 @@ $('#section_commercial').on('click', function(){
                return false;
            }
        });
-       $('#btnRegisterUser').prop("disabled", disableRegister);
+       if (!disableRegister && $('#pd').prop("checked")) {
+           $('#btnRegisterUser').prop("disabled", disableRegister);
+       }
    } else if ($('#section_budget').prop("checked") == false){
        $('#btnRegisterUser').prop("disabled", true);
    }
-
 });
 
 $('#section_budget').on('click', function(){
@@ -864,7 +975,9 @@ $('#section_budget').on('click', function(){
                 return false;
             }
         });
-        $('#btnRegisterUser').prop("disabled", disableRegister);
+        if (!disableRegister && $('#pd').prop("checked")) {
+            $('#btnRegisterUser').prop("disabled", disableRegister);
+        }
     } else if ($('#section_commercial').prop("checked") == false){
         $('#btnRegisterUser').prop("disabled", true);
     }

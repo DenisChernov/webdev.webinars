@@ -73,6 +73,25 @@ class WebinarController extends Controller {
     }
 
     /**
+     * @Route("/new/speaker/{fio}/{organisation}/{position}/{avatar}")
+     */
+    public function newSpeakerAction($fio, $organisation, $position, $avatar) {
+
+        $speakers = new speakers();
+        $speakers->setFio($fio)
+                ->setPosition($position)
+                ->setPic($avatar);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($speakers);
+        $em->flush();
+
+        return $this->render(
+            'webinars/success.html.twig'
+        );
+    }
+
+    /**
      * @Route("/update/webinar/{id}/{title}/{date_beg}/{time_beg}/{reg_status}/{description}/{pic}")
      */
     public function updateWebinarAction($id, $title, $date_beg, $time_beg, $reg_status, $description, $pic) {

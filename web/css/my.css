@@ -242,7 +242,7 @@ body {
 .speaker_foto {
   display: block;
   width: 94%;
-  height: 350px;
+  height: 600px;
   line-height: 0;
   vertical-align: bottom;
 }
@@ -448,6 +448,9 @@ body {
 */
 .no-pic {
   width: 100%;
+}
+.no-pic_speaker {
+  width: 30%;
 }
 .anons {
   float: left;
@@ -760,4 +763,26 @@ body {
 }
 lower {
   text-transform: lowercase;
+}
+.checkboxes .inline {
+  margin: 0 0 10px;
+  min-height: 20px;
+}
+.checkboxes input[type="checkbox"] {
+  opacity: 0;
+  width: 21px;
+  height: 20px;
+  margin: 0;
+  top: 5px;
+  position: relative;
+}
+.checkboxes input[type="checkbox"] + label {
+  min-height: 20px;
+  display: inline-block;
+  margin-left: -20px;
+  padding: 0 0 0 30px;
+  background: url('https://farm6.staticflickr.com/5473/14456833654_c21aa3a2c3_o.png') no-repeat 0 0;
+}
+.checkboxes input[type="checkbox"]:checked + label {
+  background-position: 0 -20px;
 }

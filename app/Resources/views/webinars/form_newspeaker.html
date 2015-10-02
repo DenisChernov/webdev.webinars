@@ -1,0 +1,32 @@
+<div class="modal fade" id="form_createSpeaker">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Добавить спикера</h4>
+            </div>
+            <div class="modal-body">
+
+                <label for="speaker_fio" class="control-label">ФИО</label>
+                <input class="form-control" id="speaker_fio" type="text" placeholder="Фамилия Имя Отчество">
+
+                <label for="speaker_org" class="control-label">Организация</label>
+                <input class="form-control" id="speaker_org" type="date" placeholder="Место работы">
+
+                <label for="speaker_position" class="control-label">Должность</label>
+                <input class="form-control" id="speaker_position" type="time" placeholder="Должность">
+
+                <img id="speaker_avatar" src="/images/nofoto.png" class="no-pic_speaker" />
+                <div class="form-group">
+                    <div class="input-group">
+                        <input id="speaker_picture_upload" type="file" accept="image/*" data-filename-placement="inside">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btnRegisterSpeaker">Добавить</button>
+            </div>
+        </div>
+    </div>
+</div>

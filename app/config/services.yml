@@ -7,3 +7,7 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    kernel.listener.ExceptionListener:
+      class: ChernovDA\EventListener\ExceptionListener
+      tags:
+        - { name: kernel.event_listener, event: kernel.exception, method: onKernelException}
